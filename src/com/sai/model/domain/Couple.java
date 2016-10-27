@@ -1,4 +1,4 @@
-package com.sai.domain;
+package com.sai.model.domain;
 
 public class Couple {
 	private int couple_id;

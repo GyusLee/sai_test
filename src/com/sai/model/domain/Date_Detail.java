@@ -1,4 +1,4 @@
-package com.sai.domain;
+package com.sai.model.domain;
 
 public class Date_Detail {
 	 private int detail_id;

@@ -1,4 +1,4 @@
-package com.sai.domain;
+package com.sai.model.domain;
 
 public class Board {
 	 private int board_id;

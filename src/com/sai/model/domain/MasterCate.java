@@ -1,4 +1,4 @@
-package com.sai.domain;
+package com.sai.model.domain;
 
 public class MasterCate {
 	 private int m_id;

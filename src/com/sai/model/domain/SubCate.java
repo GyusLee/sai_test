@@ -1,4 +1,4 @@
-package com.sai.domain;
+package com.sai.model.domain;
 
 public class SubCate {
 	 private int s_id;

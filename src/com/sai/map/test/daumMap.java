@@ -1,4 +1,4 @@
-package com.sai.map;
+package com.sai.map.test;
 
 public class daumMap {
 
