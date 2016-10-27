@@ -20,18 +20,19 @@
 <style>
 
 #left {
-   height: 500px;
-   border: 1px solid gray;
+   height: 1000px;
+   border: 1px solid #e7e7e7;
+
 }
 
 #right {
-   height: 500px;
-   border: 1px solid gray;
+   height: 1000px;
+   border: 1px solid #e7e7e7;
 }
 
 #center {
-   height: 500px;
-   border: 1px solid gray;
+   height: 1000px;
+   border: 1px solid #e7e7e7;
 }
 
 #badge1 {
@@ -62,11 +63,11 @@
             <li><a href="#">표시 3</a></li>
 
             <!-- 알림 목록 -->
-            <!-- <li><button class="btn btn-danger" type="button" id="badge1">
+             <!--  <li><button class="btn btn-danger" type="button" id="badge1">
                   Messages <span class="badge">12</span>
-               </button></li>
-            <!-- NickName 및 Icon Image -->
-            <li><button type="button" class="btn btn-default btn-lg">
+               </button></li>-->
+            <!-- NickName 및 Icon Image-->
+            <li><button type="button" class="btn btn-primary btn-lg">
                   <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                   NickName
                </button></li>
@@ -125,12 +126,12 @@
             </div>
 
          </div>
-         <div class="col-md-8" id="center">
+         <div class="col-md-9" id="center">
 
             <!-- 찾기 -->
             <br>
             <div class="row">
-               <div class="col-lg-6">
+               <div class="col-lg-7">
                   <div class="input-group">
                      <input type="text" class="form-control"
                         placeholder="Search for..."> <span
@@ -166,7 +167,7 @@
             </div>
 
          </div>
-         <div class="col-md-2" id="right"></div>
+         <div class="col-md-1" id="right"></div>
       </div>
    </div>
 
