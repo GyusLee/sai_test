@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html;charset=utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -60,15 +59,15 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">»çÀÌ(SAI)</a>
+			<a class="navbar-brand" href="#">ì‚¬ì´(SAI)</a>
 		</div>
 
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
 				<form class="navbar-form navbar-left">
-					<button type="submit" class="btn btn-default">È¸¿ø°¡ÀÔ</button>
-					<button type="submit" class="btn btn-default">·Î±×ÀÎ</button>
+					<button type="submit" class="btn btn-default">íšŒì›ê°€ìž…</button>
+					<button type="submit" class="btn btn-default">ë¡œê·¸ì¸</button>
 				</form>
 			</ul>
 		</div>
@@ -78,8 +77,8 @@
 
 	<div class="jumbotron" id="jumbotron_color">
 		<div class="container" id="jumbotron_con">
-			<h1 style="color: #FFEBE4; font-weight: bold;">»çÀÌ(4SAI2)</h1>
-			<h2 style="color: #FFEBE4;">¿¬ÀÎ°ú ÇÔ²² »õ·Î¿î µ¥ÀÌÆ® ÄÚ½º¸¦ Á¤ÇØ º¸¼¼¿ä.</h2>
+			<h1 style="color: #FFEBE4; font-weight: bold;">ì‚¬ì´(4SAI2)</h1>
+			<h2 style="color: #FFEBE4;">ì—°ì¸ê³¼ í•¨ê»˜ ìƒˆë¡œìš´ ë°ì´íŠ¸ ì½”ìŠ¤ë¥¼ ì •í•´ ë³´ì„¸ìš”.</h2>
 			<br>
 
 			<div class="panel-group" id="accordion" role="tablist"
@@ -92,8 +91,8 @@
 					</p>
 					<div id="collapseOne" class="panel-collapse collapse"
 						role="tabpanel" aria-labelledby="headingOne" aria-expanded="true">
-						<div class="panel-body"><h3 style="color:#FFEBE4;">ÀÌ ÇÁ·Î±×·¥Àº ¸ÖÆ¼Ä·ÆÛ½º IoT °³¹ßÀÚ ¾ç¼º °úÁ¤, ½ºÇÁ¸µ ±â¹Ý
-							À¥ °³¹ß ÇÁ·ÎÁ§Æ® ÀÔ´Ï´Ù.</h3></div>
+						<div class="panel-body"><h3 style="color:#FFEBE4;">ì´ í”„ë¡œê·¸ëž¨ì€ ë©€í‹°ìº í¼ìŠ¤ IoT ê°œë°œìž ì–‘ì„± ê³¼ì •, ìŠ¤í”„ë§ ê¸°ë°˜
+							ì›¹ ê°œë°œ í”„ë¡œì íŠ¸ ìž…ë‹ˆë‹¤.</h3></div>
 					</div>
 				</div>
 			</div>
@@ -111,8 +110,8 @@
 			<div class="thumbnail">
 				<img src="/sai/images/img3.jpg" alt="...">
 				<div class="caption">
-					<h3>¿ì¸®µé¸¸ÀÇ Ãß¾ï</h3>
-					<p>¿¬ÀÎ°úÀÇ ¼ÒÁßÇÑ Ãß¾ïÀ» ¸¸µé°í °øÀ¯ÇÏ¼¼¿ä.</p>
+					<h3>ìš°ë¦¬ë“¤ë§Œì˜ ì¶”ì–µ</h3>
+					<p>ì—°ì¸ê³¼ì˜ ì†Œì¤‘í•œ ì¶”ì–µì„ ë§Œë“¤ê³  ê³µìœ í•˜ì„¸ìš”.</p>
 					<p>
 						<a href="#" class="btn btn-primary" role="button">Button</a> <a
 							href="#" class="btn btn-default" role="button">Button</a>
