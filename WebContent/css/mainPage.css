@@ -1,0 +1,7 @@
+@CHARSET "utf-8";
+
+#main{
+	position : relative;
+	
+	border : 1px solid red;
+}
