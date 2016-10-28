@@ -1,0 +1,28 @@
+@CHARSET "utf-8";
+
+#cover {
+	margin-top : 250px;
+	height:100%;
+}
+
+#find_id_div {
+	margin: auto;
+}
+
+#find_pwd_div {
+	margin: auto;
+}
+
+@media screen {
+	#jb-container {
+		width: auto;
+	}
+	#jb-content {
+		float: none;
+		width: auto;
+	}
+	#jb-sidebar {
+		float: none;
+		width: auto;
+	}
+}
