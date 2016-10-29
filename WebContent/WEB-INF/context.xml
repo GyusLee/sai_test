@@ -13,7 +13,7 @@
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:prefix="/" p:suffix=".jsp" />
 
-	<!-- <!-- 빈객체 자동 생성을 위한 설정
+	<!--  빈객체 자동 생성을 위한 설정
 	<context:component-scan base-package="com.sai.controller">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
@@ -42,7 +42,7 @@
 	<!-- ibatis/mybatis 관련 기술을 스프링에서 가공해서 스프링 만의 api를 지원하는데..이 객체명이 SqlSessionTemplate 
 		이다!! -->
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean"
-		p:dataSource-ref="dataSource" p:configLocation="classpath:com/sds/mybatis/config.xml" />
+		p:dataSource-ref="dataSource" p:configLocation="classpath:com/sai/mybatis/config.xml" />
 
 	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactoryBean" />
