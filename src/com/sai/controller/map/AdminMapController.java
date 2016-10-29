@@ -20,7 +20,7 @@ public class AdminMapController {
 	@RequestMapping("/admin/regist.do")
 	public ModelAndView insert(SubCate subCate,TopCate topCate,MasterCate masterCate){ //form태그의 name과 dto의 이름이 같을 경우 해당 값들이 자동으로 넘어온다.
 		
-		adminMapService.insert();
+		adminMapService.insert(subCate,topCate,masterCate);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("subcategory", subCate);
