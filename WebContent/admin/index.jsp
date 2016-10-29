@@ -154,6 +154,15 @@ function preView(){
 		form1.action="/admin/regist.do";
 		form1.submit();
 }
+ 
+ function update(){
+	 
+ }
+ 
+ function delete1(){
+	 
+ }
+ 
 </script>
 </head>
 <body>
@@ -166,7 +175,9 @@ function preView(){
 			<li>범주 1 : <input type="text" name="m_type"></li>
 			<li>범주 2 : <input type="text" name="t_type"></li>
 			<li>상호명 : <input type="text" name="name"></li>
-			<li>주소 : <input type="text" name="address"></li>
+			<li>주소 <br> 시: <input type="text" name="si"></li>
+			<li>구: <input type="text" name="gu"></li>
+			<li>동: <input type="text" name="dong"></li>
 			<li>전화번호 : <input type="text" name="tel"></li>
 			<li>사진 : <input type = "file" id="img" name="img" onChange="preView()"></li>
 			<li><img id="preImg" name="preImg" src="http://cfile8.uf.tistory.com/image/1442534D4FC3A17004001B"></li>
@@ -183,7 +194,11 @@ function preView(){
 					<img src="/images/half.png">
 				</span>
 			</li>
-			<li><input type="button" value="등록" onClick="regist()"></li>
+			<li>
+			<input type="button" value="등록" onClick="regist()">
+			<input type="button" value="수정" onClick="update()">
+			<input type="button" value="삭제" onClick="delete1()">
+			</li>
 			
 		</ul>
 	</form>

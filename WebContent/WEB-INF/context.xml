@@ -13,11 +13,12 @@
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:prefix="/" p:suffix=".jsp" />
 
-	<!-- <!-- 빈객체 자동 생성을 위한 설정
+
+	<!--controller를 한번에 메모리에 올리자  -->	
 	<context:component-scan base-package="com.sai.controller">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
-	</context:component-scan> -->
+	</context:component-scan> 
 
 	<!-- 어드바이스 정의 -->
 	<bean id="myLogger" class="com.sai.common.log.MyLogger" />
