@@ -15,6 +15,7 @@
 
 
 	<!--controller를 한번에 메모리에 올리자  -->	
+	<!--  빈객체 자동 생성을 위한 설정-->
 	<context:component-scan base-package="com.sai.controller">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />

@@ -52,7 +52,7 @@
                class="icon-bar"></span>
          </button>
          <!-- 로고 및 프로젝트 명 -->
-         <a class="navbar-brand" href="#">WWW.SAI.CO.KR</a>
+         <a class="navbar-brand" href="#">관리페이지</a>
       </div>
 
       <div class="collapse navbar-collapse" id="here">
@@ -68,7 +68,7 @@
             <!-- NickName 및 Icon Image-->
             <li><button type="button" class="btn btn-primary btn-lg">
                   <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                  NickName
+                  	관리자
                </button></li>
             <!-- 드랍 박스 -->
 

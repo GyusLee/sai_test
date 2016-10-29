@@ -5,17 +5,17 @@
 
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.sai.model.domain" alias="Board" />
-		<typeAlias type="com.sai.model.domain" alias="Cart" />
-		<typeAlias type="com.sai.model.domain" alias="Commnet_Board" />
-		<typeAlias type="com.sai.model.domain" alias="Couple" />
-		<typeAlias type="com.sai.model.domain" alias="Date_Course" />
-		<typeAlias type="com.sai.model.domain" alias="Date_Detail" />
-		<typeAlias type="com.sai.model.domain" alias="MasterCate" />
-		<typeAlias type="com.sai.model.domain" alias="Member" />
-		<typeAlias type="com.sai.model.domain" alias="Price" />
-		<typeAlias type="com.sai.model.domain" alias="SubCate" />
-		<typeAlias type="com.sai.model.domain" alias="TopCate" />
+		<typeAlias type="com.sai.model.domain.Board" alias="Board" />
+		<typeAlias type="com.sai.model.domain.Cart" alias="Cart" />
+		<typeAlias type="com.sai.model.domain.Comment_Board" alias="Commnet_Board" />
+		<typeAlias type="com.sai.model.domain.Couple" alias="Couple" />
+		<typeAlias type="com.sai.model.domain.Date_Course" alias="Date_Course" />
+		<typeAlias type="com.sai.model.domain.Date_Detail" alias="Date_Detail" />
+		<typeAlias type="com.sai.model.domain.MasterCate" alias="MasterCate" />
+		<typeAlias type="com.sai.model.domain.Member" alias="Member" />
+		<typeAlias type="com.sai.model.domain.Price" alias="Price" />
+		<typeAlias type="com.sai.model.domain.SubCate" alias="SubCate" />
+		<typeAlias type="com.sai.model.domain.TopCate" alias="TopCate" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/sai/mybatis/BoardMapper.xml" />
