@@ -24,7 +24,6 @@ public class AdminMapServiceImpl implements AdminMapService{
 	@Override
 	public int insert(SubCate subCate, TopCate topCate, MasterCate masterCate) {
 		
-		
 		return 0;
 	}
 }
