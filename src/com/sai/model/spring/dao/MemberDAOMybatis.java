@@ -43,4 +43,10 @@ public class MemberDAOMybatis implements MemberDAO{
 		return member_id;
 	}
 
+
+	public List selectOne() {
+		List list = sqlSessionTemplate.selectList("Member.selectOne");
+		return list;
+	}
+
 }

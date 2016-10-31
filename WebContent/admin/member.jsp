@@ -9,7 +9,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Bootstrap Example</title>
+<title>Member Table for Admin</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -21,18 +21,19 @@
 </head>
 <script>
 	function search() {
-		alert("검색");
+		form1.action="admin/memberSearch.do"
+		form1.submit();
 	}
 </script>
 <style>
 </style>
 <body>
-
+<form name="form1" method="post">
 	<div class="container">
 		<h2>
 			회원 정보 조회
 			<div class="input-group">
-				<input type="text" class="form-control" placeholder="email 검색">
+				<input type="text" class="form-control" placeholder="email 검색" id="txt">
 				<span class="input-group-btn">
 					<button class="btn btn-default" type="button" id="search">
 						<span class="glyphicon glyphicon-search" aria-hidden="true"
@@ -72,7 +73,6 @@
 				<td><%=member.getMember_name()%></td>
 				<td><%=member.getMember_nickname()%></td>
 				<td><%=member.getMember_regdate()%></td>
-
 				<%
 					}
 				%>
@@ -116,6 +116,6 @@
 
 	</div>
 
-
+</form>
 </body>
 </html>

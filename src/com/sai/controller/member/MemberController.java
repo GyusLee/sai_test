@@ -33,6 +33,18 @@ public class MemberController {
 		return mav;
 	}
 	
+	@RequestMapping("memberSearch.do")
+	public ModelAndView selectOne(HttpServletRequest request){
+		List list = memberDAOMybatis.selectOne();
+		request.setAttribute("list", list);
+		pm.init(request);
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("list", list);
+		mav.addObject("pm", pm);
+		mav.setViewName("admin/member");
+		return mav;
+	}
+	
 	@RequestMapping("memberDetail.do")
 	public ModelAndView select(int member_id){
 		Member member = memberDAOMybatis.select(member_id);
