@@ -4,7 +4,6 @@
 <%
 	List<MasterCate> masterCateList=(List)request.getAttribute("masterCateList");
 	out.print("마스터 카테고리 사이즈는 ? ="+masterCateList.size());
-	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
