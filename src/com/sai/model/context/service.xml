@@ -19,6 +19,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
 	<!-- 비즈니스 로직 객체를 자동 등록 -->
+
 	<context:component-scan base-package="com.sai">
 		<context:exclude-filter type="annotation" expression = "org.springframework.stereotype.Controller"/>
 	</context:component-scan>

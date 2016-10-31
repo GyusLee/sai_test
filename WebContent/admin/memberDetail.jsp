@@ -38,7 +38,7 @@
 						<thead>
 							<tr>
 								<div class="thumbnail">
-									<img src="/sai/images/img4.jpg" alt="...">
+									<img src="/images/img4.jpg" alt="...">
 								</div>
 							</tr>
 						</thead>
