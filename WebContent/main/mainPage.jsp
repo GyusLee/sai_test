@@ -40,11 +40,6 @@
 	margin-top: 5px;
 }
 
-.col-md-3{
-	height:"1000px";
-	overflow:"scroll";
-}
-
 </style>
 <script>
 	function regist() {
@@ -203,26 +198,26 @@
 					</div>
 				</form>
 				<br>
-				<%for(int i=0;i<6;i++){ %>
+				<%for (int i = 0; i < 6; i++) {%>
 				<!-- list 나오는 부분  -->
-				<div style="border: solid 1px #D3D2E0"></div>
-				<br>
-				<div id="list_div">
-					<div id="list_top">
-						<img src="/images/default.png" id="profile" width="30px">&nbsp<strong>NickName</strong>
-					</div>
+					<div style="border: solid 1px #D3D2E0"></div>
 					<br>
-					<div id="list_content">
-						<%=content%>
+					<div id="list_div">
+						<div id="list_top">
+							<img src="/images/default.png" id="profile" width="30px">&nbsp<strong>NickName</strong>
+						</div>
+						<br>
+						<div id="list_content">
+							<%=content%>
+						</div>
+						<br>
+						<div id="list_bottom">
+							<textarea name="content" class="form-control" rows="2"
+								id="comment" placeholder="comment..."></textarea>
+						</div>
+						<br>
 					</div>
-					<br>
-					<div id="list_bottom">
-						<textarea name="content" class="form-control" rows="2"
-							id="comment" placeholder="comment..."></textarea>
-					</div>
-					<br>
-				</div>
-				<%} %>
+				<%}%>
 			</div>
 		</div>
 	</div>
