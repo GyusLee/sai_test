@@ -14,7 +14,7 @@ import com.sai.model.domain.Member;
 import com.sai.model.spring.dao.MemberDAOMybatis;
 
 @Controller
-@RequestMapping("/sai/admin")
+@RequestMapping("/admin/")
 public class MemberController {
 	@Autowired
 	private MemberDAOMybatis memberDAOMybatis;
