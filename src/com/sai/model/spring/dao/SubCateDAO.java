@@ -1,4 +1,4 @@
-package com.sai.model.dao;
+package com.sai.model.spring.dao;
 
 import com.sai.model.domain.SubCate;
 

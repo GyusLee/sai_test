@@ -1,52 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.2.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.2.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+	
+	<!-- ViewResolver -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/" p:suffix=".jsp"/>
+	
+	<!--
+		  빈 객체 자동 생성을 위한 설정(context 체크!)
+		  앞으로 여기엔 비즈니스 로직이 빠진다.
+	-->
+	<context:component-scan base-package="com.sai">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"></context:include-filter>
+	</context:component-scan>
 
-	<!-- 뷰리절버 -->
-	<bean id=""
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-		p:prefix="/" p:suffix=".jsp" />
-
-
-	<!--controller를 한번에 메모리에 올리자  -->	
-	<!--  빈객체 자동 생성을 위한 설정-->
-	<context:component-scan base-package="com.sai.controller">
-		<context:include-filter type="annotation"
-			expression="org.springframework.stereotype.Controller" />
-	</context:component-scan> 
-
-	<!-- 어드바이스 정의 -->
-	<bean id="myLogger" class="com.sai.common.log.MyLogger" />
-
-	<!-- AOP 설정 -->
-	<aop:config>
-		<aop:aspect id="LoggerAspect" ref="myLogger">
-			<aop:pointcut
-				expression="execution(public * com.sds.controller..*Controller.*(..))"
-				id="controllerCut" />
-			<aop:around method="showMsg" pointcut-ref="controllerCut" />
-		</aop:aspect>
-	</aop:config>
-
-	<jee:jndi-lookup id="dataSource" resource-ref="true"
-		jndi-name="jdbc/mariadb" />
-
-	<!-- jdbc 관련 기술을 스프링에서 가공해서 스프링만의 api를 지원하는데, 이 객체명이 JdbcTemplate 이다!! -->
-	<bean class="org.springframework.jdbc.core.JdbcTemplate" id="jdbcTemplate"
-		p:dataSource-ref="dataSource" />
-
-	<!-- ibatis/mybatis 관련 기술을 스프링에서 가공해서 스프링 만의 api를 지원하는데..이 객체명이 SqlSessionTemplate 
-		이다!! -->
-	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean"
-		p:dataSource-ref="dataSource" p:configLocation="classpath:com/sds/mybatis/config.xml" />
-
-	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactoryBean" />
-	</bean>
+	
 </beans>

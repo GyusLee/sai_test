@@ -85,7 +85,7 @@
 					href="javascript:alert('이전 페이지가 없습니다.');">◀</a> <%
  	} else {
  %> <a
-					href="/board/list.jsp?currentPage=<%=pm.getFirstPage() - 1%>">◀</a> <%
+					href="admin/member.jsp?currentPage=<%=pm.getFirstPage() - 1%>">◀</a> <%
  	}
  %>
 
@@ -96,7 +96,7 @@
  			break;
  %>
 					<a <%if (pm.getCurrentPage() == i) {%> class="pageNum" <%}%>
-					href="/sai/admin/member.jsp?currentPage=<%=i%>">[<%=i%>]
+					href="admin/member.jsp?currentPage=<%=i%>">[<%=i%>]
 				</a> <%
  	}
  %> <%
@@ -105,7 +105,7 @@
 					href="javascript:alert('다음 페이지가 없습니다.');">▶</a> <%
  	} else {
  %> <a
-					href="/sai/admin/member.jsp?currentPage=<%=pm.getLastPage() + 1%>">▶</a>
+					href="admin/member.jsp?currentPage=<%=pm.getLastPage() + 1%>">▶</a>
 					<%
 						}
 					%>
