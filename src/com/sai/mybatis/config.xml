@@ -20,15 +20,15 @@
 	<mappers>
 		<mapper resource="com/sai/mybatis/BoardMapper.xml" />
 		<mapper resource="com/sai/mybatis/CartMapper.xml" />
-		<mapper resource="com/sai/mybatis/Commnet_BoardMapper.xml" />
+		<mapper resource="com/sai/mybatis/Comment_BoardMapper.xml" />
 		<mapper resource="com/sai/mybatis/CoupleMapper.xml" />
 		<mapper resource="com/sai/mybatis/Date_CourseMapper.xml" />
 		<mapper resource="com/sai/mybatis/Date_DetailMapper.xml" />
 		<mapper resource="com/sai/mybatis/MasterCateMapper.xml" />
 		<mapper resource="com/sai/mybatis/MemberMapper.xml" />
 		<mapper resource="com/sai/mybatis/PriceMapper.xml" />
-		<mapper resource="com/sai/mybatis/SubCate.xml" />
-		<mapper resource="com/sai/mybatis/TopCate.xml" />
+		<mapper resource="com/sai/mybatis/SubCateMapper.xml" />
+		<mapper resource="com/sai/mybatis/TopCateMapper.xml" />
 	</mappers>
 </configuration>
   
