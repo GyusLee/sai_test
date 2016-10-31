@@ -1,11 +1,10 @@
-package com.sai.model.dao;
+package com.sai.model.spring.dao;
 
 import java.util.List;
 
 import com.sai.model.domain.Comment_Board;
-import com.sds.model.service.Comment_BoardService;
 
-public class Comment_BoardServiceImpl implements Comment_BoardService{
+public class Comment_BoardDAOMybatis implements Comment_BoardDAO{
 
 	public List selectAll(Comment_Board comment_Board) {
 		return null;
@@ -19,7 +18,11 @@ public class Comment_BoardServiceImpl implements Comment_BoardService{
 		return 0;
 	}
 
-	public Comment_Board reply(Comment_Board comment_Board) {
-		return null;
+	public int update(int comment_id) {
+		return 0;
+	}
+
+	public int updateRank(Comment_Board comment_Board) {
+		return 0;
 	}
 }

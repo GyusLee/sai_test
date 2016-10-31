@@ -41,6 +41,7 @@
 }
 
 .col-md-3{
+	height:"1000px";
 	overflow:"scroll";
 }
 
@@ -174,11 +175,8 @@
 								<li><a href="#">부산</a></li>
 							</ul>
 						</div>
-
 					</div>
-
 				</div>
-
 			</div>
 			<!-- sns창 -->
 			<div class="col-md-3" id="right">
