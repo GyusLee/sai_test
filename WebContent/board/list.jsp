@@ -83,7 +83,7 @@ function regist(){
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
  	<div id="write" width=100%>
  		<div id="top">
-	 		<img src="/BootstrapTest/images/default.png" id="profile" width="50px">&nbsp<strong>NickName</strong>
+	 		<img src="/images/default.png" id="profile" width="50px">&nbsp<strong>NickName</strong>
  		</div>
  		<br>
  		<div id="center">
@@ -92,9 +92,9 @@ function regist(){
  		</div>
  		<br>
  		<div id="bottom" align="right"> 
- 			<img src="/BootstrapTest/images/comment.png" width="30px">
- 			<img src="/BootstrapTest/images/cam.png" width="30px">
- 			<img	src="/BootstrapTest/images/movie.png" width="30px">
+ 			<img src="/images/comment.png" width="30px">
+ 			<img src="/images/cam.png" width="30px">
+ 			<img	src="/images/movie.png" width="30px">
 			<button type="button" class="btn btn-primary" onClick="regist()">post</button>
  		</div>
  	</div>
