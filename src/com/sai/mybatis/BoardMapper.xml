@@ -13,4 +13,19 @@
 		order by board_id asc
 	</select>
 	
+	<select id="selectOne" resultType="Board" parameterType="int">
+		<include refid="select" />
+		where board_id=#{board_id}
+	</select>
+	<insert id="insert" parameterType="Board">
+		insert into
+		board(member_id, title, content, img, s_id)
+		values(#{member_id},#{title},#{content},#{img},#{s_id})
+	</insert>
+	<delete id="delete" parameterType="int">
+		delete from board where board_id=#{board_id}
+	</delete>
+	<update id="update" parameterType="Board">
+		update board set title=#{title},content=#{content},img=#{img},s_id=#{s_id}
+	</update>
 </mapper>
