@@ -16,15 +16,14 @@
 	</select>
 	<insert id="insert" parameterType="Member">
 		insert into
-		member(member_email, member_pwd, member_name, member_nickname,
-		member_regdate, couple_id)
-		values(#{member_email},#{member_pwd},#{member_name},#{member_nickname},#{member_regdate},#{couple_id})
+		member(member_email, member_pwd, member_name, member_nickname, couple_id)
+		values(#{member_email},#{member_pwd},#{member_name},#{member_nickname},#{couple_id})
 	</insert>
 	<delete id="delete" parameterType="int">
 		delete from member where
 		member_id=#{member_id}
 	</delete>
-	<update id="update" parameterType="member">
+	<update id="update" parameterType="Member">
 		update member set
 		member_pwd=#{member_pwd},member_name=#{member_name},
 		member_nickname=#{member_nickname}
