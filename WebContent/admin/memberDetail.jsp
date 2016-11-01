@@ -18,7 +18,7 @@
 </head>
 <script>
 	function del() {
-		form1.action = "/admin/delete.do"
+		form1.action = "delete.do"
 		form1.submit();
 	}
 </script>

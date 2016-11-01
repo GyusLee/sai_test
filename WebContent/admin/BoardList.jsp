@@ -60,7 +60,7 @@
 				<td><input type="checkbox" value=""><%=num--%></td>
 				<td><a
 					href="/admin/BoardDetail.do?Board_id=<%=board.getBoard_id()%>"><%=board.getContent() %></a></td>
-				<td><%=board.getMember_id() %></td>
+				<td><%=board.getMember_id()- %></td>
 				<td><%=board.getImg() %></td>
 				<td><%=board.getRegdate() %></td>
 				<%
