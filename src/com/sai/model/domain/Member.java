@@ -7,7 +7,15 @@ public class Member {
 	 private String member_name;
 	 private String member_nickname;
 	 private String member_regdate;
+	 private int isAdmin;
 	 private int couple_id;
+	 
+	 public int getIsAdmin() {
+		return isAdmin;
+	}
+	public void setIsAdmin(int isAdmin) {
+		this.isAdmin = isAdmin;
+	}
 	public int getMember_id() {
 		return member_id;
 	}
