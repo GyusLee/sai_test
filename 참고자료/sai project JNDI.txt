@@ -1,0 +1,1 @@
+<Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" maxIdle="10" maxTotal="20" maxWaitMillis="-1" name="jdbc/mariadb" password="sai" type="javax.sql.DataSource" url="jdbc:mariadb://70.12.112.109:3306/sai" username="root"/>

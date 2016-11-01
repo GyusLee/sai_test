@@ -20,24 +20,15 @@ public class MemberDAOMybatis implements MemberDAO{
 	}
 
 	
-	public Member select(int member_id) {
-		Member member=sqlSessionTemplate.selectOne("Member.selectOne", member_id);
-		return member;
+	public Member selectOne(Member member) {
+		Member selectedmember=sqlSessionTemplate.selectOne("Member.selectOne", member.getM_email());
+		return selectedmember;
 	}
-
-
 	
-	public int delete(int member_id) {
-		sqlSessionTemplate.delete("Member.delete", member_id);
-		return member_id;
+	public int delete(Member member) {
+		int result=sqlSessionTemplate.delete("Member.delete", member.getM_email());
+		return result;
 	}
-
-
-	public List selectOne() {
-		List list = sqlSessionTemplate.selectList("Member.selectOne");
-		return list;
-	}
-
 
 	public Member select(Member member) {
 		//System.out.println(member.getM_email());

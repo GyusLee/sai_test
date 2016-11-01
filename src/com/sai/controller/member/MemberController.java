@@ -43,31 +43,19 @@ public class MemberController {
 		mav.setViewName("admin/member");
 		return mav;
 	}
-	
-	@RequestMapping("admin/memberSearch.do")
-	public ModelAndView selectOne(HttpServletRequest request){
-		List list = memberDAOMybatis.selectOne();
-		request.setAttribute("list", list);
-		pm.init(request);
-		ModelAndView mav=new ModelAndView();
-		mav.addObject("list", list);
-		mav.addObject("pm", pm);
-		mav.setViewName("admin/member");
-		return mav;
-	}
-	
+			
 	@RequestMapping("admin/memberDetail.do")
-	public ModelAndView select(int member_id){
-		Member member = memberDAOMybatis.select(member_id);
+	public ModelAndView selectOne(Member member){
+		Member selectedmember = memberDAOMybatis.selectOne(member);
 		ModelAndView mav = new ModelAndView("admin/memberDetail");
-		mav.addObject("member", member);
+		mav.addObject("member", selectedmember);
 		
 		return mav;
 	}
 	
 	@RequestMapping("admin/delete.do")
-	public String delete(int member_id){
-		memberDAOMybatis.delete(member_id);
+	public String delete(Member member){
+		memberDAOMybatis.delete(member);
 		return "redirect:/admin/member.do";
 	}
 	

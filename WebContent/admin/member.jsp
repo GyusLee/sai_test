@@ -21,8 +21,7 @@
 </head>
 <script>
 	function search() {
-		form1.action="admin/memberSearch.do"
-		form1.submit();
+		alert("검색");
 	}
 </script>
 <style>
@@ -49,6 +48,8 @@
 					<th>Email</th>
 					<th>이름</th>
 					<th>닉네임</th>
+					<th>성별</th>
+					<th>커플코드</th>
 					<th>가입일</th>
 				</tr>
 			</thead>
@@ -67,25 +68,29 @@
 				<%
 					Member member = list.get(curPos++);
 				%>
+				<tr>
 				<td><input type="checkbox" value=""><%=num--%></td>
 				<td><a
-					href="/admin/memberDetail.do?member_id=<%=member.getMember_id()%>"><%=member.getMember_email()%></a></td>
-				<td><%=member.getMember_name()%></td>
-				<td><%=member.getMember_nickname()%></td>
-				<td><%=member.getMember_regdate()%></td>
+					href="memberDetail.do?m_email=<%=member.getM_email()%>"><%=member.getM_email()%></a></td>
+				<td><%=member.getM_name()%></td>
+				<td><%=member.getM_nickname()%></td>
+				<td><%=member.getM_gender()%></td>
+				<td><%=member.getCouple_id()%></td>
+				<td><%=member.getM_regdate()%></td>
+				<tr>
 				<%
 					}
 				%>
 			</tbody>
 			<tr>
-				<td id="paging" height="20" colspan="5" align="center">
+				<td id="paging" height="20" colspan="8" align="center">
 					<%
 						if (pm.getFirstPage() - 1 < 1) {
 					%> <a
 					href="javascript:alert('이전 페이지가 없습니다.');">◀</a> <%
  	} else {
  %> <a
-					href="admin/member.jsp?currentPage=<%=pm.getFirstPage() - 1%>">◀</a> <%
+					href="member.do?currentPage=<%=pm.getFirstPage() - 1%>">◀</a> <%
  	}
  %>
 
@@ -96,7 +101,7 @@
  			break;
  %>
 					<a <%if (pm.getCurrentPage() == i) {%> class="pageNum" <%}%>
-					href="admin/member.jsp?currentPage=<%=i%>">[<%=i%>]
+					href="member.do?currentPage=<%=i%>">[<%=i%>]
 				</a> <%
  	}
  %> <%
@@ -105,7 +110,7 @@
 					href="javascript:alert('다음 페이지가 없습니다.');">▶</a> <%
  	} else {
  %> <a
-					href="admin/member.jsp?currentPage=<%=pm.getLastPage() + 1%>">▶</a>
+					href="member.do?currentPage=<%=pm.getLastPage() + 1%>">▶</a>
 					<%
 						}
 					%>
