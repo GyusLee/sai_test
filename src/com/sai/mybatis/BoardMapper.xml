@@ -8,7 +8,7 @@
 	</sql>
 	
 	<!-- 게시물 조회 -->
-	<select id="selectAll">
+	<select id="selectAll" resultType="Board">
 		<include refid="select"/>
 		order by board_id asc
 	</select>

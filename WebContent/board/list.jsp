@@ -20,7 +20,7 @@ body {
     position: fixed;
     z-index: 1;
     top: 0;
-    left: 0;
+    left: 100%;
     background-color: #FFEBE4;
     overflow-x: hidden;
     transition: 0.5s;
@@ -62,12 +62,14 @@ body {
 <script>
 function openNav() {
     document.getElementById("mySidenav").style.width = "25%";
-    document.getElementById("main").style.marginLeft = "25%";
+    document.getElementById("mySidenav").style.left = "75%";
+    document.getElementById("main").style.marginRight = "0%";
 }
 
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("main").style.marginLeft= "0";
+    document.getElementById("mySidenav").style.left = "100%";
+    document.getElementById("main").style.marginRight= "0";
 }
 
 function regist(){

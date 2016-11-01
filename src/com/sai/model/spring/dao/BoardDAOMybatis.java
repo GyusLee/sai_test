@@ -13,7 +13,9 @@ public class BoardDAOMybatis implements BoardDAO{
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	public List selectAll() {
+		System.out.println("마이바티스");
 		List list = sqlSessionTemplate.selectList("Board.selectAll");
+		System.out.println("dao"+list.size());
 		return list;
 	}
 
