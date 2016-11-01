@@ -8,11 +8,11 @@
 	</sql>
 	<select id="selectAll" resultType="Member">
 		<include refid="select" />
-		order by member desc
+		order by m_regdate desc
 	</select>
-	<select id="selectOne" resultType="Member" parameterType="int">
+	<select id="selectOne" resultType="Member" parameterType="String">
 		<include refid="select" />
-		where member_id=#{member_id}
+		where m_email=#{m_email}
 	</select>
 	<insert id="insert" parameterType="Member">
 		insert into
@@ -22,7 +22,7 @@
 	</insert>
 	<delete id="delete" parameterType="int">
 		delete from member where
-		member_id=#{member_id}
+		m_email=#{m_email}
 	</delete>
 
 

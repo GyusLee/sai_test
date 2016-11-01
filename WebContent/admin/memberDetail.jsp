@@ -23,6 +23,7 @@
 	}
 </script>
 <body>
+<input type="hidden" name="m_email" value="<%=member.getM_email()%>">
 	<form name="form1" method="post">
 		<div class="container">
 			<h2>
@@ -45,23 +46,31 @@
 						<tbody>
 							<tr>
 								<td>Email</td>
-								<td><%=member.getMember_email()%></td>
+								<td><%=member.getM_email()%></td>
 							</tr>
 							<tr>
 								<td>이름</td>
-								<td><%=member.getMember_name()%></td>
+								<td><%=member.getM_name()%></td>
 							</tr>
 							<tr>
 								<td>닉네임</td>
-								<td><%=member.getMember_nickname()%></td>
+								<td><%=member.getM_nickname()%></td>
+							</tr>
+							<tr>
+								<td>성별</td>
+								<td><%=member.getM_gender()%></td>
 							</tr>
 							<tr>
 								<td>가입일</td>
-								<td><%=member.getMember_regdate()%></td>
+								<td><%=member.getM_regdate()%></td>
 							</tr>
 							<tr>
-								<td>상대 Email</td>
-								<td>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</td>
+								<td>커플코드</td>
+								<td><%=member.getCouple_id() %></td>
+							</tr>
+							<tr>
+								<td>파트너메일</td>
+								<td><%=member.getP_email() %></td>
 							</tr>
 						</tbody>
 					</table>
