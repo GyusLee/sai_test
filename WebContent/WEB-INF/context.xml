@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:jee="http://www.springframework.org/schema/jee"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.2.xsd
 		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.2.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
-	
-	<!-- ViewResolver -->
-	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/" p:suffix=".jsp"/>
-	
-	<!--
-		  빈 객체 자동 생성을 위한 설정(context 체크!)
-		  앞으로 여기엔 비즈니스 로직이 빠진다.
-	-->
-	<context:component-scan base-package="com.sai">
-		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"></context:include-filter>
-	</context:component-scan>
 
 	
+	<!-- ajax JSON parsing -->
+	<bean id="jsonView"
+		class="net.sf.json.spring.web.servlet.view.JsonView"></bean>
+		<bean id="viewResolver_ajax"
+			class="org.springframework.web.servlet.view.BeanNameViewResolver">
+			<property name="order" value="0"></property>
+		</bean>
+	
+
+
+
+	<!-- ViewResolver -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:prefix="/" p:suffix=".jsp" />
+
+	<!-- 빈 객체 자동 생성을 위한 설정(context 체크!) 앞으로 여기엔 비즈니스 로직이 빠진다. -->
+	<context:component-scan base-package="com.sai">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller"></context:include-filter>
+	</context:component-scan>
+
+
 </beans>

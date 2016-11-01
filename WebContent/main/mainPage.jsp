@@ -12,6 +12,8 @@
 	if (list.size() > 3) {
 		height = list.size() * 350;
 	}
+	
+	
 %>
 <!DOCTYPE>
 <html>
@@ -118,7 +120,7 @@ body {
 	function openNav() {
 		document.getElementById("mySidenav").style.width = "25%";
 		document.getElementById("mySidenav").style.left = "75%";
-		document.getElementById("main").style.marginRight = "0%";
+		document.getElementById("main").style.marginRight = "0";
 	}
 
 	function closeNav() {
@@ -132,6 +134,22 @@ body {
 		form1.action = "/main/write.do";
 		form1.submit();
 	}
+	
+<%-- 	function show(str){
+		//show 호출시 넘겨준 값을 이용하여 ajax 등을 통해 modal 을 띄울때 동적으로 바뀌어야 하는 값을 얻어온다.  
+		
+		//얻어온 값을 이용하여, modal 에서 동적으로 바뀌어야 하는 값을 바꾸어 준다..  
+	    $("#list_profile").html("<%=list.get(str).getM_email()%>");
+	    $("#list_content").html("<%=list.get(str).getContent()%>");
+
+		alert(str);
+	    //modal을 띄워준다.  
+	    //$("#listModal").modal('show');
+  
+	  
+	}	 --%>
+	
+	
 </script>
 </head>
 <body>
@@ -282,9 +300,10 @@ body {
 					<!-- list 나오는 부분  -->
 					<div style="border: solid 1px #D3D2E0"></div>
 					<br>
-					<div id="list_div">
+					<div id="list_div" data-target="#listModal"
+						data-toggle="modal" role="button" onClick="show(<%=i%>)">
 						<div id="list_top">
-							<img src="/images/default.png" id="profile" width="30px">&nbsp<strong><%=board.getM_email() %></strong>
+							<img src="/images/default.png" id="profile" width="30px">&nbsp<strong><%=board.getM_email()%></strong>
 						</div>
 						<br>
 						<div id="list_content">
@@ -316,7 +335,7 @@ body {
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<div class="row">
 							<div class="col-sm-12">
-								<img src="/images/default.png" id="profile" width="70px">&nbsp<strong><%=member.getM_name() %></strong>
+								<img src="/images/default.png" id="profile" width="70px">&nbsp<strong><%=member.getM_name()%></strong>
 							</div>
 						</div>
 					</div>
@@ -336,5 +355,34 @@ body {
 		</div>
 	</div>
 	<!-- modal end -->
+
+
+	<!--리스트 모달-->
+	<div class="modal" id="listModal" role="dialog">
+		<div class="modal-dialog">
+			<!-- 모달 내용-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<div id="list_top">
+						<img src="/images/default.png" id="list_profile" width="50px">&nbsp<strong></strong>
+					</div>
+					<br>
+				</div>
+				<div class="modal-body">
+					<div id="list_content">
+						
+					</div>
+				</div>
+				<div class="modal-footer">
+					<textarea name="content" class="form-control" rows="2"
+						id="comment" placeholder="comment..."></textarea>
+					<button type="button" class="btn btn-primary">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- modal end -->
+
+
 </body>
 </html>

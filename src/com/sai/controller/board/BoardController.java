@@ -75,4 +75,20 @@ public class BoardController {
 		
 		return mav;
 	}
+	
+	/*@RequestMapping(value = "/json/jsonList.do")
+	public ModelAndView outputJsonList(ModelAndView modelAndView) {
+		List list=boardService.selectAll();
+	     
+	    Map map = new HashMap();
+	    map.put("someData", someData);
+	    map.put("strData", "strData");
+	     
+	    modelAndView.addAllObjects(map);
+	 
+	    // Keypoint ! setViewName에 들어갈 String 파라미터는 JsonView bean 설정해줬던 id와 같아야 한다.
+	    modelAndView.setViewName("jsonView");
+	     
+	    return modelAndView;
+	}*/
 }
