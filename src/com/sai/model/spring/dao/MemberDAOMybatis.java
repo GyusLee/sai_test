@@ -25,17 +25,6 @@ public class MemberDAOMybatis implements MemberDAO{
 		return member;
 	}
 
-	
-	public int insert(Member member) {
-		sqlSessionTemplate.insert("Member.insert", member);
-		return member.getMember_id();
-	}
-
-	
-	public int update(Member member) {
-		sqlSessionTemplate.update("Member.update", member);
-		return member.getMember_id();
-	}
 
 	
 	public int delete(int member_id) {
@@ -47,6 +36,32 @@ public class MemberDAOMybatis implements MemberDAO{
 	public List selectOne() {
 		List list = sqlSessionTemplate.selectList("Member.selectOne");
 		return list;
+	}
+
+
+	public Member select(Member member) {
+		//System.out.println(member.getM_email());
+		Member selectedMember=sqlSessionTemplate.selectOne("Member.select", member.getM_email());
+		//System.out.println("DAOÁö³ª°í");
+		return selectedMember;
+	}
+
+
+	public int update_regist(Member member) {
+		int result=sqlSessionTemplate.update("Member.update_regist", member);
+		return result;
+	}
+
+
+	public int insert_first(Member member) {
+		int result=sqlSessionTemplate.insert("Member.insert_first", member);
+		return result;
+	}
+
+	@Override
+	public int update(Member member) {
+		int result=sqlSessionTemplate.update("Member.update", member);
+		return result;
 	}
 
 }
