@@ -12,4 +12,6 @@ public interface BoardDAO {
 	public int delete(int board_id);
 	public int update(Board board);
 	public int updateEmail(HashMap map);
+	
+
 }

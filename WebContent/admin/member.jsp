@@ -59,7 +59,7 @@
 					int num = pm.getNum();
 				%>
 				<%
-					for (int i = 1; i < pm.getPageSize(); i++) {
+					for (int i = 1; i <= pm.getPageSize(); i++) {
 				%>
 				<%
 					if (num < 1)
@@ -69,7 +69,7 @@
 					Member member = list.get(curPos++);
 				%>
 				<tr>
-				<td><input type="checkbox" value=""><%=num--%></td>
+				<td><%=num--%></td>
 				<td><a
 					href="memberDetail.do?m_email=<%=member.getM_email()%>"><%=member.getM_email()%></a></td>
 				<td><%=member.getM_name()%></td>

@@ -1,10 +1,6 @@
-<%@page import="com.sai.model.domain.MasterCate"%>
-<%@page import="java.util.List"%>
+
 <%@ page contentType="text/html;charset=utf-8"%>
-<%
-	List<MasterCate> masterCateList=(List)request.getAttribute("masterCateList");
-	out.print("마스터 카테고리 사이즈는 ? ="+masterCateList.size());
-%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -63,9 +59,9 @@
 
       <div class="collapse navbar-collapse" id="here">
          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">표시 1</a></li>
-            <li><a href="#">표시 2</a></li>
-            <li><a href="#">표시 3</a></li>
+            <li><a href="/admin/member.do">회원관리</a></li>
+            <li><a href="/admin/boardList.do">게시물관리</a></li>
+            <li><a href="/admin/index.do">지도관리</a></li>
 
             <!-- 알림 목록 -->
              <!--  <li><button class="btn btn-danger" type="button" id="badge1">
@@ -108,8 +104,8 @@
                   상위카테고리 <span class="caret"></span>
                </button>
                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                  <li><a href="#">항목1</a></li>
-                  <li><a href="#">항목2</a></li>
+                  <li><a href="/admin/member.do">회원관리</a></li>
+                  <li><a href="/admin/boardList.do">게시물관리</a></li>
                   <li><a href="#">항목3</a></li>
                   <li><a href="#">항목4</a></li>
                </ul>
