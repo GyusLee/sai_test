@@ -19,15 +19,16 @@
 </head>
 <script>
 	function del() {
-		form1.action = "/admin/Bdelete.do"
+		form1.action = "Bdelete.do"
 		form1.submit();
 	}
 </script>
 <body>
+<input type="hidden" name="board_id" value="<%=board.getBoard_id()%>">
 	<form name="form1" method="post">
 		<div class="container">
 			<h2>
-				회원 정보 디테일
+				게시물 정보 디테일
 				<p>
 					<input type="button" class="btn btn-danger" onClick="del()"
 						value="게시물 삭제">
@@ -49,8 +50,8 @@
 								<td><%=board.getBoard_id()%></td>
 							</tr>
 							<tr>
-								<td>member_id</td>
-								<td><%=board.getMember_id()%></td>
+								<td>작성자</td>
+								<td><%=board.getM_email()%></td>
 							</tr>
 							<tr>
 								<td>내용</td>
@@ -62,7 +63,7 @@
 							</tr>
 							<tr>
 								<td>s_id</td>
-								<td><%=board.getS_id() %></td>
+								<td><%=board.getS_id()%></td>
 							</tr>
 						</tbody>
 					</table>

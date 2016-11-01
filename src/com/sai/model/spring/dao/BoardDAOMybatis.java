@@ -45,5 +45,7 @@ public class BoardDAOMybatis implements BoardDAO{
 	public int updateEmail(HashMap map) {
 		int result=sqlSessionTemplate.update("Board.updateEmail",map);
 		return result;
-	}	
+	}
+
+
 }

@@ -2,7 +2,6 @@ package com.sai.controller.board;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,15 +11,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sai.common.page.PagingManager;
 import com.sai.model.domain.Board;
 import com.sai.model.domain.Member;
 import com.sai.model.service.BoardService;
 import com.sai.model.service.CoupleService;
 import com.sai.model.service.MemberService;
+import com.sai.model.spring.dao.BoardDAOMybatis;
 
 @Controller
-@RequestMapping("/main/")
+@RequestMapping("/")
 public class BoardController {
+	
+	@Autowired
+	private BoardDAOMybatis boardDAOMybatis;
+
+	private PagingManager pm = new PagingManager();
 	
 	@Autowired
 	private BoardService boardService;
@@ -28,9 +34,11 @@ public class BoardController {
 	private MemberService memberService;
 	@Autowired
 	private CoupleService coupleService;
+	
+	
 
 	
-	@RequestMapping("write.do")
+	@RequestMapping("main/write.do")
 	public ModelAndView insert(Board board, HttpSession session){
 		if(board.getContent()!=null){
 			int result=boardService.insert(board);
@@ -54,7 +62,7 @@ public class BoardController {
 		return mav;
 	}
 	
-	@RequestMapping("list.do")
+	@RequestMapping("main/list.do")
 	public ModelAndView selectAll(HttpServletRequest request){
 		List list=boardService.selectAll();
 
@@ -74,5 +82,33 @@ public class BoardController {
 		mav.setViewName("main/mainPage");
 		
 		return mav;
+	}
+	
+	@RequestMapping("admin/boardList.do")
+	public ModelAndView AselectAll(HttpServletRequest request){
+		List list=boardService.selectAll();
+		request.setAttribute("list", list);
+		pm.init(request);
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("list", list);
+		mav.addObject("pm", pm);
+		mav.setViewName("admin/BoardList");
+		
+		return mav;
+	}
+	
+	@RequestMapping("admin/boardDetail.do")
+	public ModelAndView selectOne(int board_id){
+		Board board=boardService.selectOne(board_id);
+		ModelAndView mav = new ModelAndView("admin/BoardDetail");
+		mav.addObject("board", board);
+		
+		return mav;
+	}
+	
+	@RequestMapping("admin/Bdelete.do")
+	public String delete(int board_id){
+		boardDAOMybatis.delete(board_id);
+		return "redirect:/admin/boardList.do";
 	}
 }
