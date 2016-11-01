@@ -29,7 +29,7 @@
 	function init() {
 
 		naver_id_login = new naver_id_login("pqNlMHIsCEOCGmed5SSe",
-				"http://localhost:8080/main/regist.jsp");
+				"http://localhost:9090/main/regist.jsp");
 		var state = naver_id_login.getUniqState();
 		naver_id_login.setButton("white", 3, 50);
 		naver_id_login.setDomain(".service.com");

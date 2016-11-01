@@ -18,10 +18,16 @@
 		where board_id=#{board_id}
 	</select>
 	<insert id="insert" parameterType="Board">
+		<selectKey resultType="integer" keyProperty="board_id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>	
 		insert into
-		board(member_id, title, content, img, s_id)
-		values(#{member_id},#{title},#{content},#{img},#{s_id})
+		board( title, content, img, s_id)
+		values(#{title},#{content},#{img},#{s_id})
 	</insert>
+	<update id="updateEmail" parameterType="hashmap">
+		update board set m_email=#{m_email} where board_id=#{board_id}
+	</update>
 	<delete id="delete" parameterType="int">
 		delete from board where board_id=#{board_id}
 	</delete>

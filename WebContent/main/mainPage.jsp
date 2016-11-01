@@ -1,8 +1,12 @@
+<%@page import="com.sai.model.domain.Couple"%>
+<%@page import="com.sai.model.domain.Member"%>
 <%@page import="java.util.List"%>
 <%@page import="com.sai.model.domain.Board"%>
 <%@ page contentType="text/html;charset=utf-8"%>
 <%
 	request.setCharacterEncoding("utf-8");
+	Couple couple = (Couple) session.getAttribute("couple");
+	Member member = (Member) session.getAttribute("member");
 	List<Board> list = (List) request.getAttribute("list");
 	int height = 1000;
 	if (list.size() > 3) {
@@ -147,10 +151,20 @@ body {
 			</div>
 
 			<div class="collapse navbar-collapse" id="here">
+
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">표시 1</a></li>
-					<li><a href="#">표시 2</a></li>
-					<li><a href="#">표시 3</a></li>
+					<%
+						if (member.getM_gender().equals("M")) {
+					%>
+					<li class="navbar-brand"><%=couple.getF_email()%>님과 연결 됨</li>
+					<%
+						} else {
+					%>
+					<li class="navbar-brand"><%=couple.getM_email()%>님과 연결 됨</li>
+					<%
+						}
+					%>
+
 
 					<!-- 알림 목록 -->
 					<!--  <li><button class="btn btn-danger" type="button" id="badge1">
@@ -159,7 +173,7 @@ body {
 					<!-- NickName 및 Icon Image-->
 					<li><button type="button" class="btn btn-primary btn-lg">
 							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-							NickName
+							<%=member.getM_name()%>님의 SAI
 						</button></li>
 					<!-- 드랍 박스 -->
 
@@ -270,7 +284,7 @@ body {
 					<br>
 					<div id="list_div">
 						<div id="list_top">
-							<img src="/images/default.png" id="profile" width="30px">&nbsp<strong>NickName</strong>
+							<img src="/images/default.png" id="profile" width="30px">&nbsp<strong><%=board.getM_email() %></strong>
 						</div>
 						<br>
 						<div id="list_content">
@@ -302,14 +316,14 @@ body {
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<div class="row">
 							<div class="col-sm-12">
-								<img src="/images/default.png" id="profile" width="70px">&nbsp<strong>NickName</strong>
+								<img src="/images/default.png" id="profile" width="70px">&nbsp<strong><%=member.getM_name() %></strong>
 							</div>
 						</div>
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<textarea class="form-control" rows="9" id="content" name="content"
-								placeholder="우리들의 핫 플레이스.."></textarea>
+							<textarea class="form-control" rows="9" id="content"
+								name="content" placeholder="우리들의 핫 플레이스.."></textarea>
 						</div>
 					</div>
 					<div class="modal-footer">

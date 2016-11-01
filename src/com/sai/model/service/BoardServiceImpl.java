@@ -1,5 +1,6 @@
 package com.sai.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,11 @@ public class BoardServiceImpl implements BoardService{
 
 	public int update(Board board) {
 		return 0;
+	}
+
+	@Override
+	public int updateEmail(HashMap map) {
+	
+		return boardDAO.updateEmail(map);
 	}
 }

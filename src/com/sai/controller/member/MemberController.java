@@ -3,6 +3,7 @@ package com.sai.controller.member;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -71,7 +72,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("main/temp.do")
-	public ModelAndView insert_first(Member member){
+	public ModelAndView insert_first(Member member, HttpSession session){
 		int result=memberService.select(member);
 		ModelAndView mav=new ModelAndView();
 		if(result==0){
@@ -91,21 +92,19 @@ public class MemberController {
 			//회원이 있고 연결도 되어있다면 시작페이지로
 			Member searchMember=new Member();
 			searchMember=memberService.selectPartner(member);
-			System.out.println(searchMember.getCouple_id());
 			Couple couple=new Couple();
 			couple=coupleService.select(searchMember.getCouple_id());
-			//System.out.println(couple.getF_email());
-			//System.out.println(couple.getM_email());
-			
-			mav.addObject("couple",couple);
-			mav.addObject("member",searchMember);
+
+			session.setAttribute("couple", couple);
+			session.setAttribute("member", member);
+		
 			mav.setViewName("redirect:/main/list.do");
 		}
 
 		return mav;
 	}
 	@RequestMapping("main/update_regist.do")
-	public ModelAndView update_regist(Member member){
+	public ModelAndView update_regist(Member member, HttpSession session){
 		System.out.println("파트너 등록창");
 		String m_email=member.getM_email();
 		String p_email=member.getP_email();
@@ -184,8 +183,10 @@ public class MemberController {
 			if(result!=0){
 				Couple couple1=new Couple();
 				couple1=coupleService.select(me.getCouple_id());
-				mav.addObject("couple",couple1);
-				mav.addObject("member",me);
+
+				session.setAttribute("couple", couple1);
+				session.setAttribute("member", me);
+			
 				mav.setViewName("redirect:/main/list.do");
 				return mav;
 			}
@@ -197,7 +198,7 @@ public class MemberController {
 		return mav;
 	}
 	@RequestMapping("main/refresh.do")
-	public ModelAndView refresh(Member member){
+	public ModelAndView refresh(Member member,HttpSession session){
 
 		Member me=new Member();
 		Member you=new Member();
@@ -218,10 +219,10 @@ public class MemberController {
 			couple=coupleService.select(member.getCouple_id());
 			System.out.println(couple.getF_email());
 			System.out.println(couple.getM_email());
-			mav.addObject("couple",couple);
-			mav.addObject("member",member);
+			session.setAttribute("couple", couple);
+			session.setAttribute("member", member);
+		
 			mav.setViewName("redirect:/main/list.do");
-			
 			return mav;
 		}
 		

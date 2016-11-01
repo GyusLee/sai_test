@@ -1,24 +1,25 @@
 package com.sai.model.domain;
 
 public class Board {
-	 private int board_id;
-	 private int member_id;
-	 private String title;
-	 private String content;
-	 private String img;
-	 private String regdate;
-	 private int s_id;
+	private int board_id;
+	private String m_email;
+	private String title;
+	private String content;
+	private String img;
+	private String regdate;
+	private int s_id;
+	
 	public int getBoard_id() {
 		return board_id;
 	}
 	public void setBoard_id(int board_id) {
 		this.board_id = board_id;
 	}
-	public int getMember_id() {
-		return member_id;
+	public String getM_email() {
+		return m_email;
 	}
-	public void setMember_id(int member_id) {
-		this.member_id = member_id;
+	public void setM_email(String m_email) {
+		this.m_email = m_email;
 	}
 	public String getTitle() {
 		return title;
@@ -50,6 +51,6 @@ public class Board {
 	public void setS_id(int s_id) {
 		this.s_id = s_id;
 	}
-	 
-	 
+
+	
 }
