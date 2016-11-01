@@ -21,19 +21,20 @@ public class BoardController {
 	private BoardService boardService;
 	@RequestMapping("write.do")
 	public ModelAndView insert(Board board){
-		boardService.insert(board);
+		if(board.getContent()!=null)
+			boardService.insert(board);
 		List<Board> list=(List)boardService.selectAll();
 		
 		System.out.println("컨트롤러"+list.size());
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list);
-		mav.setViewName("main/mainPage");
+		mav.setViewName("redirect:/main/list.do");
 		
 		return mav;
 	}
 	
-/*	@RequestMapping("list.do")
+	@RequestMapping("list.do")
 	public ModelAndView selectAll(HttpServletRequest request){
 		List list=boardService.selectAll();
 		request.setAttribute("list", list);
@@ -43,5 +44,5 @@ public class BoardController {
 		mav.setViewName("main/mainPage");
 		
 		return mav;
-	}*/
+	}
 }
