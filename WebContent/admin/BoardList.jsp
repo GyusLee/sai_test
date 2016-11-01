@@ -1,4 +1,11 @@
+<%@page import="com.sai.model.domain.Board"%>
+<%@page import="com.sai.common.page.PagingManager"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=utf-8"%>
+<%
+	List<Board> list=(List)request.getAttribute("list");
+	PagingManager pm = (PagingManager)request.getAttribute("pm");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -30,21 +37,54 @@
 			<thead>
 				<tr>
 					<th></th>
-					<th>제목</th>
 					<th>내용</th>
 					<th>사진</th>
 					<th>작성자</th>
 					<th>작성일</th>
 				</tr>
 			</thead>
-			<tbody>			
-				<td><input type="checkbox" value=""></td>
-				<td>제목ㅇㅇ</td>
-				<td>내용ㅇㅇ</td>
-				<td>aasdfasdf.jpg</td>
-				<td>작성장ㅇㅇ</td>
-				<td>2021/21/21</td>			
-			</tbody>		
+			<tbody>
+				<%
+					int curPos = pm.getCurPos();
+					int num = pm.getNum();
+				%>
+				<%
+					for (int i = 1; i < pm.getPageSize(); i++) {
+				%>
+				<%
+					if (num < 1)break;
+				%>
+				<%
+					Board board = list.get(curPos++);
+				%>
+				<td><input type="checkbox" value=""><%=num--%></td>
+				<td><a
+					href="/admin/BoardDetail.do?Board_id=<%=board.getBoard_id()%>"><%=board.getContent() %></a></td>
+				<td><%=board.getMember_id() %></td>
+				<td><%=board.getImg() %></td>
+				<td><%=board.getRegdate() %></td>
+				<%
+					}
+				%>
+			</tbody>
+			<tr>
+				<td id="paging" height="20" colspan="5" align="center">
+					<%
+						if (pm.getFirstPage() - 1 < 1) {
+					%> <a href="javascript:alert('이전 페이지가 없습니다.');">◀</a> <%} else { %> <a
+					href="admin/BoardList.jsp?currentPage=<%=pm.getFirstPage() - 1%>">◀</a>
+					<%} %> <%
+						for (int i = pm.getFirstPage(); i <= pm.getLastPage(); i++) {
+					%> <%
+					if (i > pm.getTotalPage())	break;
+					%> <a <%if (pm.getCurrentPage() == i) {%> class="pageNum" <%}%>
+					href="admin/BoardList.jsp?currentPage=<%=i%>">[<%=i%>]
+				</a> <%} %> <%
+					if (pm.getLastPage() + 1 >= pm.getTotalPage()) {
+ 					%> <a href="javascript:alert('다음 페이지가 없습니다.');">▶</a> <%} else { %>
+					<a href="admin/BoardList.jsp?currentPage=<%=pm.getLastPage() + 1%>">▶</a>
+					<%}%>
+
 				</td>
 			</tr>
 		</table>
