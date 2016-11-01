@@ -4,4 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Couple">
 
+	<select id="selectAll" resultType="Couple">
+		select * from couple order by couple_id;
+	</select>	
+	<!-- 전 값 조회 -->
+	<select id="selectSeq" resultType="int">
+		select last_insert_id();
+	</select>
+	<!-- 한건 조회 -->
+	<select id="selectOne" parameterType="int" resultType="Couple">
+		select * from couple where couple_id=#{couple_id}
+	</select>
+	
+	<!-- 케이스 만들기 -->
+	<insert id="insert" parameterType="Couple">
+		insert into couple(m_email,f_email) values(#{m_email},#{f_email});
+	</insert>
 </mapper>
+
+

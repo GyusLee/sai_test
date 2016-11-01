@@ -16,16 +16,28 @@
 	</select>
 	<insert id="insert" parameterType="Member">
 		insert into
-		member(member_email, member_pwd, member_name, member_nickname, couple_id)
+		member(member_email, member_pwd, member_name, member_nickname,
+		couple_id)
 		values(#{member_email},#{member_pwd},#{member_name},#{member_nickname},#{couple_id})
 	</insert>
 	<delete id="delete" parameterType="int">
 		delete from member where
 		member_id=#{member_id}
 	</delete>
-	<update id="update" parameterType="Member">
-		update member set
-		member_pwd=#{member_pwd},member_name=#{member_name},
-		member_nickname=#{member_nickname}
+
+
+	<insert id="insert_first" parameterType="Member">
+		insert into
+		member(m_email,m_name,m_gender)
+		values(#{m_email},#{m_name},#{m_gender})
+	</insert>
+	<update id="update_regist" parameterType="Member" >		
+		update member set p_email=#{p_email} where m_email=#{m_email}
 	</update>
+	<update id="update" parameterType="Member">
+		update member set couple_id=#{couple_id} where m_email=#{m_email}
+	</update>
+	<select id="select" parameterType="Member" resultType="Member">
+		select * from member where m_email=#{m_email}
+	</select>		
 </mapper>
