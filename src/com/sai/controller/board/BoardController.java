@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sai.common.page.PagingManager;
 import com.sai.model.domain.Board;
 import com.sai.model.domain.Member;
+import com.sai.model.domain.SubCate;
 import com.sai.model.service.BoardService;
 import com.sai.model.service.CoupleService;
 import com.sai.model.service.MemberService;
@@ -91,8 +92,9 @@ public class BoardController {
 
 	@RequestMapping("main/list.do")
 	public ModelAndView selectAll(HttpServletRequest request) {
+		
 		List list = boardService.selectAll();
-
+		
 		ModelAndView mav = new ModelAndView();
 
 		/*

@@ -11,14 +11,11 @@
 <meta charset="utf-8">
 <title>Marker animations with <code>setTimeout()</code></title>
 <style>
-html, body {
-	height: 100%;
-	margin: 0;
-	padding: 0;
-}
-
-#map {
-	height: 100%;
+#map{
+	width : 70%;
+	height : 800px;
+	border : 1px solid red;
+	float : left;
 }
 
 #floating-panel {
@@ -42,9 +39,9 @@ html, body {
 </head>
 
 <body>
-	<div id="floating-panel">
+	<!-- <div id="floating-panel">
 		<button id="drop" onclick="drop()">Drop Markers</button>
-	</div>
+	</div> -->
 	<div id="map"></div>
 
 </body>

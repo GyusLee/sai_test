@@ -86,7 +86,7 @@ public class MemberController {
 			session.setAttribute("couple", couple);
 			session.setAttribute("member", member);
 		
-			mav.setViewName("redirect:/main/list.do");
+			mav.setViewName("redirect:/main/index.do");
 		}
 
 		return mav;
@@ -175,7 +175,7 @@ public class MemberController {
 				session.setAttribute("couple", couple1);
 				session.setAttribute("member", me);
 			
-				mav.setViewName("redirect:/main/list.do");
+				mav.setViewName("redirect:/main/index.do");
 				return mav;
 			}
 		}
@@ -210,7 +210,7 @@ public class MemberController {
 			session.setAttribute("couple", couple);
 			session.setAttribute("member", member);
 		
-			mav.setViewName("redirect:/main/list.do");
+			mav.setViewName("redirect:/main/index.do");
 			return mav;
 		}
 		
