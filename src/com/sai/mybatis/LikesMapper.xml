@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Likes">
+
+	<select id="selectAll" parameterType="int" resultType="Likes">
+		select * from Likes where l_num=#{l_num};
+	</select>
+	
+	<select id="selectOne" parameterType="Likes" resultType="Likes">
+		select * from Likes where m_email=#{m_email} and l_num=#{l_num}
+	</select>
+	
+	<insert id="insert" parameterType="Likes">
+		insert into Likes(m_email,l_num) values(#{m_email},#{l_num}) 
+	</insert>
+	<delete id="delete" parameterType="Likes">
+		delete from Likes where m_email=#{m_email} and l_num=#{l_num}
+	</delete>
+
+</mapper>

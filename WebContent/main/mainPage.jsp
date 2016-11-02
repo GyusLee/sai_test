@@ -223,7 +223,26 @@ window.addEventListener("load", function(){
 			}
 		});  
 	}	 
-	
+ 	function likeChk(board_id){
+		//show 호출시 넘겨준 값을 이용하여 ajax 등을 통해 modal 을 띄울때 동적으로 바뀌어야 하는 값을 얻어온다.  
+		
+		var m_email="<%=member.getM_email()%>";
+		var jData = {"board_id" : board_id,"m_email":m_email};
+		alert("되냐?");
+		$.ajax({
+			contentType:'application/json;charset=UTF-8',
+			dataType:'json',
+			url:'/main/isLikes.do',
+			type:'POST',
+			data:JSON.stringify(jData),
+			success:function(response){
+				alert(response.maxNum);
+				alert(response.result);
+			
+				
+			}
+		});  
+	}	
 	
 </script>
 </head>
@@ -276,7 +295,7 @@ window.addEventListener("load", function(){
 							aria-haspopup="true" aria-expanded="false">Dropdown <span
 								class="caret"></span></a>
 							<ul class="dropdown-menu" id="dropdown-menu">
-								<li><a href="#" onclick="openNav()">list</a></li>
+								<li><a href="#" onClick="openNav()">list</a></li>
 								<li role="separator" class="divider"></li>
 								<li><a href="#" data-toggle="modal" data-target="#myModal">write</a></li>
 								<li role="separator" class="divider"></li>
@@ -381,7 +400,7 @@ window.addEventListener("load", function(){
 			<div class="col-md-3" id="right">
 				<!-- 글 List  -->
 				<div id="mySidenav" class="sidenav">
-					<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+					<a href="javascript:void(0)" class="closebtn" onClick="closeNav()">&times;</a>
 					<%
 						for (int i = 0; i <list.size(); i++) {
 					%>
@@ -434,13 +453,15 @@ window.addEventListener("load", function(){
 							<img src="/images/default.png" id="profile" width="30px"
 								role="button" onClick="show(<%=board.getBoard_id()%>)">&nbsp<strong
 								role="button" onClick="show(<%=board.getBoard_id()%>)"><%=board.getM_email()%></strong>
-
+							
+							
+							<!-- 좋아요 버튼 -->
 							<button type="button" class="btn btn-default"
-								style="border: none;">
+								style="border: none;" onClick="likeChk(<%=board.getBoard_id()%>)">
 								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
 									style="font-size: 12px;">11</span>
 							</button>
-
+							<!-- 좋아요 버튼 종료 -->
 
 						</div>
 						<br>
