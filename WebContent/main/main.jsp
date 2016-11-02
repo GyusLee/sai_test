@@ -71,34 +71,47 @@
 #jumbotron_con {
 	border: 0px;
 }
+
+#topWrapper {
+	width: 100%;
+	height: 50px;
+	position: fixed;
+	z-index: 999;
+	background: rgba(255, 255, 255, 0.95);
+	border: 1px solid #e7e7e7;
+	border-top:none;
+	top:0px;
+}
 </style>
 </head>
 <body>
 	<nav class="navbar navbar-default">
-	<div class="container-fluid">
-		<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-				aria-expanded="false">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#">사이(SAI)</a>
-		</div>
+	<div id="topWrapper">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+					aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">사이(SAI)</a>
+			</div>
 
-		<div class="collapse navbar-collapse"
-			id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav navbar-right">
-				<form class="navbar-form navbar-left">
-					<button type="submit" class="btn btn-default">회원가입</button>
-					<button type="button" class="btn btn-default"
-						data-target="#login_modal" data-toggle="modal">로그인</button>
-				</form>
-			</ul>
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<form class="navbar-form navbar-left">
+						<button type="submit" class="btn btn-default">회원가입</button>
+						<button type="button" class="btn btn-default"
+							data-target="#login_modal" data-toggle="modal">로그인</button>
+					</form>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
 		</div>
-		<!-- /.navbar-collapse -->
 	</div>
 	<!-- /.container-fluid --> </nav>
 

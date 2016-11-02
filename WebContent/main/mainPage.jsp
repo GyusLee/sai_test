@@ -48,14 +48,15 @@ body {
 .sidenav {
 	height: 100%;
 	width: 0;
+	border-left:1px solid #e7e7e7;
 	position: fixed;
-	z-index: 1;
+	z-index: 10;
 	top: 10%;
 	left: 100%;
 	background-color: white;
 	overflow-x: hidden;
 	transition: 0.5s;
-	padding-top: 60px;
+	padding-top: 0px;
 	padding-left: 30px;
 	padding-right: 30px;
 }
@@ -64,6 +65,7 @@ body {
 	padding: 8px 8px 8px 32px;
 	text-decoration: none;
 	font-size: 25px;
+	padding-top: 0px;
 	color: #818181;
 	display: block;
 	transition: 0.3s
@@ -77,41 +79,82 @@ body {
 	position: absolute;
 	top: 0;
 	right: 25px;
+	padding-top: 0px;
 	font-size: 36px;
 	margin-left: 50px;
 }
 
 #main {
+	width:100%;
 	transition: margin-left .5s;
 	padding: 16px;
 }
 
 @media screen and (max-height: 450px) {
 	.sidenav {
-		padding-top: 15px;
+		padding-top: 0px;
 	}
 	.sidenav a {
 		font-size: 18px;
 	}
 }
-
+#wraaper{
+	width:100%;
+	overflow:none;
+	height:1000px;
+}
 #left {
-	height: 1000px;
+	
+	height:1000px;
 	border: 1px solid #e7e7e7;
 }
 
 #right {
-	height: 1000px;
+	
+	height:1000px;
 	border: 1px solid #e7e7e7;
+	border-left:none;
 }
 
 #center {
-	height: 1000px;
+	
+	height:1000px;
 	border: 1px solid #e7e7e7;
+	border-right:none;
 }
 
 #badge1 {
 	margin-top: 5px;
+}
+
+#listModalSetting {
+	width: 75%;
+	height: 800px;
+}
+
+#listModelContent {
+	width: 100%;
+	height: 800px;
+}
+
+#listModelBody {
+	height: 600px;
+}
+#topWrapper{
+	width: 100%;
+	height: 50px;
+	position: fixed;
+	z-index: 999;
+	background: rgba(255, 255, 255, 0.95);
+	border: 1px solid #e7e7e7;
+	border-top:none;
+	top:0px;
+}
+#here{
+	z-index: 888;
+	background: rgba(255, 255, 255, 0.95);
+		border: 1px solid #e7e7e7;
+	border-top:none;
 }
 </style>
 <script>
@@ -158,7 +201,8 @@ body {
 </script>
 </head>
 <body>
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-default" >
+	<div id="topWrapper">
 		<div class="container-fluid" id="top">
 
 			<!-- 숨겨진 우측 네비게이션 -->
@@ -217,9 +261,10 @@ body {
 			</div>
 			<!-- /.navbar-collapse -->
 		</div>
+		</div>
 		<!-- /.container-fluid -->
 	</nav>
-	<div class="container-fluid">
+	<div class="container-fluid" id="wraaper">
 		<div class="row-fluid">
 			<div class="col-md-2" id="left">
 				<!-- 상위 카테고리 -->
@@ -305,12 +350,22 @@ body {
 					<!-- list 나오는 부분  -->
 					<div style="border: solid 1px #D3D2E0"></div>
 					<br>
-					<div id="list_div" data-target="#listModal" 						role="button" onClick="show(<%=board.getBoard_id()%>)">
+					<div id="list_div" data-target="#listModal">
 						<div id="list_top">
-							<img src="/images/default.png" id="profile" width="30px">&nbsp<strong><%=board.getM_email()%></strong>
+							<img src="/images/default.png" id="profile" width="30px"
+								role="button" onClick="show(<%=board.getBoard_id()%>)">&nbsp<strong
+								role="button" onClick="show(<%=board.getBoard_id()%>)"><%=board.getM_email()%></strong>
+				
+							<button type="button" class="btn btn-default" style="border:none;">
+								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" style="font-size:12px;">11</span>
+							</button>
+							
+
 						</div>
 						<br>
-						<div id="list_content">
+
+						<div id="list_content" role="button"
+							onClick="show(<%=board.getBoard_id()%>)">
 							<%=board.getContent()%>
 						</div>
 						<br>
@@ -362,17 +417,19 @@ body {
 
 
 	<!--리스트 모달-->
-	<div class="modal" id="listModal" role="dialog">
-		<div class="modal-dialog">
+	<div class="modal bs-example-modal-lg" id="listModal" role="dialog">
+		<div class="modal-dialog" id="listModalSetting">
 			<!-- 모달 내용-->
-			<div class="modal-content">
+			<div class="modal-content" id="listModelContent">
 				<div class="modal-header">
 
-						<img src="/images/default.png" id="list_profile" width="50px">&nbsp<strong id="timeline_top"></strong>
-
+					<img src="/images/default.png" id="list_profile" width="50px">&nbsp<strong
+						id="timeline_top"></strong>
+					<button type="button" class="close" data-dismiss="modal"
+						style="font-size: 30px">&times;</button>
 					<br>
 				</div>
-				<div class="modal-body">
+				<div class="modal-body" id="listModelBody">
 					<p id="timeline_content"></p>
 				</div>
 				<div class="modal-footer">
