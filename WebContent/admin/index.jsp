@@ -1,10 +1,15 @@
+<%@page import="com.sai.model.domain.Address"%>
 <%@page import="com.sai.model.domain.MasterCate"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%
-	List<MasterCate> MasterCateList= (List)request.getAttribute("masterCateList");
-	out.print(MasterCateList);
+	List<MasterCate> masterCateList= (List)request.getAttribute("masterCateList");
+	
+	List<Address> sidoList=(List)request.getAttribute("sidoList");
+	System.out.println(sidoList.size());
+	for(int i=0; i<sidoList.size(); i++){
+		System.out.print(sidoList.get(i).getSido());
+	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -111,14 +116,11 @@ function loadMap(){
 	   });
 	}
 }
-
-
-
 /*
  * 매개변수로 넘길 input : file 컴포넌트
  */
 function preView(){
-	   
+	  
       var oFReader = new FileReader();
       oFReader.readAsDataURL(document.getElementById("img").files[0]);
 
@@ -155,6 +157,8 @@ function preView(){
 	 
  }
  
+ //******************************************************************************
+ //수정 등록 삭제 관련
  function regist(){
 		form1.encoding="multipart/form-data";
 		form1.action="/admin/regist.do";
@@ -168,6 +172,95 @@ function preView(){
  function delete1(){
 	 
  }
+ //*******************************************************************************
+ //topcate select option 설정 관련
+ 
+function Mtype(option){
+	 var Mid;
+	 <%for(int i=0;i<masterCateList.size();i++){%>
+	 	if(option=="<%=masterCateList.get(i).getM_type()%>"){
+	 		Mid=<%=masterCateList.get(i).getM_id()%>;
+	 	}
+	 <%}%>
+	 
+	 //ajax방식으로 topCategoryd의 값들을 받아오자!!
+	 var xhttp=getHttp();
+	 
+	 xhttp.onreadystatechange=function(){
+		 if(xhttp.readyState==4&&xhttp.status==200){
+			 alert("서버에 요청 전달 완료");
+			 var data = xhttp.responseText;
+			 alert(data);
+			 var Ttype = document.getElementById("t_type");
+			 Ttype.innerHTML=data;
+		 }
+	 }
+	 
+	 xhttp.open("post","/admin/selectTopCate.do","true");
+	 xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	 xhttp.send("Mid="+Mid);
+ }
+ 
+ //sido select option관련
+ function Sido(option){
+	//ajax방식으로 topCategoryd의 값들을 받아오자!!
+	 var xhttp=getHttp();
+	 
+	 xhttp.onreadystatechange=function(){
+		 if(xhttp.readyState==4&&xhttp.status==200){
+			 alert("서버에 요청 전달 완료");
+			 var data = xhttp.responseText;
+			 alert(data);
+			 var gugun=document.getElementById("gugun");
+			 gugun.innerHTML=data;
+		 }
+	 }
+	
+	 xhttp.open("post","/admin/selectGugun.do","true");
+	 xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	 xhttp.send("sido="+option);
+ }
+ 
+ //gugun select option관련
+ function Gugun(option){
+	//ajax방식으로 topCategoryd의 값들을 받아오자!!
+	 var xhttp=getHttp();
+	 
+	 xhttp.onreadystatechange=function(){
+		 if(xhttp.readyState==4&&xhttp.status==200){
+			 alert("서버에 요청 전달 완료");
+			 var data = xhttp.responseText;
+			 alert(data);
+			 var dong=document.getElementById("dong");
+			 dong.innerHTML=data;
+		 }
+	 }
+	
+	 xhttp.open("post","/admin/selectDong.do","true");
+	 xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	 xhttp.send("gugun="+option);
+ }
+ //**************************************************
+ //Ttype 선택시 그 아이디 값 받아오자
+ function Ttype(option){
+	 var t_id=document.getElementById("t_id");
+	 t_id.value=option;
+	 alert(t_id.value);
+ }
+ 
+ // *************************************************
+ // 비동기 방식으로 가져오자
+function getHttp() {
+	var xhttp; //비동기 요청을 처리하는 핵심 객체!!
+	if (xhttp == undefined) {
+		if (window.XMLHttpRequest) {
+			xhttp = new XMLHttpRequest();//모든 브라우저 공통 방법
+		} else {
+			xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+	}
+	return xhttp;
+}
  
 </script>
 </head>
@@ -178,25 +271,56 @@ function preView(){
 		<ul>
 			<li>위도 : <input type="text" name="lati"></li>
 			<li>경도 : <input type="text" name="lng"></li>
-			<li>범주 1 : <input type="text" name="m_type"></li>
-			<li>범주 2 : <input type="text" name="t_type"></li>
+			<li>
+				범주 1:
+				<select name="m_type" onChange ="Mtype(this.value)">
+					<option> 선 택 ▼</option>
+					<%for(int i=0;i<masterCateList.size();i++){ %>
+					<option><%=masterCateList.get(i).getM_type() %></option>
+					<%} %>
+				</select>
+			</li>
+			<li>
+				범주 2 : 
+				<select id="t_type" onChange="Ttype(this.value)">
+					<option> 선 택 ▼</option>
+				</select>
+				<input type="hidden" name="t_id" id="t_id">
+			</li>
 			<li>상호명 : <input type="text" name="name"></li>
-			<li>주소 <br> 시: <input type="text" name="si"></li>
-			<li>구: <input type="text" name="gu"></li>
-			<li>동: <input type="text" name="dong"></li>
+			<li>주소 
+			<br> 
+			시:<select name="sido" onChange="Sido(this.value)">
+				<%for(int i=0;i<sidoList.size();i++){ %>
+				<option> 선 택 ▼</option>
+				<option><%=sidoList.get(i).getSido() %></option>
+				<%} %>	
+			</select> 	
+			</li>
+			<li>
+			구:<select name="gugun" id="gugun" onChange="Gugun(this.value)">
+			<option> 선 택 ▼<option>
+			</select> 
+			</li>
+			<li>
+			동: <select name="dong" id="dong">
+			<option> 선 택 ▼<option>
+			</select>
+			</li>
+			<li>업체 상세 주소 : <input type="text" name="address_detail"></li>
 			<li>전화번호 : <input type="text" name="tel"></li>
-			<li>사진 : <input type = "file" id="img" name="img" onChange="preView()"></li>
-			<li><img id="preImg" name="preImg" src="http://cfile8.uf.tistory.com/image/1442534D4FC3A17004001B"></li>
+			<li>사진 : <input type="file" id="img" name="myFile" onChange="preView()"></li>
+			<li><img id="preImg" src="http://cfile8.uf.tistory.com/image/1442534D4FC3A17004001B"></li>
 			<li>업체 상세 정보: <textarea name="content"></textarea></li>
 			<li>
-				<select name="score" onChange="Score(this.value)">
+				<select onChange="Score(this.value)">
 					<%for(int i=1;i<=10;i++){ %>
 					<option><%=i*0.5 %></option>
 					<%}%>
 				</select>
 			</li>
 			<li>
-				<span id="star" name="star">
+				<span id="star">
 					<img src="/images/half.png">
 				</span>
 			</li>
@@ -205,7 +329,6 @@ function preView(){
 			<input type="button" value="수정" onClick="update()">
 			<input type="button" value="삭제" onClick="delete1()">
 			</li>
-			
 		</ul>
 	</form>
 	</div>

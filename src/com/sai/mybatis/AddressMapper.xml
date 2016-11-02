@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Address">
+	<select id="selectAllSido" resultType="Address">
+		select distinct sido from address
+	</select>
+	
+	<select id="selectAllGugun" parameterType="String" resultType="Address">
+		select distinct gugun from address where sido=#{sido}
+	</select>
+	
+	<select id="selectAllDong" parameterType="String" resultType="Address">
+		select distinct dong from address where gugun=#{gugun}
+	</select>
+</mapper>
