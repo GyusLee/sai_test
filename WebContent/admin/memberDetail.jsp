@@ -21,6 +21,10 @@
 		form1.action = "delete.do"
 		form1.submit();
 	}
+	function back(){
+		form1.action="member.do"
+		form1.submit();
+	}
 </script>
 <body>
 <input type="hidden" name="m_email" value="<%=member.getM_email()%>">
@@ -29,6 +33,8 @@
 			<h2>
 				회원 정보 디테일
 				<p>
+				<input type="button" class="btn btn-default" onClick="back()"
+						value="뒤로가기">
 					<input type="button" class="btn btn-danger" onClick="del()"
 						value="회원 삭제">
 				</p>
