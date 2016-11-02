@@ -19,10 +19,21 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+<script>
+function back(){
+	form1.action="admin.jsp"
+	form1.submit();
+}
+</script>
 <body>
+<form name="form1" method="post">
 	<div class="container">
 		<h2>
 			게시물 정보 조회
+				<p>
+				<input type="button" class="btn btn-default" onClick="back()"
+						value="뒤로가기">
+						</p>
 			<div class="input-group">
 				<input type="text" class="form-control" placeholder="email 검색"
 					id="txt"> <span class="input-group-btn">
@@ -107,5 +118,6 @@
 		</table>
 
 	</div>
+	</form>
 </body>
 </html>
