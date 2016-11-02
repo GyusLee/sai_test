@@ -161,9 +161,13 @@ body {
 <script>
 var d1;
 var temp;
+var myFile;
 window.addEventListener("load", function(){
-
-	
+	myFile=document.getElementById("myFile");
+	var x=document.getElementById("x");
+	$('#myFile').change(function(){
+		x.innerHTML=$('#myFile').val().substring($('#myFile').val().lastIndexOf("\\")+1,$('#myFile').val().length);
+	});
 })
 	function openNav() {
 		document.getElementById("mySidenav").style.width = "25%";
@@ -179,8 +183,8 @@ window.addEventListener("load", function(){
 
 	// file 함수 호출
 	function getFile(){
-		var myFile=document.getElementById("myFile");
 		myFile.click();
+		getFileName();
 	}
 	
 	// 글 업로드
@@ -210,8 +214,14 @@ window.addEventListener("load", function(){
 				
 			}
 		});  
-	}	 
-	
+	}
+	function getFileName(){
+		var path=document.getElementById("myFile").value;
+		var x=path.lastIndexOf("\\");
+		console.log(path);
+		var fileName=path.substring(x, path.length);
+		console.log(fileName);
+	}	
 	
 </script>
 </head>
@@ -357,7 +367,7 @@ window.addEventListener("load", function(){
 				<div id="mySidenav" class="sidenav">
 					<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 					<%
-						for (int i = 0; i <list.size(); i++) {
+						for (int i = 0; i < list.size(); i++) {
 					%>
 					<%
 						Board board = list.get(i);
@@ -367,11 +377,10 @@ window.addEventListener("load", function(){
 					<br>
 					<div id="list_div" data-target="#listModal">
 						<div id="list_top">
-							<div id="time<%=i%>" style="font-size:11px;"></div>
+							<div id="time<%=i%>" style="font-size: 11px;"></div>
 							<script>
 							
 							d1=new Date();
-							
 							
 							if(d1.getFullYear()==<%=board.getRegdate().split("-")[0]%>){
 								if(d1.getMonth()+1==<%=board.getRegdate().split("-")[1]%>){
@@ -383,7 +392,7 @@ window.addEventListener("load", function(){
 											
 										}else{
 			
-											temp=d1.getHours()-<%=board.getRegdate().substring(11,13)%>;
+											temp=d1.getHours()-<%=board.getRegdate().substring(11, 13)%>;
 											document.getElementById("time<%=i%>").innerHTML=temp+"시간 전에 게시";
 										}
 											
@@ -408,21 +417,16 @@ window.addEventListener("load", function(){
 							<img src="/images/default.png" id="profile" width="30px"
 								role="button" onClick="show(<%=board.getBoard_id()%>)">&nbsp<strong
 								role="button" onClick="show(<%=board.getBoard_id()%>)"><%=board.getM_email()%></strong>
-
 							<button type="button" class="btn btn-default"
 								style="border: none;">
 								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
 									style="font-size: 12px;">11</span>
 							</button>
-
-
 						</div>
 						<br>
-
 						<div id="list_content" role="button"
 							onClick="show(<%=board.getBoard_id()%>)">
-							<img src="/data/<%=board.getImg() %>" width="100%">
-							<br>
+							<img src="/data/<%=board.getImg()%>" width="100%"> <br><br>
 							<%=board.getContent()%>
 						</div>
 						<br>
@@ -463,10 +467,12 @@ window.addEventListener("load", function(){
 						</div>
 					</div>
 					<div class="modal-footer">
+						<span id="x"></span>
 						<img src="/images/cam.png" width="40px" onClick="getFile()">
 						<button type="button" class="btn btn-primary" onclick="regist()">post</button>
 					</div>
-					<input type="file" id="myFile" style="display: none" name="myFile">
+					<input type="file" id="myFile" size:"50" name="myFile"
+						style="display:none">
 				</div>
 			</form>
 		</div>
