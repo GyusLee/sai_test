@@ -1,5 +1,7 @@
 package com.sai.model.domain;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Board {
 	private int board_id;
 	private String m_email;
@@ -7,8 +9,8 @@ public class Board {
 	private String content;
 	private String img;
 	private String regdate;
+	private MultipartFile myFile;
 	private int s_id;
-	
 	public int getBoard_id() {
 		return board_id;
 	}
@@ -45,12 +47,17 @@ public class Board {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
+	public MultipartFile getMyFile() {
+		return myFile;
+	}
+	public void setMyFile(MultipartFile myFile) {
+		this.myFile = myFile;
+	}
 	public int getS_id() {
 		return s_id;
 	}
 	public void setS_id(int s_id) {
 		this.s_id = s_id;
 	}
-
 	
 }
