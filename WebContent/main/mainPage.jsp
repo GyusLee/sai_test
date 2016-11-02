@@ -374,12 +374,15 @@ body {
 
 						<div id="list_content" role="button"
 							onClick="show(<%=board.getBoard_id()%>)">
+							<img src="/data/<%=board.getImg() %>" width="100%">
+							<br>
 							<%=board.getContent()%>
 						</div>
 						<br>
 						<div id="list_bottom">
 							<textarea name="content" class="form-control" rows="2"
-								id="comment" placeholder="comment..."></textarea>
+								id="comment" placeholder="comment...">
+								</textarea>
 						</div>
 						<br>
 					</div>
