@@ -11,18 +11,11 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
 
-	
-	<!-- ajax JSON parsing -->
-	<bean id="jsonView"
-		class="net.sf.json.spring.web.servlet.view.JsonView"></bean>
-		<bean id="viewResolver_ajax"
-			class="org.springframework.web.servlet.view.BeanNameViewResolver">
-			<property name="order" value="0"></property>
-		</bean>
-	
-
-
-
+<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+	<!-- <property name="contentType" value="application/json;charset=UTF-8"/> -->
+	<property name="contentType" value="text/html;charset=UTF-8"/>
+</bean>
+	<mvc:annotation-driven />
 	<!-- ViewResolver -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"

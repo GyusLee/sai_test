@@ -12,8 +12,6 @@
 	if (list.size() > 3) {
 		height = list.size() * 350;
 	}
-	
-	
 %>
 <!DOCTYPE>
 <html>
@@ -135,19 +133,26 @@ body {
 		form1.submit();
 	}
 	
-<%-- 	function show(str){
+ 	function show(board_id){
 		//show 호출시 넘겨준 값을 이용하여 ajax 등을 통해 modal 을 띄울때 동적으로 바뀌어야 하는 값을 얻어온다.  
 		
-		//얻어온 값을 이용하여, modal 에서 동적으로 바뀌어야 하는 값을 바꾸어 준다..  
-	    $("#list_profile").html("<%=list.get(str).getM_email()%>");
-	    $("#list_content").html("<%=list.get(str).getContent()%>");
-
-		alert(str);
-	    //modal을 띄워준다.  
-	    //$("#listModal").modal('show');
-  
-	  
-	}	 --%>
+		var jData = {"board_id" : board_id};
+		
+		$.ajax({
+			contentType:'application/json;charset=UTF-8',
+			dataType:'json',
+			url:'/main/modal.do',
+			type:'POST',
+			data:JSON.stringify(jData),
+			success:function(response){
+				$("#timeline_top").html(response.email);
+				$("#timeline_content").html(response.content);
+				
+				$("#listModal").modal('show');
+				
+			}
+		});  
+	}	 
 	
 	
 </script>
@@ -300,8 +305,7 @@ body {
 					<!-- list 나오는 부분  -->
 					<div style="border: solid 1px #D3D2E0"></div>
 					<br>
-					<div id="list_div" data-target="#listModal"
-						data-toggle="modal" role="button" onClick="show(<%=i%>)">
+					<div id="list_div" data-target="#listModal" 						role="button" onClick="show(<%=board.getBoard_id()%>)">
 						<div id="list_top">
 							<img src="/images/default.png" id="profile" width="30px">&nbsp<strong><%=board.getM_email()%></strong>
 						</div>
@@ -363,20 +367,17 @@ body {
 			<!-- 모달 내용-->
 			<div class="modal-content">
 				<div class="modal-header">
-					<div id="list_top">
-						<img src="/images/default.png" id="list_profile" width="50px">&nbsp<strong></strong>
-					</div>
+
+						<img src="/images/default.png" id="list_profile" width="50px">&nbsp<strong id="timeline_top"></strong>
+
 					<br>
 				</div>
 				<div class="modal-body">
-					<div id="list_content">
-						
-					</div>
+					<p id="timeline_content"></p>
 				</div>
 				<div class="modal-footer">
-					<textarea name="content" class="form-control" rows="2"
-						id="comment" placeholder="comment..."></textarea>
-					<button type="button" class="btn btn-primary">닫기</button>
+					<textarea name="content" class="form-control" rows="2" id="comment"
+						placeholder="comment..."></textarea>
 				</div>
 			</div>
 		</div>
