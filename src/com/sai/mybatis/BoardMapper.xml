@@ -34,4 +34,7 @@
 	<update id="update" parameterType="Board">
 		update board set title=#{title},content=#{content},img=#{img},s_id=#{s_id}
 	</update>
+	
+
+	
 </mapper>

@@ -23,7 +23,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	public Board selectOne(int board_id) {
-		return null;
+		return boardDAO.selectOne(board_id);
 	}
 
 	public int insert(Board board) {
@@ -31,7 +31,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	public int delete(int board_id) {
-		return 0;
+		return boardDAO.delete(board_id);
 	}
 
 	public int update(Board board) {
