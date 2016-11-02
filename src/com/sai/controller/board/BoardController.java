@@ -43,50 +43,47 @@ public class BoardController {
 	@Autowired
 	private CoupleService coupleService;
 
-
-	
 	@RequestMapping("main/write.do")
-	public ModelAndView insert(Board board, HttpSession session, HttpServletRequest request){
+	public String insert(Board board, HttpSession session, HttpServletRequest request) {
 		// 업로드한 파일 처리!!
-		MultipartFile myFile=board.getMyFile();
-		String fileName=myFile.getOriginalFilename();
-		
-		ServletContext application= request.getServletContext();
-		String realPath=application.getRealPath("/data/")+fileName;
-		
-		try {
-			myFile.transferTo(new File(realPath));
-			board.setImg(fileName);
+		MultipartFile myFile = board.getMyFile();
+		String fileName = myFile.getOriginalFilename();
 
-			if(board.getContent()!=null){
+		ServletContext application = request.getServletContext();
+		String realPath = application.getRealPath("/data/") + fileName;
+
+		if (board.getContent() != null) {
+			try {
+				myFile.transferTo(new File(realPath));
+				board.setImg(fileName);
+				
+				System.out.println("사진 저장 경로"+realPath);
 
 				// 글 처리!!
-				int result=boardService.insert(board);
+				int result = boardService.insert(board);
 
-				Member member=(Member)session.getAttribute("member");
+				Member member = (Member) session.getAttribute("member");
 				System.out.println(member.getM_email());
 				System.out.println(board.getBoard_id());
-				HashMap<String, Object> map = new HashMap<String,Object>();
-				map.put("board_id",board.getBoard_id());
-				map.put("m_email",member.getM_email());
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("board_id", board.getBoard_id());
+				map.put("m_email", member.getM_email());
+				map.put("img", fileName);
 				boardService.updateEmail(map);
+
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
+		}
 		// 저장
-		ModelAndView mav = new ModelAndView();
-		List<Board> list=(List)boardService.selectAll();
+		List<Board> list = (List) boardService.selectAll();
 		
-		System.out.println("컨트롤러"+board);
+		System.out.println("컨트롤러" + board.getMyFile().getOriginalFilename());
 		
-		mav.addObject("board", board);
-		
-		
-		return mav;
+		return "redirect:/main/list.do";
 	}
 
 	@RequestMapping("main/list.do")
@@ -131,26 +128,23 @@ public class BoardController {
 		return mav;
 	}
 
-
 	@RequestMapping("admin/Bdelete.do")
 	public String delete(int board_id) {
 		boardDAOMybatis.delete(board_id);
 		return "redirect:/admin/boardList.do";
 	}
 
-	@RequestMapping(value = "main/modal.do", method = RequestMethod.POST)	
-	public @ResponseBody Map<String, Object> updateModal(@RequestBody Map<String,Object> map) {
-    	
-    	Board board=boardService.selectOne((Integer)map.get("board_id"));
+	@RequestMapping(value = "main/modal.do", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> updateModal(@RequestBody Map<String, Object> map) {
 
-    	Map<String, Object> result=new HashMap<String,Object>();
+		Board board = boardService.selectOne((Integer) map.get("board_id"));
 
-    	result.put("email",board.getM_email());
-    	result.put("content",board.getContent());
-    	
+		Map<String, Object> result = new HashMap<String, Object>();
 
-    	return result;
+		result.put("email", board.getM_email());
+		result.put("content", board.getContent());
+
+		return result;
 	}
-
 
 }

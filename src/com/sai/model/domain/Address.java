@@ -5,7 +5,7 @@ public class Address {
 	private String sido;
 	private String gugun;
 	private String dong;
-	
+
 	public int getAddress_id() {
 		return address_id;
 	}
