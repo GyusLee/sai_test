@@ -1,34 +1,41 @@
 package com.sai.model.domain;
 
 public class Couple {
+
 	private int couple_id;
-	private int couple_male;
-	private int couple_female;
+	private String m_email;
+	private String f_email;
 	private String couple_regdate;
+
 	public int getCouple_id() {
 		return couple_id;
 	}
+
 	public void setCouple_id(int couple_id) {
 		this.couple_id = couple_id;
 	}
-	public int getCouple_male() {
-		return couple_male;
+
+	public String getM_email() {
+		return m_email;
 	}
-	public void setCouple_male(int couple_male) {
-		this.couple_male = couple_male;
+
+	public void setM_email(String m_email) {
+		this.m_email = m_email;
 	}
-	public int getCouple_female() {
-		return couple_female;
+
+	public String getF_email() {
+		return f_email;
 	}
-	public void setCouple_female(int couple_female) {
-		this.couple_female = couple_female;
+
+	public void setF_email(String f_email) {
+		this.f_email = f_email;
 	}
+
 	public String getCouple_regdate() {
 		return couple_regdate;
 	}
+
 	public void setCouple_regdate(String couple_regdate) {
 		this.couple_regdate = couple_regdate;
 	}
-	
-	
 }

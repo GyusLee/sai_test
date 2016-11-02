@@ -20,7 +20,7 @@ body {
     position: fixed;
     z-index: 1;
     top: 0;
-    left: 0;
+    left: 100%;
     background-color: #FFEBE4;
     overflow-x: hidden;
     transition: 0.5s;
@@ -62,12 +62,14 @@ body {
 <script>
 function openNav() {
     document.getElementById("mySidenav").style.width = "25%";
-    document.getElementById("main").style.marginLeft = "25%";
+    document.getElementById("mySidenav").style.left = "75%";
+    document.getElementById("main").style.marginRight = "0%";
 }
 
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("main").style.marginLeft= "0";
+    document.getElementById("mySidenav").style.left = "100%";
+    document.getElementById("main").style.marginRight= "0";
 }
 
 function regist(){
@@ -83,7 +85,7 @@ function regist(){
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
  	<div id="write" width=100%>
  		<div id="top">
-	 		<img src="/BootstrapTest/images/default.png" id="profile" width="50px">&nbsp<strong>NickName</strong>
+	 		<img src="/images/default.png" id="profile" width="50px">&nbsp<strong>NickName</strong>
  		</div>
  		<br>
  		<div id="center">
@@ -92,9 +94,9 @@ function regist(){
  		</div>
  		<br>
  		<div id="bottom" align="right"> 
- 			<img src="/BootstrapTest/images/comment.png" width="30px">
- 			<img src="/BootstrapTest/images/cam.png" width="30px">
- 			<img	src="/BootstrapTest/images/movie.png" width="30px">
+ 			<img src="/images/comment.png" width="30px">
+ 			<img src="/images/cam.png" width="30px">
+ 			<img	src="/images/movie.png" width="30px">
 			<button type="button" class="btn btn-primary" onClick="regist()">post</button>
  		</div>
  	</div>

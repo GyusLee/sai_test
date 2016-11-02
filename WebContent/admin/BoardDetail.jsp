@@ -1,7 +1,8 @@
+<%@page import="com.sai.model.domain.Board"%>
 <%@page import="com.sai.model.domain.Member"%>
 <%@ page contentType="text/html;charset=utf-8"%>
 <%
-	Member member = (Member) request.getAttribute("member");
+	Board board = (Board) request.getAttribute("board");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -18,19 +19,19 @@
 </head>
 <script>
 	function del() {
-		form1.action = "delete.do"
+		form1.action = "Bdelete.do"
 		form1.submit();
 	}
 </script>
 <body>
-<input type="hidden" name="m_email" value="<%=member.getM_email()%>">
+<input type="hidden" name="board_id" value="<%=board.getBoard_id()%>">
 	<form name="form1" method="post">
 		<div class="container">
 			<h2>
-				회원 정보 디테일
+				게시물 정보 디테일
 				<p>
 					<input type="button" class="btn btn-danger" onClick="del()"
-						value="회원 삭제">
+						value="게시물 삭제">
 				</p>
 			</h2>
 			<div class="row">
@@ -39,38 +40,30 @@
 						<thead>
 							<tr>
 								<div class="thumbnail">
-									<img src="/images/img4.jpg" alt="...">
+									<img src="<%=board.getImg() %>" alt="...">
 								</div>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>Email</td>
-								<td><%=member.getM_email()%></td>
+								<td>board_id</td>
+								<td><%=board.getBoard_id()%></td>
 							</tr>
 							<tr>
-								<td>이름</td>
-								<td><%=member.getM_name()%></td>
+								<td>작성자</td>
+								<td><%=board.getM_email()%></td>
 							</tr>
 							<tr>
-								<td>닉네임</td>
-								<td><%=member.getM_nickname()%></td>
+								<td>내용</td>
+								<td><%=board.getContent()%></td>
 							</tr>
 							<tr>
-								<td>성별</td>
-								<td><%=member.getM_gender()%></td>
+								<td>등록일</td>
+								<td><%=board.getRegdate()%></td>
 							</tr>
 							<tr>
-								<td>가입일</td>
-								<td><%=member.getM_regdate()%></td>
-							</tr>
-							<tr>
-								<td>커플코드</td>
-								<td><%=member.getCouple_id() %></td>
-							</tr>
-							<tr>
-								<td>파트너메일</td>
-								<td><%=member.getP_email() %></td>
+								<td>s_id</td>
+								<td><%=board.getS_id()%></td>
 							</tr>
 						</tbody>
 					</table>

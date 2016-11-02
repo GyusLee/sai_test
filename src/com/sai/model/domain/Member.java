@@ -1,55 +1,82 @@
 package com.sai.model.domain;
 
 public class Member {
-	 private int member_id;
-	 private String member_email;
-	 private String member_pwd;
-	 private String member_name;
-	 private String member_nickname;
-	 private String member_regdate;
-	 private int couple_id;
-	public int getMember_id() {
-		return member_id;
+
+	private String m_email;
+	private int m_id;
+	private String m_name;
+	private String m_nickname;
+	private String m_gender;
+	private String m_regdate;
+
+	private String p_email;
+
+	private int couple_id;
+	
+	public String getM_regdate() {
+		return m_regdate;
 	}
-	public void setMember_id(int member_id) {
-		this.member_id = member_id;
+
+	public void setM_regdate(String m_regdate) {
+		this.m_regdate = m_regdate;
 	}
-	public String getMember_email() {
-		return member_email;
+
+
+
+	public String getM_email() {
+		return m_email;
 	}
-	public void setMember_email(String member_email) {
-		this.member_email = member_email;
+
+	public void setM_email(String m_email) {
+		this.m_email = m_email;
 	}
-	public String getMember_pwd() {
-		return member_pwd;
+
+	public int getM_id() {
+		return m_id;
 	}
-	public void setMember_pwd(String member_pwd) {
-		this.member_pwd = member_pwd;
+
+	public void setM_id(int m_id) {
+		this.m_id = m_id;
 	}
-	public String getMember_name() {
-		return member_name;
+
+	public String getM_name() {
+		return m_name;
 	}
-	public void setMember_name(String member_name) {
-		this.member_name = member_name;
+
+	public void setM_name(String m_name) {
+		this.m_name = m_name;
 	}
-	public String getMember_nickname() {
-		return member_nickname;
+
+	public String getM_nickname() {
+		return m_nickname;
 	}
-	public void setMember_nickname(String member_nickname) {
-		this.member_nickname = member_nickname;
+
+	public void setM_nickname(String m_nickname) {
+		this.m_nickname = m_nickname;
 	}
-	public String getMember_regdate() {
-		return member_regdate;
+
+	public String getM_gender() {
+		return m_gender;
 	}
-	public void setMember_regdate(String member_regdate) {
-		this.member_regdate = member_regdate;
+
+	public void setM_gender(String m_gender) {
+		this.m_gender = m_gender;
 	}
+
+	public String getP_email() {
+		return p_email;
+	}
+
+	public void setP_email(String p_email) {
+		this.p_email = p_email;
+	}
+
 	public int getCouple_id() {
 		return couple_id;
 	}
+
 	public void setCouple_id(int couple_id) {
 		this.couple_id = couple_id;
 	}
-	 
-	 
+
 }
