@@ -48,7 +48,7 @@ body {
 .sidenav {
 	height: 100%;
 	width: 0;
-	border-left:1px solid #e7e7e7;
+	border-left: 1px solid #e7e7e7;
 	position: fixed;
 	z-index: 10;
 	top: 10%;
@@ -85,7 +85,7 @@ body {
 }
 
 #main {
-	width:100%;
+	width: 100%;
 	transition: margin-left .5s;
 	padding: 16px;
 }
@@ -98,29 +98,28 @@ body {
 		font-size: 18px;
 	}
 }
-#wraaper{
-	width:100%;
-	overflow:none;
-	height:1000px;
+
+#wraaper {
+	width: 100%;
+	overflow: none;
+	height: 1000px;
 }
+
 #left {
-	
-	height:1000px;
+	height: 1000px;
 	border: 1px solid #e7e7e7;
 }
 
 #right {
-	
-	height:1000px;
+	height: 1000px;
 	border: 1px solid #e7e7e7;
-	border-left:none;
+	border-left: none;
 }
 
 #center {
-	
-	height:1000px;
+	height: 1000px;
 	border: 1px solid #e7e7e7;
-	border-right:none;
+	border-right: none;
 }
 
 #badge1 {
@@ -140,24 +139,32 @@ body {
 #listModelBody {
 	height: 600px;
 }
-#topWrapper{
+
+#topWrapper {
 	width: 100%;
 	height: 50px;
 	position: fixed;
 	z-index: 999;
 	background: rgba(255, 255, 255, 0.95);
 	border: 1px solid #e7e7e7;
-	border-top:none;
-	top:0px;
+	border-top: none;
+	top: 0px;
 }
-#here{
+
+#here {
 	z-index: 888;
 	background: rgba(255, 255, 255, 0.95);
-		border: 1px solid #e7e7e7;
-	border-top:none;
+	border: 1px solid #e7e7e7;
+	border-top: none;
 }
 </style>
 <script>
+var d1;
+var temp;
+window.addEventListener("load", function(){
+
+	
+})
 	function openNav() {
 		document.getElementById("mySidenav").style.width = "25%";
 		document.getElementById("mySidenav").style.left = "75%";
@@ -209,66 +216,66 @@ body {
 </script>
 </head>
 <body>
-	<nav class="navbar navbar-default" >
-	<div id="topWrapper">
-		<div class="container-fluid" id="top">
+	<nav class="navbar navbar-default">
+		<div id="topWrapper">
+			<div class="container-fluid" id="top">
 
-			<!-- 숨겨진 우측 네비게이션 -->
-			<div class="navbar-header" id="topNav">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#here" aria-expanded="false">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<!-- 로고 및 프로젝트 명 -->
-				<a class="navbar-brand" href="#">WWW.SAI.CO.KR</a>
-			</div>
+				<!-- 숨겨진 우측 네비게이션 -->
+				<div class="navbar-header" id="topNav">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#here" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<!-- 로고 및 프로젝트 명 -->
+					<a class="navbar-brand" href="#">WWW.SAI.CO.KR</a>
+				</div>
 
-			<div class="collapse navbar-collapse" id="here">
+				<div class="collapse navbar-collapse" id="here">
 
-				<ul class="nav navbar-nav navbar-right">
-					<%
-						if (member.getM_gender().equals("M")) {
-					%>
-					<li class="navbar-brand"><%=couple.getF_email()%>님과 연결 됨</li>
-					<%
-						} else {
-					%>
-					<li class="navbar-brand"><%=couple.getM_email()%>님과 연결 됨</li>
-					<%
-						}
-					%>
+					<ul class="nav navbar-nav navbar-right">
+						<%
+							if (member.getM_gender().equals("M")) {
+						%>
+						<li class="navbar-brand"><%=couple.getF_email()%>님과 연결 됨</li>
+						<%
+							} else {
+						%>
+						<li class="navbar-brand"><%=couple.getM_email()%>님과 연결 됨</li>
+						<%
+							}
+						%>
 
 
-					<!-- 알림 목록 -->
-					<!--  <li><button class="btn btn-danger" type="button" id="badge1">
+						<!-- 알림 목록 -->
+						<!--  <li><button class="btn btn-danger" type="button" id="badge1">
                   Messages <span class="badge">12</span>
                </button></li>-->
-					<!-- NickName 및 Icon Image-->
-					<li><button type="button" class="btn btn-primary btn-lg">
-							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-							<%=member.getM_name()%>님의 SAI
-						</button></li>
-					<!-- 드랍 박스 -->
+						<!-- NickName 및 Icon Image-->
+						<li><button type="button" class="btn btn-primary btn-lg">
+								<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+								<%=member.getM_name()%>님의 SAI
+							</button></li>
+						<!-- 드랍 박스 -->
 
-					<li class="dropdown" id="dropdown"><a href="#"
-						class="dropdown-toggle" data-toggle="dropdown" role="button"
-						aria-haspopup="true" aria-expanded="false">Dropdown <span
-							class="caret"></span></a>
-						<ul class="dropdown-menu" id="dropdown-menu">
-							<li><a href="#" onclick="openNav()">list</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#" data-toggle="modal" data-target="#myModal">write</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">메뉴3</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">메뉴4</a></li>
-						</ul></li>
-				</ul>
+						<li class="dropdown" id="dropdown"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown" role="button"
+							aria-haspopup="true" aria-expanded="false">Dropdown <span
+								class="caret"></span></a>
+							<ul class="dropdown-menu" id="dropdown-menu">
+								<li><a href="#" onclick="openNav()">list</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="#" data-toggle="modal" data-target="#myModal">write</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="#">메뉴3</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="#">메뉴4</a></li>
+							</ul></li>
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
 			</div>
-			<!-- /.navbar-collapse -->
-		</div>
 		</div>
 		<!-- /.container-fluid -->
 	</nav>
@@ -350,7 +357,7 @@ body {
 				<div id="mySidenav" class="sidenav">
 					<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 					<%
-						for (int i = 0; i < list.size(); i++) {
+						for (int i = 0; i <list.size(); i++) {
 					%>
 					<%
 						Board board = list.get(i);
@@ -360,14 +367,54 @@ body {
 					<br>
 					<div id="list_div" data-target="#listModal">
 						<div id="list_top">
+							<div id="time<%=i%>" style="font-size:11px;"></div>
+							<script>
+							
+							d1=new Date();
+							
+							
+							if(d1.getFullYear()==<%=board.getRegdate().split("-")[0]%>){
+								if(d1.getMonth()+1==<%=board.getRegdate().split("-")[1]%>){
+									if(d1.getDate()==<%=board.getRegdate().substring(9, 11)%>)
+									{
+										if(d1.getHours()==<%=board.getRegdate().substring(11, 13)%>){
+											temp=d1.getMinutes()-<%=board.getRegdate().substring(14, 16)%>;
+											document.getElementById("time<%=i%>").innerHTML=temp+"분 전에 게시";
+											
+										}else{
+			
+											temp=d1.getHours()-<%=board.getRegdate().substring(11,13)%>;
+											document.getElementById("time<%=i%>").innerHTML=temp+"시간 전에 게시";
+										}
+											
+							
+									}else{
+										temp=d1.getDate()-<%=board.getRegdate().substring(9, 11)%>;
+					
+										document.getElementById("time<%=i%>").innerHTML=temp+"일 전에 게시";
+									}
+									
+								}else{
+									temp=d1.getMonth()+1-<%=board.getRegdate().split("-")[1]%>;
+									document.getElementById("time<%=i%>").innerHTML=temp+"월 전에 게시";
+								}
+							}else{
+								temp=d1.getFullYear()-<%=board.getRegdate().split("-")[0]%>;
+							
+								document.getElementById("time<%=i%>").innerHTML=temp+"년 전에 게시";
+							}
+							</script>
+
 							<img src="/images/default.png" id="profile" width="30px"
 								role="button" onClick="show(<%=board.getBoard_id()%>)">&nbsp<strong
 								role="button" onClick="show(<%=board.getBoard_id()%>)"><%=board.getM_email()%></strong>
-				
-							<button type="button" class="btn btn-default" style="border:none;">
-								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" style="font-size:12px;">11</span>
+
+							<button type="button" class="btn btn-default"
+								style="border: none;">
+								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
+									style="font-size: 12px;">11</span>
 							</button>
-							
+
 
 						</div>
 						<br>
@@ -416,10 +463,10 @@ body {
 						</div>
 					</div>
 					<div class="modal-footer">
-						<img src="/images/cam.png" width="40px" onClick="getFile()"> 
+						<img src="/images/cam.png" width="40px" onClick="getFile()">
 						<button type="button" class="btn btn-primary" onclick="regist()">post</button>
 					</div>
-					<input type="file" id="myFile" style="display:none" name="myFile">
+					<input type="file" id="myFile" style="display: none" name="myFile">
 				</div>
 			</form>
 		</div>
