@@ -15,7 +15,9 @@ public class MasterCateDAOMybatis implements MasterCateDAO{
 	private SqlSessionTemplate SqlSessionTemplate;
 	
 	public List selectAll() {
+		//System.out.println("DAO ÁøÀÔ");
 		List<MasterCate> MasterCateList = SqlSessionTemplate.selectList("MasterCate.selectAll");
+		//System.out.println(MasterCateList.size());
 		return MasterCateList;
 	}
 

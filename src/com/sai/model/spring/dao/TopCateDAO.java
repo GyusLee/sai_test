@@ -1,5 +1,7 @@
 package com.sai.model.spring.dao;
 
-public interface TopCateDAO {
+import java.util.List;
 
+public interface TopCateDAO {
+	public List selectAll(int Mid);
 }

@@ -17,6 +17,7 @@
 		<typeAlias type="com.sai.model.domain.Price" alias="Price" />
 		<typeAlias type="com.sai.model.domain.SubCate" alias="SubCate" />
 		<typeAlias type="com.sai.model.domain.TopCate" alias="TopCate" />
+		<typeAlias type="com.sai.model.domain.Address" alias="Address"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/sai/mybatis/BoardMapper.xml" />
@@ -30,6 +31,7 @@
 		<mapper resource="com/sai/mybatis/PriceMapper.xml" />
 		<mapper resource="com/sai/mybatis/SubCateMapper.xml" />
 		<mapper resource="com/sai/mybatis/TopCateMapper.xml" />
+		<mapper resource="com/sai/mybatis/AddressMapper.xml"/>
 	</mappers>
 </configuration>
   

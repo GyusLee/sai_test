@@ -1,13 +1,20 @@
 package com.sai.model.domain;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class SubCate {
+	 
 	 private int s_id;
 	 private int t_id;
 	 private String name;
-	 private String address;
+	 private String sido;
+	 private String gugun;
+	 private String dong;
+	 private String address_detail;
 	 private String content;
 	 private String  tel;
-	 private String  pic;
+	 private String pic;
+	 private MultipartFile  myFile;
 	 private double lng;
 	 private double lati;
 	public int getS_id() {
@@ -28,11 +35,29 @@ public class SubCate {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getAddress() {
-		return address;
+	public String getSido() {
+		return sido;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setSido(String sido) {
+		this.sido = sido;
+	}
+	public String getGugun() {
+		return gugun;
+	}
+	public void setGugun(String gugun) {
+		this.gugun = gugun;
+	}
+	public String getDong() {
+		return dong;
+	}
+	public void setDong(String dong) {
+		this.dong = dong;
+	}
+	public String getAddress_detail() {
+		return address_detail;
+	}
+	public void setAddress_detail(String address_detail) {
+		this.address_detail = address_detail;
 	}
 	public String getContent() {
 		return content;
@@ -52,6 +77,12 @@ public class SubCate {
 	public void setPic(String pic) {
 		this.pic = pic;
 	}
+	public MultipartFile getMyFile() {
+		return myFile;
+	}
+	public void setMyFile(MultipartFile myFile) {
+		this.myFile = myFile;
+	}
 	public double getLng() {
 		return lng;
 	}
@@ -65,5 +96,7 @@ public class SubCate {
 		this.lati = lati;
 	}
 	 
+	 
+		 
 	 
 }
