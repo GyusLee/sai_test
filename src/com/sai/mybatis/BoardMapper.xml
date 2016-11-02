@@ -10,7 +10,7 @@
 	<!-- 게시물 조회 -->
 	<select id="selectAll" resultType="Board">
 		<include refid="select"/>
-		order by board_id asc
+		order by board_id desc
 	</select>
 	
 	<select id="selectOne" resultType="Board" parameterType="int">

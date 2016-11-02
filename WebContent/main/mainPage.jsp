@@ -127,11 +127,20 @@ body {
 		document.getElementById("main").style.marginRight = "0";
 	}
 
+	// file 함수 호출
+	function getFile(){
+		var myFile=document.getElementById("myFile");
+		myFile.click();
+	}
+	
+	// 글 업로드
 	function regist() {
 		alert("버튼눌렀어?");
+		form1.encoding="multipart/form-data";
 		form1.action = "/main/write.do";
 		form1.submit();
 	}
+	
 </script>
 </head>
 <body>
@@ -327,10 +336,10 @@ body {
 						</div>
 					</div>
 					<div class="modal-footer">
-						<img src="/images/cam.png" width="40px"> <img
-							src="/images/movie.png" width="40px">
+						<img src="/images/cam.png" width="40px" onClick="getFile()"> 
 						<button type="button" class="btn btn-primary" onclick="regist()">post</button>
 					</div>
+					<input type="file" id="myFile" style="display:none" name="myFile">
 				</div>
 			</form>
 		</div>
