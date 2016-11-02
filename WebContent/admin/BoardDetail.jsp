@@ -22,6 +22,10 @@
 		form1.action = "Bdelete.do"
 		form1.submit();
 	}
+	function back(){
+		form1.action="member.do"
+		form1.submit();
+	}
 </script>
 <body>
 <input type="hidden" name="board_id" value="<%=board.getBoard_id()%>">
@@ -30,6 +34,8 @@
 			<h2>
 				게시물 정보 디테일
 				<p>
+				<input type="button" class="btn btn-default" onClick="back()"
+						value="뒤로가기">
 					<input type="button" class="btn btn-danger" onClick="del()"
 						value="게시물 삭제">
 				</p>
@@ -40,7 +46,7 @@
 						<thead>
 							<tr>
 								<div class="thumbnail">
-									<img src="<%=board.getImg() %>" alt="...">
+									<img src="/data/<%=board.getImg() %>" width="100%">
 								</div>
 							</tr>
 						</thead>
