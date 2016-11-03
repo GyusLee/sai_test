@@ -556,7 +556,7 @@ window.addEventListener("load", function(){
 							class="icon-bar"></span>
 					</button>
 
-					<a class="navbar-brand" href="#">WWW.SAI.CO.KR</a>
+					<img src="/images/sai.png" width="20%"><a class="navbar-brand" href="#">www.sai.co.kr</a>
 
 				</div>
 
@@ -597,9 +597,9 @@ window.addEventListener("load", function(){
 						<%}else{%>
 							<%="/data/"+member.getImg() %> <%} %> id="profile" width="40px"
 							height="40px">&nbsp
-							<button type="button" class="btn btn-primary btn-lg">
+							<button type="button" class="btn btn-primary btn-lg" style="font-size:14px">
 								<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-								<%=member.getM_name()%>님의 SAI
+								<%=member.getM_name()%>님의 sai
 							</button></li>
 						<!-- 드랍 박스 -->
 
