@@ -17,6 +17,7 @@
 	if (list.size() > 3) {
 		height = list.size() * 350;
 	}
+
 %>
 <!-- 지도 관련 -->
 <%
@@ -251,12 +252,10 @@ var d1;
 var temp;
 var myFile;
 var comment_txt;
-var myProfile;
 
 window.addEventListener("load", function(){
 	
 	myFile=document.getElementById("myFile");
-	myProfile=document.getElementById("myProfile");
 	comment_txt=document.getElementById("comment");
 
 	var x=document.getElementById("x");
@@ -287,10 +286,12 @@ window.addEventListener("load", function(){
 	// file 함수 호출
 	function getFile(){
 		myFile.click();
+		getFileName();
 	}
 	
 	// 글 업로드
 	function regist() {
+		alert("버튼눌렀어?");
 		form1.encoding="multipart/form-data";
 		form1.action = "/main/write.do";
 		form1.submit();
@@ -317,23 +318,60 @@ window.addEventListener("load", function(){
 		form3.encoding="multipart/form-data";
 		form3.action = "/main/writePic.do";
 		form3.submit();
+	// 댓글 업로드
+	function registReply(){
+		alert("엔터키 눌렀어?");
 	}
 	
  	function show(board_id){
 		//show 호출시 넘겨준 값을 이용하여 ajax 등을 통해 modal 을 띄울때 동적으로 바뀌어야 하는 값을 얻어온다.  
-		
+		var modal_img=document.getElementById("modal_img");
+		var modal_txt=document.getElementById("modal_txt");
 		var jData = {"board_id" : board_id};
-		
+		while (modal_txt.hasChildNodes()) {   
+			modal_txt.removeChild(modal_txt.firstChild);
+		}
+		while (modal_img.hasChildNodes()) {   
+			modal_img.removeChild(modal_img.firstChild);
+		}
 		$.ajax({
 			contentType:'application/json;charset=UTF-8',
 			dataType:'json',
 			url:'/main/modal.do',
 			type:'POST',
+			async   : false,
 			data:JSON.stringify(jData),
 			success:function(response){
-				$("#timeline_top").html(response.email);
+				var jason=JSON.stringify(response);
+				var jasonParcing=JSON.parse(jason);
+				
+
+				var list_profile=document.getElementById("list_profile");
+				if(jasonParcing.myImg!=null)
+					list_profile.src="/data/"+jasonParcing.myImg;
+				
+				var img=document.createElement("img");
+				img.style.width="300px";
+				img.style.height="300px";
+				img.src="/data/"+jasonParcing.img;
+				modal_img.appendChild(img);
+				$("#timeline_top").html(jasonParcing.name+" ( "+ response.email+" ) ");
 				$("#timeline_content").html(response.content);
+				$("#modal_like").html(jasonParcing.likesNumber);
+				for(var i=0;i<jasonParcing.listName.length;i++){
+					
+					var name=jasonParcing.listName[i];
+					var content=jasonParcing.rList[i].content;
+					var div=document.createElement("div");
+					div.style.fontSize="15px"
+					div.innerText="[ "+name+" ] : "+content;
+					
+					modal_txt.appendChild(div);
+					 
+				}
 				$("#listModal").modal('show');
+
+			
 			}
 		});  
 
@@ -373,9 +411,41 @@ window.addEventListener("load", function(){
 					$("#likes"+board_id).html(response.maxNum);
 			}
 		});
+		var rData={"board_id" : board_id};
+		
+		$.ajax({
+			contentType:'application/json;charset=UTF-8',
+			dataType:'json',
+			url:'/main/getReply.do',
+			type:'POST',
+			async   : false,
+			data:JSON.stringify(rData),
+			success:function(response){	
+				var json=JSON.stringify(response);
+				var json2=JSON.parse(json);	
+					
+					for(var i=0;i<json2.name.length;i++){
+						var name=json2.name[i];
+						var content=json2.rList[i].content;
+						var list_content=document.getElementById("list_content"+board_id);
+						var div=document.createElement("div");
+						div.style.fontSize="10px"
+						div.innerText="[ "+name+" ] : "+content;
+						list_content.appendChild(div);
+						document.getElementById("comment"+board_id).value=""; 
+					}
+				}
+
+			});
+
+		
+		
 		<%}%>
 		<%}%>
+ 		
  	})
+ 	
+ 	
  	function likeChk(board_id){
 		//show 호출시 넘겨준 값을 이용하여 ajax 등을 통해 modal 을 띄울때 동적으로 바뀌어야 하는 값을 얻어온다.  
 		
@@ -431,7 +501,8 @@ window.addEventListener("load", function(){
 					
 					var list_content=document.getElementById("list_content"+board_id);
 					var div=document.createElement("div");
-					div.innerText="<%=member.getM_name()%> : 	"+document.getElementById("comment"+board_id).value;
+					div.style.fontSize="10px";
+					div.innerText="[ <%=member.getM_name()%> ] : 	"+document.getElementById("comment"+board_id).value;
 					list_content.appendChild(div);
 					document.getElementById("comment"+board_id).value="";
 				}
@@ -469,7 +540,7 @@ window.addEventListener("load", function(){
 
 					<ul class="nav navbar-nav navbar-right">
 
-						<% if(member.getIsAdmin()==1){%>
+						<% if(member.getIsAdmin()!=0){%>
 
 						<li><a href="/admin/member.do">회원관리</a></li>
 						<li><a href="/admin/boardList.do">게시물관리</a></li>
@@ -484,7 +555,10 @@ window.addEventListener("load", function(){
 							} else {
 						%>
 						<li class="navbar-brand"><%=couple.getM_email()%>님과 연결 됨</li>
-						<%} %>
+						<%
+							}
+				
+						%>
 						<%} %>
 
 
@@ -510,8 +584,9 @@ window.addEventListener("load", function(){
 								<li><a href="#" onClick="openNav()">뉴스피드</a></li>
 								<li role="separator" class="divider"></li>
 								<li><a href="#" data-toggle="modal" data-target="#myModal">글쓰기</a></li>
+
 								<li role="separator" class="divider"></li>
-								<li><a href="#" data-toggle="modal" data-target="#myProfileModal">프로필</a></li>
+								<li><a href="#">프로필</a></li>
 								<li role="separator" class="divider" role="button"></li>
 								<li><a href="#" onClick="logout()">로그아웃</a></li>
 							</ul></li>
@@ -527,7 +602,7 @@ window.addEventListener("load", function(){
 			<div class="col-md-2" id="left"></div>
 
 			<!-- 지도를 포함한 center  -->
-			<div class="col-md-7" id="center">
+			<div class="col-md-9" id="center">
 				<!-- 찾기 -->
 				<br>
 				<div class="row">
@@ -604,28 +679,25 @@ window.addEventListener("load", function(){
 				</div>
 			</div>
 
-		</div>
 
-	</div>
+			<div class="col-md-1" id="right">
+				<!-- 글 List  -->
+				<div id="mySidenav" class="sidenav">
+					<a href="javascript:void(0)" class="closebtn" onClick="closeNav()">&times;</a>
 
-	<div class="col-md-3" id="right">
-		<!-- 글 List  -->
-		<div id="mySidenav" class="sidenav">
-			<a href="javascript:void(0)" class="closebtn" onClick="closeNav()">&times;</a>
-
-			<%
+					<%
 						for (int i = 0; i < list.size(); i++) {
-			%>
-			<%
+					%>
+					<%
 						Board board = list.get(i);
-			%>
-			<!-- list 나오는 부분  -->
-			<div style="border: solid 1px #D3D2E0"></div>
-			<br>
-			<div id="list_div" data-target="#listModal">
-				<div id="list_top">
-					<div id="time<%=i%>" style="font-size: 11px;"></div>
-					<script>
+					%>
+					<!-- list 나오는 부분  -->
+					<div style="border: solid 1px #D3D2E0"></div>
+					<br>
+					<div id="list_div" data-target="#listModal">
+						<div id="list_top">
+							<div id="time<%=i%>" style="font-size: 11px;"></div>
+							<script>
 							d1=new Date();
 							if(d1.getFullYear()==<%=board.getRegdate().split("-")[0]%>){
 								if(d1.getMonth()+1==<%=board.getRegdate().split("-")[1]%>){
@@ -652,6 +724,7 @@ window.addEventListener("load", function(){
 							}
 							
 							</script>
+
 					<img src=<%if(memberList.get(i)==null){%> "/images/default.png"<%}else{%><%=memberList.get(i) %><%} %> id="profile" width="30px" height="30px"
 						role="button" onClick="show(<%=board.getBoard_id()%>)">&nbsp<strong
 						role="button" onClick="show(<%=board.getBoard_id()%>)"><%=board.getM_email()%></strong>
@@ -661,44 +734,55 @@ window.addEventListener("load", function(){
 						onClick="likeChk(<%=board.getBoard_id()%>)">
 					</button>
 
-					<!-- 좋아요 버튼 종료 -->
-				</div>
-				<br>
-				<!-- 댓글 폼태그 시작 -->
-				<form name="form<%=board.getBoard_id() %>" method="post">
-					<div id="list_content<%=board.getBoard_id() %>" role="button"
-						onClick="show(<%=board.getBoard_id()%>)">
-						<div class="thumbnail-wrapper">
-							<div class="thumbnail">
-								<div class="centered">
-									<img src="/data/<%=board.getImg()%>" width="80%" height="auto">
-								</div>
-							</div>
+							<!-- 좋아요 버튼 -->
+
+							<button type="button" class="btn btn-default"
+								style="border: none;"
+								onClick="likeChk(<%=board.getBoard_id()%>)">
+								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
+									style="font-size: 12px;" id="likes<%=board.getBoard_id()%>"></span>
+							</button>
+
+							<!-- 좋아요 버튼 종료 -->
+
+
 						</div>
-						<%=board.getContent()%>
+						<br>
+
+						<!-- 댓글 폼태그 시작 -->
+						<form name="form<%=board.getBoard_id() %>" method="post">
+							<div id="list_content<%=board.getBoard_id() %>" role="button"
+								onClick="show(<%=board.getBoard_id()%>)">
+								<div class="thumbnail-wrapper">
+									<div class="thumbnail">
+										<div class="centered">
+											<img src="/data/<%=board.getImg()%>" width="80%"
+												height="auto">
+										</div>
+									</div>
+								</div>
+								<%=board.getContent()%><br>
+								<br>
+							</div>
+							<br>
+							<div id="list_bottom">
+
+								<textarea name=content class="form-control" rows="2"
+									id="comment<%=board.getBoard_id()%>" placeholder="comment..."
+									onKeyDown="registComment(<%=board.getBoard_id()%>)"></textarea>
+							</div>
+						</form>
+						<!-- 댓글 폼태그 끝 -->
 					</div>
-					<br>
-					<div id="list_bottom">
-
-						<textarea name=content class="form-control" rows="2"
-							id="comment<%=board.getBoard_id()%>" placeholder="comment..."
-							onKeyDown="registComment(<%=board.getBoard_id()%>)"></textarea>
-					</div>
-				</form>
-
-				<!-- 댓글 폼태그 끝 -->
-
-
-			</div>
-			<%
+					<%
 				}
 			%>
+				</div>
+				<!-- 글 List  끝-->
+			</div>
 		</div>
-		<!-- 글 List  끝-->
-	</div>
-	</div>
-	</div>
 
+	</div>
 
 	<!-- 	<script type="text/javascript">
 		// Add contents for max height
@@ -735,16 +819,19 @@ window.addEventListener("load", function(){
 						</div>
 					</div>
 					<div class="modal-footer">
-						<span id="x"></span> <img src="/images/cam.png" width="40px" onClick="getFile()">
+						<span id="x"></span> <img src="/images/cam.png" width="40px"
+							onClick="getFile()">
 						<button type="button" class="btn btn-primary" onclick="regist()">post</button>
 					</div>
-					<input type="file" id="myFile" size:"50" name="myFile"	style="display: none">
+					<input type="file" id="myFile" size:"50" name="myFile"
+						style="display: none">
 				</div>
 			</form>
 		</div>
 	</div>
 	<!-- modal end -->
 	
+<<<<<<< HEAD
 	<!-- 프로필 사진 업로드 모달 시작-->
 	<div class="modal fade" id="myProfileModal" role="dialog">
 		<div class="modal-dialog">
@@ -778,6 +865,8 @@ window.addEventListener("load", function(){
 	<!-- 프로필 사진 업로드 모달 끝 -->
 	
 
+=======
+>>>>>>> dccf5e0542d870957688297eb92926460271f327
 	<!--리스트 모달-->
 	<div class="modal bs-example-modal-lg" id="listModal" role="dialog">
 		<div class="modal-dialog" id="listModalSetting">
@@ -786,13 +875,20 @@ window.addEventListener("load", function(){
 				<div class="modal-header">
 
 					<img src="/images/default.png" id="list_profile" width="50px">&nbsp<strong
-						id="timeline_top"></strong>
+						id="timeline_top" style="font-size:20px;"></strong>
+					<button type="button" class="btn btn-default" style="border: none; background:#ffc4b2">
+						<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
+							style="font-size: 20px;" id="modal_like"></span>
+					</button>
 					<button type="button" class="close" data-dismiss="modal"
 						style="font-size: 30px">&times;</button>
 					<br>
 				</div>
 				<div class="modal-body" id="listModelBody">
+					
+					<div id="modal_img"></div>
 					<p id="timeline_content"></p>
+					<div id="modal_txt"></div>
 				</div>
 				<div class="modal-footer">
 					<textarea name="content" class="form-control" rows="2" id="comment"
@@ -803,6 +899,17 @@ window.addEventListener("load", function(){
 	</div>
 	<!-- modal end -->
 </body>
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!--***********************************************************************************************  -->

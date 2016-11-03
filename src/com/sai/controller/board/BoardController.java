@@ -22,9 +22,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sai.common.page.PagingManager;
 import com.sai.model.domain.Board;
+import com.sai.model.domain.Comment_Board;
 import com.sai.model.domain.Member;
 import com.sai.model.service.BoardService;
+import com.sai.model.service.Comment_BoardService;
 import com.sai.model.service.CoupleService;
+import com.sai.model.service.LikesService;
 import com.sai.model.service.MemberService;
 import com.sai.model.spring.dao.BoardDAOMybatis;
 
@@ -43,7 +46,11 @@ public class BoardController {
 	private MemberService memberService;
 	@Autowired
 	private CoupleService coupleService;
-
+	@Autowired
+	private LikesService likesService;
+	@Autowired
+	Comment_BoardService comment_BoardService;
+	
 	@RequestMapping("main/write.do")
 	public String insert(Board board, HttpSession session, HttpServletRequest request) {
 		// 업로드한 파일 처리!!
@@ -157,12 +164,29 @@ public class BoardController {
 	public @ResponseBody Map<String, Object> updateModal(@RequestBody Map<String, Object> map) {
 
 		Board board = boardService.selectOne((Integer) map.get("board_id"));
+		int likesNumber=likesService.selectAll((Integer) map.get("board_id")).size();
+		List rList=comment_BoardService.selectAll((Integer) map.get("board_id"));
+		List listName=new LinkedList<>();
+		Member searchMember=new Member();
+		searchMember.setM_email(board.getM_email());
+		searchMember=memberService.selectPartner(searchMember);
+		for(int i=0;i<rList.size();i++){
+			Comment_Board reBoard=(Comment_Board)rList.get(i);
+			Member member=new Member();
+			member.setM_email(reBoard.getM_email());
+			member=memberService.selectPartner(member);
+			listName.add(member.getM_name());
+		}
 		
 		Map<String, Object> result = new HashMap<String, Object>();
-
+		result.put("img", board.getImg());
+		result.put("name",searchMember.getM_name());
+		result.put("myImg", searchMember.getImg());
 		result.put("email", board.getM_email());
 		result.put("content", board.getContent());
-
+		result.put("likesNumber", likesNumber);
+		result.put("rList", rList);
+		result.put("listName", listName);
 		return result;
 	}
 
