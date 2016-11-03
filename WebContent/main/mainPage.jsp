@@ -417,7 +417,7 @@ window.addEventListener("load", function(){
 
 					<ul class="nav navbar-nav navbar-right">
 
-						<% if(member.getIsAdmin()==1){%>
+						<% if(member.getIsAdmin()!=0){%>
 
 						<li><a href="/admin/member.do">회원관리</a></li>
 						<li><a href="/admin/boardList.do">게시물관리</a></li>
