@@ -460,7 +460,7 @@ window.addEventListener("load", function(){
 								<li><a href="#" data-toggle="modal" data-target="#myModal">글쓰기</a></li>
 
 								<li role="separator" class="divider"></li>
-								<li><a href="#">메뉴3</a></li>
+								<li><a href="#">프로필</a></li>
 								<li role="separator" class="divider" role="button"></li>
 								<li><a href="#" onClick="logout()">로그아웃</a></li>
 							</ul></li>
