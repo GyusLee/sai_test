@@ -163,12 +163,32 @@ body {
 	border-top: none;
 }
 
+/*  지도 관련  */
 #map{
-	width : 70%;
+	width : 100%;
 	height : 800px;
 	border : 1px solid red;
 	float : left;
 }
+
+#floating-panel {
+  position: absolute;
+  top: 180px;
+  left: 7%;
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+  text-align: center;
+  font-family: 'Roboto','sans-serif';
+  line-height: 30px;
+  padding-left: 10px;
+}
+
+#floating-panel {
+  margin-left: -52px;
+}
+
 </style>
 <script>
 var d1;
@@ -369,15 +389,13 @@ window.addEventListener("load", function(){
 					</div>
 				</div>
 				<!-- 지도 추가  -->
+				<div id="floating-panel">
+			      	<button id="addOneCart" onclick="addCart()">장바구니 담기</button>
+			    </div>
 				<div id="map"></div>
 				
 			</div>
-			
-			
-			
-			
-			
-			
+
 			<div class="col-md-3" id="right">
 				<!-- 글 List  -->
 				<div id="mySidenav" class="sidenav">
@@ -529,6 +547,18 @@ window.addEventListener("load", function(){
 </body>
 
 
+
+
+
+
+
+
+
+
+
+
+
+<!--***********************************************************************************************  -->
 <!--여긴 지도 관련 script입니다.  -->
 
 <script>
@@ -543,6 +573,7 @@ window.addEventListener("load", function(){
 	var contentString=[];
 	var infowindow=[];
 	var map;
+
 	
 	function initMap() {
 	  var myLatLng = {lat: 37.497594, lng: 127.038105};
@@ -553,28 +584,43 @@ window.addEventListener("load", function(){
 	  });
 	  
 	  <%for (int i = 0; i < subCateList.size(); i++) {%>
-	  
+		  var images=[];
+			if((1<=<%=subCateList.get(i).getT_id()%>)&&(<%=subCateList.get(i).getT_id()%><=3)){
+				images="/images/food.png";
+			}else if((4<=<%=subCateList.get(i).getT_id()%>)&&(<%=subCateList.get(i).getT_id()%><=5)){				
+				images="/images/cafe.png";
+			}else if((6<=<%=subCateList.get(i).getT_id()%>)&&(<%=subCateList.get(i).getT_id()%><=9)){
+				images="/images/play.png";
+			}
+		
 		  contentString[<%=i%>]='<div id="content">'+
-	      '<div id="siteNotice">'+
-	      '</div>'+
-	      '<h1 id="firstHeading" class="firstHeading"><%=subCateList.get(i).getName()%></h1>'+
-	      '<div id="bodyContent">'+
-	      '주소 : <%=subCateList.get(i).getSido()%> <%=subCateList.get(i).getGugun()%> <%=subCateList.get(i).getDong()%>'+
-	      '<%=subCateList.get(i).getAddress_detail()%>'+'<br>'+
-	      '<%=subCateList.get(i).getTel()%>'+'<br>'+
-	      '<%=subCateList.get(i).getPic()%>'+'<br>'+
-	      '<img src="/data/<%=subCateList.get(i).getPic()%>">'+
-	      '</div>'+
-	      '</div>';
+	    '<div id="siteNotice">'+
+	    '</div>'+
+	    '<h1 id="firstHeading" class="firstHeading"><%=subCateList.get(i).getName()%></h1>'+
+	    '<div id="bodyContent">'+
+	    '주소 : <%=subCateList.get(i).getSido()%> <%=subCateList.get(i).getGugun()%> <%=subCateList.get(i).getDong()%>'+
+	    '<%=subCateList.get(i).getAddress_detail()%>'+'<br>'+
+	    '<%=subCateList.get(i).getTel()%>'+'<br>'+
+	    '<%=subCateList.get(i).getPic()%>'+'<br>'+
+	    '<img src="/data/<%=subCateList.get(i).getPic()%>">'+'<br>'+
+	    '<button id="insertOneCart" onclick="insertCart(<%=i%>)">데이트 코스로 지정하기</button>'+
+	    '</div>'+
+	    '</div>';
+	 <%}%>  
+	  
+	  
+	  <%for (int i = 0; i < subCateList.size(); i++) {%>
+			
 
 		  infowindow[<%=i%>] = new google.maps.InfoWindow({
 		    content: contentString[<%=i%>]
 		  });
-	  
+	  		
 		  markers[<%=i%>]=new google.maps.Marker({
 		    position: {lat: <%=subCateList.get(i).getLati()%>, lng: <%=subCateList.get(i).getLng()%>},
 		    map: map,
-		    title: 'Hello World!'
+		    title: 'Hello World!',
+		    icon: images
 		  });
 		  
 		  markers[<%=i%>].addListener('click', function() {
@@ -591,6 +637,16 @@ window.addEventListener("load", function(){
 	    markers[i].setMap(null);//마커도 초기화
 	  }
 	  markers = [];//배열정보도 초기화
+	}
+	
+	function insertCart(placeId){
+		alert("장바구니에 데이트 코스가 추가되었습니다.");
+		markers[placeId].icon="/images/select.png";
+		alert(markers[placeId].icon);
+	}
+	
+	function addCart(){
+		alert("장바구니가 등록되었습니다.");
 	}
 
 </script>
