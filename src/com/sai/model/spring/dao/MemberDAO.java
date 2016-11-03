@@ -8,6 +8,7 @@ public interface MemberDAO {
 	public List selectAll();
 	public Member selectOne(Member member);
 	public int delete(Member member);
+	public int update_profile(Member member);
 	
 	public Member select(Member member);
 	public int update_regist(Member member);
