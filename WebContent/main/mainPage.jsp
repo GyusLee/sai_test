@@ -165,74 +165,53 @@ body {
 	border-top: none;
 }
 
-
-
 /* 이미지 크기 css */
-
 .thumbnail-wrappper {
-    width: 25%; 
+	width: 25%;
 }
 
 .thumbnail {
-    position: relative;
-    padding-top: 50%;  /* 1:1 ratio */
-    overflow: hidden;
+	position: relative;
+	padding-top: 50%; /* 1:1 ratio */
+	overflow: hidden;
 }
 
-.thumbnail .centered  {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    -webkit-transform: translate(50%,50%);
-    -ms-transform: translate(50%,50%);
-    transform: translate(50%,50%);
+.thumbnail .centered {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	-webkit-transform: translate(50%, 50%);
+	-ms-transform: translate(50%, 50%);
+	transform: translate(50%, 50%);
 }
 
 .thumbnail .centered img {
-    position: absolute;
-    top: 0;
-    left: 0;   
-    max-width: 100%;
-    height: auto;
-    -webkit-transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
-    transform: translate(-50%,-50%);
+	position: absolute;
+	top: 0;
+	left: 0;
+	max-width: 100%;
+	height: auto;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
 
+}
+/*  지도 관련  */ 
 
-/*  지도 관련  */
 #map{
 	width : 100%;
 	height : 600px;
 	border : 1px solid red;
 }
 
-#courseArea{
-	width : 100%;
-	top : 1000px;
-	border : 1px solid yellow;
-} 
 
-#floating-panel {
-  position: absolute;
-  top: 180px;
-  left: 7%;
-  z-index: 5;
-  background-color: #fff;
-  padding: 5px;
-  border: 1px solid #999;
-  text-align: center;
-  font-family: 'Roboto','sans-serif';
-  line-height: 30px;
-  padding-left: 10px;
-}
 
-#floating-panel {
-  margin-left: -52px;
->>>>>>> 98c850ef5f1b39a9d1a821c111cdc77e9cc0a61f
+#courseArea {
+	width: 100%;
+	border: 1px solid yellow;
 }
->>>>>>> fd1ca218b519f05171bb26bc03b393ba0302dabd
 
 </style>
 <script>
@@ -413,8 +392,6 @@ window.addEventListener("load", function(){
 		}
 	}
 	
-
-	}
 	//로그아웃
 	 function logout() {
 		  window.location.href="logout.jsp";
@@ -444,13 +421,13 @@ window.addEventListener("load", function(){
 				<div class="collapse navbar-collapse" id="here">
 
 					<ul class="nav navbar-nav navbar-right">
-					
-					<% if(member.getIsAdmin()==1){%>
-								
-								<li><a href="/admin/member.do">회원관리</a></li>
-								<li><a href="/admin/boardList.do">게시물관리</a></li>
-								<li><a href="/admin/index.do">지도관리</a></li>
-					<%}else{%>
+
+						<% if(member.getIsAdmin()==1){%>
+
+						<li><a href="/admin/member.do">회원관리</a></li>
+						<li><a href="/admin/boardList.do">게시물관리</a></li>
+						<li><a href="/admin/index.do">지도관리</a></li>
+						<%}else{%>
 
 						<%
 							if (member.getM_gender().equals("M")) {
@@ -486,7 +463,7 @@ window.addEventListener("load", function(){
 								<li><a href="#" onClick="openNav()">list</a></li>
 								<li role="separator" class="divider"></li>
 								<li><a href="#" data-toggle="modal" data-target="#myModal">write</a></li>
-								
+
 								<li role="separator" class="divider"></li>
 								<li><a href="#">메뉴3</a></li>
 								<li role="separator" class="divider" role="button"></li>
@@ -501,16 +478,12 @@ window.addEventListener("load", function(){
 	</nav>
 	<div class="container-fluid" id="wraaper">
 		<div class="row-fluid">
-			<div class="col-md-2" id="left">
-				
-
-			</div>
+			<div class="col-md-2" id="left"></div>
 
 
 
 			<!-- 지도를 포함한 center  -->
 			<div class="col-md-7" id="center">
-
 				<!-- 찾기 -->
 				<br>
 				<div class="row">
@@ -527,7 +500,6 @@ window.addEventListener("load", function(){
 						</div>
 					</div>
 				</div>
-				
 				<!-- 상위 카테고리 -->
 				<br>
 				<div class="dropdown">
@@ -543,7 +515,7 @@ window.addEventListener("load", function(){
 						<li><a href="#">항목4</a></li>
 					</ul>
 				</div>
-				
+
 				<!-- 하위 카테고리 -->
 				<div class="dropdown">
 					<button class="btn btn-default dropdown-toggle" type="button"
@@ -558,29 +530,6 @@ window.addEventListener("load", function(){
 						<li><a href="#">항목4</a></li>
 					</ul>
 				</div>
-
-			</div>
-
-			<!-- 지도를 포함한 center  -->
-			<div class="col-md-7" id="center">
-
-				<!-- 찾기 -->
-				<br>
-				<div class="row">
-					<div class="col-lg-7">
-						<div class="input-group">
-							<input type="text" class="form-control"
-								placeholder="Search for..."> <span
-								class="input-group-btn">
-								<button class="btn btn-default" type="button">
-									<span class="glyphicon glyphicon-search" aria-hidden="true"
-										style="font-size: 20px"></span>
-								</button>
-							</span>
-						</div>
-					</div>
-				</div>
-
 				<br> <br>
 				<div class="row">
 					<div class="col-lg-6">
@@ -602,37 +551,37 @@ window.addEventListener("load", function(){
 				</div>
 				<!-- 지도 추가  -->
 				<div id="map"></div>
-
 				<div class="container" id="courseArea">
-					 <h2>★내가 만든 데이트 코스★</h2>
-					 <div id="showDateCourse"></div>
+					<h2>★내가 만든 데이트 코스★</h2>
+					<div id="showDateCourse"></div>
 				</div>
 				<div>
 					<button type="button" class="btn btn-danger">장바구니 담기</button>
 				</div>
-
 			</div>
 
-			</div>
+		</div>
 
-			<div class="col-md-3" id="right">
-				<!-- 글 List  -->
-				<div id="mySidenav" class="sidenav">
-					<a href="javascript:void(0)" class="closebtn" onClick="closeNav()">&times;</a>
+	</div>
 
-					<%
+	<div class="col-md-3" id="right">
+		<!-- 글 List  -->
+		<div id="mySidenav" class="sidenav">
+			<a href="javascript:void(0)" class="closebtn" onClick="closeNav()">&times;</a>
+
+			<%
 						for (int i = 0; i < list.size(); i++) {
 					%>
-					<%
+			<%
 						Board board = list.get(i);
 					%>
-					<!-- list 나오는 부분  -->
-					<div style="border: solid 1px #D3D2E0"></div>
-					<br>
-					<div id="list_div" data-target="#listModal">
-						<div id="list_top">
-							<div id="time<%=i%>" style="font-size: 11px;"></div>
-							<script>
+			<!-- list 나오는 부분  -->
+			<div style="border: solid 1px #D3D2E0"></div>
+			<br>
+			<div id="list_div" data-target="#listModal">
+				<div id="list_top">
+					<div id="time<%=i%>" style="font-size: 11px;"></div>
+					<script>
 							d1=new Date();
 							if(d1.getFullYear()==<%=board.getRegdate().split("-")[0]%>){
 								if(d1.getMonth()+1==<%=board.getRegdate().split("-")[1]%>){
@@ -658,74 +607,74 @@ window.addEventListener("load", function(){
 								document.getElementById("time<%=i%>").innerHTML=temp+"년 전에 게시";
 							}
 							</script>
-							<img src="/images/default.png" id="profile" width="30px"
-								role="button" onClick="show(<%=board.getBoard_id()%>)">&nbsp<strong
-								role="button" onClick="show(<%=board.getBoard_id()%>)"><%=board.getM_email()%></strong>
+					<img src="/images/default.png" id="profile" width="30px"
+						role="button" onClick="show(<%=board.getBoard_id()%>)">&nbsp<strong
+						role="button" onClick="show(<%=board.getBoard_id()%>)"><%=board.getM_email()%></strong>
 
 
 
-							<!-- 좋아요 버튼 -->
+					<!-- 좋아요 버튼 -->
 
-							<button type="button" class="btn btn-default"
-								style="border: none;"
-								onClick="likeChk(<%=board.getBoard_id()%>)">
-								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
-									style="font-size: 12px;" id="likes<%=board.getBoard_id()%>"></span>
-							</button>
+					<button type="button" class="btn btn-default" style="border: none;"
+						onClick="likeChk(<%=board.getBoard_id()%>)">
+						<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
+							style="font-size: 12px;" id="likes<%=board.getBoard_id()%>"></span>
+					</button>
 
-							<!-- 좋아요 버튼 종료 -->
+					<!-- 좋아요 버튼 종료 -->
 
 
-						</div>
-						<br>
-<<<<<<< HEAD
-						<!-- 댓글 폼태그 시작 -->
-						<form name="form<%=board.getBoard_id() %>" method="post">
-							<div id="list_content<%=board.getBoard_id() %>" role="button"
-								onClick="show(<%=board.getBoard_id()%>)">
-								<div class="thumbnail-wrapper">
-									<div class="thumbnail">
-										<div class="centered">
-											<img src="/data/<%=board.getImg()%>" width="80%" height="auto">
-										</div>
-									</div>
+				</div>
+				<br>
+
+				<!-- 댓글 폼태그 시작 -->
+				<form name="form<%=board.getBoard_id() %>" method="post">
+					<div id="list_content<%=board.getBoard_id() %>" role="button"
+						onClick="show(<%=board.getBoard_id()%>)">
+						<div class="thumbnail-wrapper">
+							<div class="thumbnail">
+								<div class="centered">
+									<img src="/data/<%=board.getImg()%>" width="80%" height="auto">
 								</div>
-								<%=board.getContent()%>
 							</div>
-							<br>
-							<div id="list_bottom">
-							
-								<textarea name=content class="form-control" rows="2"
-									id="comment<%=board.getBoard_id()%>" placeholder="comment..." onKeyDown="registComment(<%=board.getBoard_id()%>)"></textarea>
-							</div>
-						</form>
-						<!-- 댓글 폼태그 끝 -->
-=======
-						<div id="list_content" role="button"
-							onClick="show(<%=board.getBoard_id()%>)">
-							<img src="/data/<%=board.getImg()%>" width="100%"> <br>
-							<br>
-							<%=board.getContent()%>
 						</div>
-						<br>
-						<div id="list_bottom">
-							<textarea name="content" class="form-control" rows="2"
-								id="comment" placeholder="comment...">
-								</textarea>
-						</div>
->>>>>>> 98c850ef5f1b39a9d1a821c111cdc77e9cc0a61f
-						<br>
+						<%=board.getContent()%>
 					</div>
-					<%
+					<br>
+					<div id="list_bottom">
+
+						<textarea name=content class="form-control" rows="2"
+							id="comment<%=board.getBoard_id()%>" placeholder="comment..."
+							onKeyDown="registComment(<%=board.getBoard_id()%>)"></textarea>
+					</div>
+				</form>
+				<!-- 댓글 폼태그 끝 -->
+
+				<div id="list_content" role="button"
+					onClick="show(<%=board.getBoard_id()%>)">
+					<img src="/data/<%=board.getImg()%>" width="100%"> <br>
+					<br>
+					<%=board.getContent()%>
+				</div>
+				<br>
+				<div id="list_bottom">
+					<textarea name="content" class="form-control" rows="2" id="comment"
+						placeholder="comment...">
+								</textarea>
+				</div>
+
+				<br>
+			</div>
+			<%
 						}
 					%>
-				</div>
-				<!-- 글 List  끝-->
-			</div>
 		</div>
+		<!-- 글 List  끝-->
 	</div>
-<<<<<<< HEAD
-=======
+	</div>
+	</div>
+
+
 	<!-- 	<script type="text/javascript">
 		// Add contents for max height
 		$(document).ready(function () {
@@ -739,7 +688,7 @@ window.addEventListener("load", function(){
 		})
 		});
 		</script> -->
->>>>>>> 98c850ef5f1b39a9d1a821c111cdc77e9cc0a61f
+
 	<!-- modal start -->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
@@ -772,7 +721,7 @@ window.addEventListener("load", function(){
 		</div>
 	</div>
 	<!-- modal end -->
-	
+
 	<!--리스트 모달-->
 	<div class="modal bs-example-modal-lg" id="listModal" role="dialog">
 		<div class="modal-dialog" id="listModalSetting">
@@ -886,12 +835,7 @@ window.addEventListener("load", function(){
 		  
 	  <%}%>
 	}
-<<<<<<< HEAD
-	
-	
-	
-=======
->>>>>>> fd1ca218b519f05171bb26bc03b393ba0302dabd
+
 	//화면에 보여지는 모든 마커 지우기
 	function clearMarkers() {
 	  for (var i = 0; i < markers.length; i++) {
