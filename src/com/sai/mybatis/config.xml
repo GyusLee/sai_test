@@ -8,7 +8,7 @@
 		
 		<typeAlias type="com.sai.model.domain.Board" alias="Board" />
 		<typeAlias type="com.sai.model.domain.Cart" alias="Cart" />
-		<typeAlias type="com.sai.model.domain.Comment_Board" alias="Commnet_Board" />
+		<typeAlias type="com.sai.model.domain.Comment_Board" alias="Comment_Board" />
 		<typeAlias type="com.sai.model.domain.Couple" alias="Couple" />
 		<typeAlias type="com.sai.model.domain.Date_Course" alias="Date_Course" />
 		<typeAlias type="com.sai.model.domain.Date_Detail" alias="Date_Detail" />

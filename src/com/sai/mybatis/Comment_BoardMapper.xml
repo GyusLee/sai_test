@@ -3,5 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Comment_Board">
-
+	<sql id="select">
+		select * from comment_board
+	</sql>
+	<select id="selectAll" resultType="Comment_Board">
+		<include refid="select"/> order by team desc, rank asc
+	</select>
+	
+	<insert id="insert" parameterType="Comment_Board">
+		insert into comment_board(board_id, m_email, content)
+		values(#{board_id}, #{m_email}, #{content})
+	</insert>
 </mapper>

@@ -140,7 +140,7 @@ public class BoardController {
 	public @ResponseBody Map<String, Object> updateModal(@RequestBody Map<String, Object> map) {
 
 		Board board = boardService.selectOne((Integer) map.get("board_id"));
-
+		
 		Map<String, Object> result = new HashMap<String, Object>();
 
 		result.put("email", board.getM_email());

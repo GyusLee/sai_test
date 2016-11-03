@@ -8,5 +8,5 @@ public interface Comment_BoardService {
 	public List selectAll(Comment_Board comment_Board);
 	public int insert(Comment_Board comment_Board);
 	public int delete(int comment_id);
-	public Comment_Board reply(Comment_Board comment_Board);
+	public int reply(Comment_Board comment_Board);
 }

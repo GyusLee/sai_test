@@ -166,6 +166,41 @@ body {
 }
 
 
+
+/* 이미지 크기 css */
+
+.thumbnail-wrappper {
+    width: 25%; 
+}
+
+.thumbnail {
+    position: relative;
+    padding-top: 50%;  /* 1:1 ratio */
+    overflow: hidden;
+}
+
+.thumbnail .centered  {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -webkit-transform: translate(50%,50%);
+    -ms-transform: translate(50%,50%);
+    transform: translate(50%,50%);
+}
+
+.thumbnail .centered img {
+    position: absolute;
+    top: 0;
+    left: 0;   
+    max-width: 100%;
+    height: auto;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+
+
 /*  지도 관련  */
 #map{
 	width : 100%;
@@ -179,18 +214,50 @@ body {
 	border : 1px solid yellow;
 } 
 
+#floating-panel {
+  position: absolute;
+  top: 180px;
+  left: 7%;
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+  text-align: center;
+  font-family: 'Roboto','sans-serif';
+  line-height: 30px;
+  padding-left: 10px;
+}
+
+#floating-panel {
+  margin-left: -52px;
+>>>>>>> 98c850ef5f1b39a9d1a821c111cdc77e9cc0a61f
+}
+>>>>>>> fd1ca218b519f05171bb26bc03b393ba0302dabd
+
 </style>
 <script>
 var d1;
 var temp;
 var myFile;
+var comment_txt;
+
 window.addEventListener("load", function(){
 	
 	myFile=document.getElementById("myFile");
+	comment_txt=document.getElementById("comment");
+
 	var x=document.getElementById("x");
 	$('#myFile').change(function(){
 		x.innerHTML=$('#myFile').val().substring($('#myFile').val().lastIndexOf("\\")+1,$('#myFile').val().length);
 	});
+	
+/* 	comment_txt.addEventListener("keydown", function(){
+		var key=event.keyCode;
+		if(key==13){
+			alert("엔터키 눌렀어?");
+			registComment();
+		}
+	}); */
 })
 	function openNav() {
 		document.getElementById("mySidenav").style.width = "25%";
@@ -218,6 +285,11 @@ window.addEventListener("load", function(){
 		form1.submit();
 	}
 	
+	// 댓글 업로드
+	function registReply(){
+		alert("엔터키 눌렀어?");
+	}
+	
  	function show(board_id){
 		//show 호출시 넘겨준 값을 이용하여 ajax 등을 통해 modal 을 띄울때 동적으로 바뀌어야 하는 값을 얻어온다.  
 		
@@ -232,9 +304,7 @@ window.addEventListener("load", function(){
 			success:function(response){
 				$("#timeline_top").html(response.email);
 				$("#timeline_content").html(response.content);
-				
 				$("#listModal").modal('show');
-				
 			}
 		});  
 
@@ -319,6 +389,30 @@ window.addEventListener("load", function(){
 		console.log(path);
 		var fileName=path.substring(x, path.length);
 		console.log(fileName);
+	}
+	function registComment(board_id){
+		var key=event.keyCode;
+		if(key==13){
+			//alert(document.getElementById("comment"+board_id).value);
+			var jData = {"board_id" : board_id,"m_email":"<%=member.getM_email()%>","content":document.getElementById("comment"+board_id).value};
+			$.ajax({
+				contentType:'application/json;charset=UTF-8',
+				dataType:'json',
+				url:'/main/reWrite.do',
+				type:'POST',
+				data:JSON.stringify(jData),
+				success:function(response){
+					
+					var list_content=document.getElementById("list_content"+board_id);
+					var div=document.createElement("div");
+					div.innerText="<%=member.getM_name()%> : 	"+document.getElementById("comment"+board_id).value;
+					list_content.appendChild(div);
+					document.getElementById("comment"+board_id).value="";
+				}
+			}); 
+		}
+	}
+	
 
 	}
 	//로그아웃
@@ -464,7 +558,40 @@ window.addEventListener("load", function(){
 						<li><a href="#">항목4</a></li>
 					</ul>
 				</div>
+<<<<<<< HEAD
 				
+=======
+			</div>
+
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 98c850ef5f1b39a9d1a821c111cdc77e9cc0a61f
+			<!-- 지도를 포함한 center  -->
+			<div class="col-md-7" id="center">
+
+				<!-- 찾기 -->
+				<br>
+				<div class="row">
+					<div class="col-lg-7">
+						<div class="input-group">
+							<input type="text" class="form-control"
+								placeholder="Search for..."> <span
+								class="input-group-btn">
+								<button class="btn btn-default" type="button">
+									<span class="glyphicon glyphicon-search" aria-hidden="true"
+										style="font-size: 20px"></span>
+								</button>
+							</span>
+						</div>
+					</div>
+				</div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 98c850ef5f1b39a9d1a821c111cdc77e9cc0a61f
+>>>>>>> fd1ca218b519f05171bb26bc03b393ba0302dabd
 				<br> <br>
 				<div class="row">
 					<div class="col-lg-6">
@@ -486,6 +613,7 @@ window.addEventListener("load", function(){
 				</div>
 				<!-- 지도 추가  -->
 				<div id="map"></div>
+<<<<<<< HEAD
 				<div class="container" id="courseArea">
 					 <h2>★내가 만든 데이트 코스★</h2>
 					 <div id="showDateCourse"></div>
@@ -493,11 +621,18 @@ window.addEventListener("load", function(){
 				<div>
 					<button type="button" class="btn btn-danger">장바구니 담기</button>
 				</div>
+=======
+<<<<<<< HEAD
+			</div>
+=======
+
+>>>>>>> fd1ca218b519f05171bb26bc03b393ba0302dabd
 			</div>
 
 
 
 
+>>>>>>> 98c850ef5f1b39a9d1a821c111cdc77e9cc0a61f
 			<div class="col-md-3" id="right">
 				<!-- 글 List  -->
 				<div id="mySidenav" class="sidenav">
@@ -516,9 +651,7 @@ window.addEventListener("load", function(){
 						<div id="list_top">
 							<div id="time<%=i%>" style="font-size: 11px;"></div>
 							<script>
-							
 							d1=new Date();
-							
 							if(d1.getFullYear()==<%=board.getRegdate().split("-")[0]%>){
 								if(d1.getMonth()+1==<%=board.getRegdate().split("-")[1]%>){
 									if(d1.getDate()==<%=board.getRegdate().substring(9, 11)%>)
@@ -526,31 +659,23 @@ window.addEventListener("load", function(){
 										if(d1.getHours()==<%=board.getRegdate().substring(11, 13)%>){
 											temp=d1.getMinutes()-<%=board.getRegdate().substring(14, 16)%>;
 											document.getElementById("time<%=i%>").innerHTML=temp+"분 전에 게시";
-											
 										}else{
-			
 											temp=d1.getHours()-<%=board.getRegdate().substring(11, 13)%>;
 											document.getElementById("time<%=i%>").innerHTML=temp+"시간 전에 게시";
 										}
-											
-							
 									}else{
 										temp=d1.getDate()-<%=board.getRegdate().substring(9, 11)%>;
-					
 										document.getElementById("time<%=i%>").innerHTML=temp+"일 전에 게시";
 									}
-									
 								}else{
 									temp=d1.getMonth()+1-<%=board.getRegdate().split("-")[1]%>;
 									document.getElementById("time<%=i%>").innerHTML=temp+"월 전에 게시";
 								}
 							}else{
 								temp=d1.getFullYear()-<%=board.getRegdate().split("-")[0]%>;
-							
 								document.getElementById("time<%=i%>").innerHTML=temp+"년 전에 게시";
 							}
 							</script>
-
 							<img src="/images/default.png" id="profile" width="30px"
 								role="button" onClick="show(<%=board.getBoard_id()%>)">&nbsp<strong
 								role="button" onClick="show(<%=board.getBoard_id()%>)"><%=board.getM_email()%></strong>
@@ -571,6 +696,29 @@ window.addEventListener("load", function(){
 
 						</div>
 						<br>
+<<<<<<< HEAD
+						<!-- 댓글 폼태그 시작 -->
+						<form name="form<%=board.getBoard_id() %>" method="post">
+							<div id="list_content<%=board.getBoard_id() %>" role="button"
+								onClick="show(<%=board.getBoard_id()%>)">
+								<div class="thumbnail-wrapper">
+									<div class="thumbnail">
+										<div class="centered">
+											<img src="/data/<%=board.getImg()%>" width="80%" height="auto">
+										</div>
+									</div>
+								</div>
+								<%=board.getContent()%>
+							</div>
+							<br>
+							<div id="list_bottom">
+							
+								<textarea name=content class="form-control" rows="2"
+									id="comment<%=board.getBoard_id()%>" placeholder="comment..." onKeyDown="registComment(<%=board.getBoard_id()%>)"></textarea>
+							</div>
+						</form>
+						<!-- 댓글 폼태그 끝 -->
+=======
 						<div id="list_content" role="button"
 							onClick="show(<%=board.getBoard_id()%>)">
 							<img src="/data/<%=board.getImg()%>" width="100%"> <br>
@@ -583,6 +731,7 @@ window.addEventListener("load", function(){
 								id="comment" placeholder="comment...">
 								</textarea>
 						</div>
+>>>>>>> 98c850ef5f1b39a9d1a821c111cdc77e9cc0a61f
 						<br>
 					</div>
 					<%
@@ -593,6 +742,8 @@ window.addEventListener("load", function(){
 			</div>
 		</div>
 	</div>
+<<<<<<< HEAD
+=======
 	<!-- 	<script type="text/javascript">
 		// Add contents for max height
 		$(document).ready(function () {
@@ -606,6 +757,7 @@ window.addEventListener("load", function(){
 		})
 		});
 		</script> -->
+>>>>>>> 98c850ef5f1b39a9d1a821c111cdc77e9cc0a61f
 	<!-- modal start -->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
@@ -638,8 +790,7 @@ window.addEventListener("load", function(){
 		</div>
 	</div>
 	<!-- modal end -->
-
-
+	
 	<!--리스트 모달-->
 	<div class="modal bs-example-modal-lg" id="listModal" role="dialog">
 		<div class="modal-dialog" id="listModalSetting">
@@ -664,8 +815,6 @@ window.addEventListener("load", function(){
 		</div>
 	</div>
 	<!-- modal end -->
-
-
 </body>
 
 
@@ -755,9 +904,12 @@ window.addEventListener("load", function(){
 		  
 	  <%}%>
 	}
+<<<<<<< HEAD
 	
 	
 	
+=======
+>>>>>>> fd1ca218b519f05171bb26bc03b393ba0302dabd
 	//화면에 보여지는 모든 마커 지우기
 	function clearMarkers() {
 	  for (var i = 0; i < markers.length; i++) {
