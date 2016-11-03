@@ -558,16 +558,9 @@ window.addEventListener("load", function(){
 						<li><a href="#">항목4</a></li>
 					</ul>
 				</div>
-<<<<<<< HEAD
-				
-=======
+
 			</div>
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 98c850ef5f1b39a9d1a821c111cdc77e9cc0a61f
 			<!-- 지도를 포함한 center  -->
 			<div class="col-md-7" id="center">
 
@@ -587,11 +580,7 @@ window.addEventListener("load", function(){
 						</div>
 					</div>
 				</div>
-<<<<<<< HEAD
-=======
 
->>>>>>> 98c850ef5f1b39a9d1a821c111cdc77e9cc0a61f
->>>>>>> fd1ca218b519f05171bb26bc03b393ba0302dabd
 				<br> <br>
 				<div class="row">
 					<div class="col-lg-6">
@@ -613,7 +602,7 @@ window.addEventListener("load", function(){
 				</div>
 				<!-- 지도 추가  -->
 				<div id="map"></div>
-<<<<<<< HEAD
+
 				<div class="container" id="courseArea">
 					 <h2>★내가 만든 데이트 코스★</h2>
 					 <div id="showDateCourse"></div>
@@ -621,18 +610,11 @@ window.addEventListener("load", function(){
 				<div>
 					<button type="button" class="btn btn-danger">장바구니 담기</button>
 				</div>
-=======
-<<<<<<< HEAD
-			</div>
-=======
 
->>>>>>> fd1ca218b519f05171bb26bc03b393ba0302dabd
 			</div>
 
+			</div>
 
-
-
->>>>>>> 98c850ef5f1b39a9d1a821c111cdc77e9cc0a61f
 			<div class="col-md-3" id="right">
 				<!-- 글 List  -->
 				<div id="mySidenav" class="sidenav">
