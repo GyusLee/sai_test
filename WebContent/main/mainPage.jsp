@@ -267,19 +267,50 @@ window.addEventListener("load", function(){
 	
  	function show(board_id){
 		//show 호출시 넘겨준 값을 이용하여 ajax 등을 통해 modal 을 띄울때 동적으로 바뀌어야 하는 값을 얻어온다.  
-		
+		var modal_img=document.getElementById("modal_img");
+		var modal_txt=document.getElementById("modal_txt");
 		var jData = {"board_id" : board_id};
-		
+		while (modal_txt.hasChildNodes()) {   
+			modal_txt.removeChild(modal_txt.firstChild);
+		}
+		while (modal_img.hasChildNodes()) {   
+			modal_img.removeChild(modal_img.firstChild);
+		}
 		$.ajax({
 			contentType:'application/json;charset=UTF-8',
 			dataType:'json',
 			url:'/main/modal.do',
 			type:'POST',
+			async   : false,
 			data:JSON.stringify(jData),
 			success:function(response){
-				$("#timeline_top").html(response.email);
+				var jason=JSON.stringify(response);
+				var jasonParcing=JSON.parse(jason);
+				
+				alert(jasonParcing.listName[0]);
+				
+				var img=document.createElement("img");
+				img.style.width="300px";
+				img.style.height="300px";
+				img.src="/data/"+jasonParcing.img;
+				modal_img.appendChild(img);
+				$("#timeline_top").html(jasonParcing.name+" ( "+ response.email+" ) ");
 				$("#timeline_content").html(response.content);
+				$("#modal_like").html(jasonParcing.likesNumber);
+				for(var i=0;i<jasonParcing.listName.length;i++){
+					
+					var name=jasonParcing.listName[i];
+					var content=jasonParcing.rList[i].content;
+					var div=document.createElement("div");
+					div.style.fontSize="15px"
+					div.innerText="[ "+name+" ] : "+content;
+					
+					modal_txt.appendChild(div);
+					 
+				}
 				$("#listModal").modal('show');
+
+			
 			}
 		});  
 
@@ -409,7 +440,7 @@ window.addEventListener("load", function(){
 					
 					var list_content=document.getElementById("list_content"+board_id);
 					var div=document.createElement("div");
-					div.style.fontSize="12px";
+					div.style.fontSize="10px";
 					div.innerText="[ <%=member.getM_name()%> ] : 	"+document.getElementById("comment"+board_id).value;
 					list_content.appendChild(div);
 					document.getElementById("comment"+board_id).value="";
@@ -661,7 +692,8 @@ window.addEventListener("load", function(){
 										</div>
 									</div>
 								</div>
-								<%=board.getContent()%><br><br>
+								<%=board.getContent()%><br>
+								<br>
 							</div>
 							<br>
 							<div id="list_bottom">
@@ -729,7 +761,7 @@ window.addEventListener("load", function(){
 		</div>
 	</div>
 	<!-- modal end -->
-
+	
 	<!--리스트 모달-->
 	<div class="modal bs-example-modal-lg" id="listModal" role="dialog">
 		<div class="modal-dialog" id="listModalSetting">
@@ -738,13 +770,20 @@ window.addEventListener("load", function(){
 				<div class="modal-header">
 
 					<img src="/images/default.png" id="list_profile" width="50px">&nbsp<strong
-						id="timeline_top"></strong>
+						id="timeline_top" style="font-size:20px;"></strong>
+					<button type="button" class="btn btn-default" style="border: none; background:#ffc4b2">
+						<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
+							style="font-size: 20px;" id="modal_like"></span>
+					</button>
 					<button type="button" class="close" data-dismiss="modal"
 						style="font-size: 30px">&times;</button>
 					<br>
 				</div>
 				<div class="modal-body" id="listModelBody">
+					
+					<div id="modal_img"></div>
 					<p id="timeline_content"></p>
+					<div id="modal_txt"></div>
 				</div>
 				<div class="modal-footer">
 					<textarea name="content" class="form-control" rows="2" id="comment"
