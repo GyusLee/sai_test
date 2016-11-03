@@ -176,6 +176,7 @@ var d1;
 var temp;
 var myFile;
 window.addEventListener("load", function(){
+	
 	myFile=document.getElementById("myFile");
 	var x=document.getElementById("x");
 	$('#myFile').change(function(){
@@ -227,6 +228,81 @@ window.addEventListener("load", function(){
 				
 			}
 		});  
+
+	}
+ 	$(document).ready(function(){
+ 		
+ 		<%if(list.size()>0){%>
+ 		<%for(int i=0;i<list.size();i++){%>
+ 	
+ 		var m_email="<%=member.getM_email()%>";
+ 		
+ 		var board_id="<%=list.get(i).getBoard_id()%>";
+		
+ 		var iData = {"board_id" : board_id,"m_email":m_email};
+
+		$.ajax({
+			contentType:'application/json;charset=UTF-8',
+			dataType:'json',
+			url:'/main/initLikes.do',
+			type:'POST',
+			async   : false,
+			data:JSON.stringify(iData),
+			success:function(response){
+				
+				if(response.result==1){
+					//있다.
+					$("#likes"+board_id).css("color","#FFACA6");
+					$("#likes"+board_id).css("font-size","14px");
+					$("#likes"+board_id).css("font-weight","bold");
+				}else if(response.result==0){
+					//없다.	
+					$("#likes"+board_id).css("color","#333");
+					$("#likes"+board_id).css("font-size","12px");
+					$("#likes"+board_id).css("font-weight","normal");
+				}
+				if(response.maxNum!=0)
+					$("#likes"+board_id).html(response.maxNum);
+			}
+		});
+		<%}%>
+		<%}%>
+ 		
+ 	})
+ 	
+ 	
+ 	function likeChk(board_id){
+		//show 호출시 넘겨준 값을 이용하여 ajax 등을 통해 modal 을 띄울때 동적으로 바뀌어야 하는 값을 얻어온다.  
+		
+		var m_email="<%=member.getM_email()%>";
+		var jData = {"board_id" : board_id,"m_email":m_email};
+		
+		$.ajax({
+			contentType:'application/json;charset=UTF-8',
+			dataType:'json',
+			url:'/main/isLikes.do',
+			type:'POST',
+			data:JSON.stringify(jData),
+			success:function(response){
+				
+				if(response.result==1){
+					//있다.
+					$("#likes"+board_id).css("color","#FFACA6");
+					$("#likes"+board_id).css("font-size","14px");
+					$("#likes"+board_id).css("font-weight","bold");
+				}else if(response.result==0){
+					//없다.
+					$("#likes"+board_id).css("color","#333");
+					$("#likes"+board_id).css("font-size","12px");
+					$("#likes"+board_id).css("font-weight","normal");
+				}
+				if(response.maxNum!=0)
+					$("#likes"+board_id).html(response.maxNum);
+				else
+					$("#likes"+board_id).html("");
+			}
+		});  
+
 	}
 	function getFileName(){
 		var path=document.getElementById("myFile").value;
@@ -234,8 +310,11 @@ window.addEventListener("load", function(){
 		console.log(path);
 		var fileName=path.substring(x, path.length);
 		console.log(fileName);
-	}	
-	
+
+	}
+			
+
+					
 </script>
 </head>
 <body>
@@ -298,7 +377,7 @@ window.addEventListener("load", function(){
 							aria-haspopup="true" aria-expanded="false">Dropdown <span
 								class="caret"></span></a>
 							<ul class="dropdown-menu" id="dropdown-menu">
-								<li><a href="#" onclick="openNav()">list</a></li>
+								<li><a href="#" onClick="openNav()">list</a></li>
 								<li role="separator" class="divider"></li>
 								<li><a href="#" data-toggle="modal" data-target="#myModal">write</a></li>
 								
@@ -404,7 +483,8 @@ window.addEventListener("load", function(){
 			<div class="col-md-3" id="right">
 				<!-- 글 List  -->
 				<div id="mySidenav" class="sidenav">
-					<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+					<a href="javascript:void(0)" class="closebtn" onClick="closeNav()">&times;</a>
+
 					<%
 						for (int i = 0; i < list.size(); i++) {
 					%>
@@ -456,11 +536,21 @@ window.addEventListener("load", function(){
 							<img src="/images/default.png" id="profile" width="30px"
 								role="button" onClick="show(<%=board.getBoard_id()%>)">&nbsp<strong
 								role="button" onClick="show(<%=board.getBoard_id()%>)"><%=board.getM_email()%></strong>
+
+
+
+							<!-- 좋아요 버튼 -->
+
 							<button type="button" class="btn btn-default"
-								style="border: none;">
+								style="border: none;"
+								onClick="likeChk(<%=board.getBoard_id()%>)">
 								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
-									style="font-size: 12px;">11</span>
+									style="font-size: 12px;" id="likes<%=board.getBoard_id()%>"></span>
 							</button>
+
+							<!-- 좋아요 버튼 종료 -->
+
+
 						</div>
 						<br>
 						<div id="list_content" role="button"
@@ -485,7 +575,19 @@ window.addEventListener("load", function(){
 			</div>
 		</div>
 	</div>
-
+<!-- 	<script type="text/javascript">
+		// Add contents for max height
+		$(document).ready(function () {
+		$(mySidenav).scroll(function() {
+		maxHeight = $(document).height();
+		currentScroll = $(mySidenav).scrollTop() + $(mySidenav).height();
+		
+		if (maxHeight <= 1100) {
+			alert("스크롤");
+		}
+		})
+		});
+		</script> -->
 	<!-- modal start -->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
@@ -558,7 +660,7 @@ window.addEventListener("load", function(){
 	  <%}%>
 	];
 	
-	alert("등록된 맛집의 수는" + neighborhoods.length);
+	//alert("등록된 맛집의 수는" + neighborhoods.length);
 	var markers = [];
 	var contentString=[];
 	var infowindow=[];
