@@ -648,22 +648,6 @@ window.addEventListener("load", function(){
 							onKeyDown="registComment(<%=board.getBoard_id()%>)"></textarea>
 					</div>
 				</form>
-				<!-- 댓글 폼태그 끝 -->
-
-				<div id="list_content" role="button"
-					onClick="show(<%=board.getBoard_id()%>)">
-					<img src="/data/<%=board.getImg()%>" width="100%"> <br>
-					<br>
-					<%=board.getContent()%>
-				</div>
-				<br>
-				<div id="list_bottom">
-					<textarea name="content" class="form-control" rows="2" id="comment"
-						placeholder="comment...">
-								</textarea>
-				</div>
-
-				<br>
 			</div>
 			<%
 						}
