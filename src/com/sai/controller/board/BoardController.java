@@ -59,7 +59,7 @@ public class BoardController {
 
 		ServletContext application = request.getServletContext();
 		String realPath = application.getRealPath("/data/") + fileName;
-
+		
 		if (board.getContent() != null) {
 			try {
 				myFile.transferTo(new File(realPath));

@@ -43,6 +43,8 @@
 <title>Insert title here</title>
 
 <style>
+@import url('font.css');
+
 /* 모달 css */
 .modal-header {
 	background-color: #ffc4b2;
@@ -235,16 +237,35 @@ body {
 	transform: translate(-50%, -50%);
 }
 
+#modalCon {
+	width: 30%;
+	height: 400px;
+	text-overflow: ellipsis;
+	border: 1px solid #e7e7e7;
+}
+#modalCon2{
+	margin-top:20px;
+	padding-top:20px;
+	width: 30%;
+	height: 230px;
+	text-overflow: ellipsis;
+	border: 1px solid #e7e7e7;
+}
+
+#modal_thumbnail {
+	padding-top: 75%;
+}
+
 /*  지도 관련  */
 #map {
 	width: 100%;
 	height: 600px;
-	border: 1px solid red;
+	border: 1px solid #e7e7e7;
 }
 
 #courseArea {
 	width: 100%;
-	border: 1px solid yellow;
+	border: 1px solid #e7e7e7;
 }
 </style>
 <script>
@@ -353,13 +374,14 @@ window.addEventListener("load", function(){
 					list_profile.src="/data/"+jasonParcing.myImg;
 				
 				var img=document.createElement("img");
-				img.style.width="300px";
-				img.style.height="300px";
+				img.style.maxWidth="100%";
+				img.style.height="auto";
 				img.src="/data/"+jasonParcing.img;
 				modal_img.appendChild(img);
 				$("#timeline_top").html(jasonParcing.name+" ( "+ response.email+" ) ");
+				/* document.getElementById("createSpan").style.fontFamily="'Roboto', sans-serif;"; */
 				$("#timeline_content").html(response.content);
-				$("#modal_like").html(jasonParcing.likesNumber);
+				$("#modal_like").html(" "+jasonParcing.likesNumber+"명이 좋아합니다.");
 				for(var i=0;i<jasonParcing.listName.length;i++){
 					
 					var name=jasonParcing.listName[i];
@@ -591,7 +613,8 @@ window.addEventListener("load", function(){
 								<li><a href="#" data-toggle="modal" data-target="#myModal">글쓰기</a></li>
 
 								<li role="separator" class="divider"></li>
-								<li><a href="#" data-toggle="modal" data-target="#myProfileModal">프로필</a></li>
+								<li><a href="#" data-toggle="modal"
+									data-target="#myProfileModal">프로필</a></li>
 								<li role="separator" class="divider" role="button"></li>
 								<li><a href="#" onClick="logout()">로그아웃</a></li>
 							</ul></li>
@@ -737,11 +760,6 @@ window.addEventListener("load", function(){
 								role="button" onClick="show(<%=board.getBoard_id()%>)"><%=board.getM_email()%></strong>
 
 							<!-- 좋아요 버튼 -->
-							<button type="button" class="btn btn-default"
-								style="border: none;"
-								onClick="likeChk(<%=board.getBoard_id()%>)"></button>
-
-							<!-- 좋아요 버튼 -->
 
 							<button type="button" class="btn btn-default"
 								style="border: none;"
@@ -761,7 +779,7 @@ window.addEventListener("load", function(){
 							<div id="list_content<%=board.getBoard_id() %>" role="button"
 								onClick="show(<%=board.getBoard_id()%>)">
 								<div class="thumbnail-wrapper">
-									<div class="thumbnail">
+									<div class="thumbnail" id="modal_thumbnail">
 										<div class="centered">
 											<img src="/data/<%=board.getImg()%>" width="80%"
 												height="auto">
@@ -839,7 +857,7 @@ window.addEventListener("load", function(){
 	</div>
 	<!-- modal end -->
 
-	<<<<<<< HEAD
+
 	<!-- 프로필 사진 업로드 모달 시작-->
 	<div class="modal fade" id="myProfileModal" role="dialog">
 		<div class="modal-dialog">
@@ -881,31 +899,52 @@ window.addEventListener("load", function(){
 		<div class="modal-dialog" id="listModalSetting">
 			<!-- 모달 내용-->
 			<div class="modal-content" id="listModelContent">
-				<div class="modal-header">
+				<div class="modal-header" style="background: #BAF2E8;">
 
-					<img src="/images/default.png" id="list_profile" width="50px">&nbsp<strong
-						id="timeline_top" style="font-size: 20px;"></strong>
-					<button type="button" class="btn btn-default"
-						style="border: none; background: #ffc4b2">
-						<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
-							style="font-size: 20px;" id="modal_like"></span>
-					</button>
+					<img src="/images/default.png" id="list_profile"
+						style="width: 100px; padding-left: 30px; padding-right:15px;">&nbsp<strong
+						id="timeline_top"
+						style="font-size: 20px; color: rgba(255, 255, 255, 1);"></strong>
+
 					<button type="button" class="close" data-dismiss="modal"
 						style="font-size: 30px">&times;</button>
 					<br>
 				</div>
 				<div class="modal-body" id="listModelBody">
 
-					<div id="modal_img"></div>
-					<p id="timeline_content"></p>
-					<div id="modal_txt"></div>
-				</div>
-				<div class="modal-footer">
-					<textarea name="content" class="form-control" rows="2" id="comment"
-						placeholder="comment..."></textarea>
+					<div class="row">
+						<div class="col-sm-8">
+
+							<div class="thumbnail-wrapper">
+								<div class="thumbnail" style="height: 650px;">
+									<div class="centered">
+										<div id="modal_img"></div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3" id="modalCon">
+							<h3
+								style="font-family: 'Roboto', sans-serif; border-bottom: 1px solid #e7e7e7; padding-bottom: 10px;">
+								CONTENTS<br>
+							</h3>
+							<button type="button" class="btn btn-default"
+								style="border: none; padding-left: 0px;">
+								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
+									style="font-size: 15px;" id="modal_like"> </span>
+							</button>
+							<p id="timeline_content" style="padding-top: 10px;"></p>
+						</div>
+						<div class="col-md-3" id="modalCon2">
+							<div id="modal_txt"></div>
+						</div>
+
+					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 	<!-- modal end -->
 </body>
