@@ -37,10 +37,10 @@ public class ClientMapController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("subCateList",subCateList);
-		//session.setAttribute("subCateList",subCateList);
+		session.setAttribute("subCateList",subCateList);
 		session.setAttribute("courseCount",0);
-		mav.setViewName("main/index");
-		//mav.setViewName("redirect:/main/list.do");
+		//mav.setViewName("main/index");
+		mav.setViewName("redirect:/main/list.do");
 		return mav;
 	}
 	

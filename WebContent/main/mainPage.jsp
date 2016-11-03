@@ -169,28 +169,15 @@ body {
 /*  지도 관련  */
 #map{
 	width : 100%;
-	height : 800px;
+	height : 600px;
 	border : 1px solid red;
-	float : left;
 }
 
-#floating-panel {
-  position: absolute;
-  top: 180px;
-  left: 7%;
-  z-index: 5;
-  background-color: #fff;
-  padding: 5px;
-  border: 1px solid #999;
-  text-align: center;
-  font-family: 'Roboto','sans-serif';
-  line-height: 30px;
-  padding-left: 10px;
-}
-
-#floating-panel {
-  margin-left: -52px;
-}
+#courseArea{
+	width : 100%;
+	top : 1000px;
+	border : 1px solid yellow;
+} 
 
 </style>
 <script>
@@ -421,36 +408,7 @@ window.addEventListener("load", function(){
 	<div class="container-fluid" id="wraaper">
 		<div class="row-fluid">
 			<div class="col-md-2" id="left">
-				<!-- 상위 카테고리 -->
-				<br>
-				<div class="dropdown">
-					<button class="btn btn-default dropdown-toggle" type="button"
-						id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="true">
-						상위카테고리 <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						<li><a href="#">항목1</a></li>
-						<li><a href="#">항목2</a></li>
-						<li><a href="#">항목3</a></li>
-						<li><a href="#">항목4</a></li>
-					</ul>
-				</div>
-				<!-- 하위 카테고리 -->
-				<br> <br> <br> <br>
-				<div class="dropdown">
-					<button class="btn btn-default dropdown-toggle" type="button"
-						id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="true">
-						하위카테고리 <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-						<li><a href="#">항목1</a></li>
-						<li><a href="#">항목2</a></li>
-						<li><a href="#">항목3</a></li>
-						<li><a href="#">항목4</a></li>
-					</ul>
-				</div>
+				
 
 			</div>
 
@@ -475,7 +433,38 @@ window.addEventListener("load", function(){
 						</div>
 					</div>
 				</div>
-
+				
+				<!-- 상위 카테고리 -->
+				<br>
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button"
+						id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="true">
+						상위카테고리 <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<li><a href="#">항목1</a></li>
+						<li><a href="#">항목2</a></li>
+						<li><a href="#">항목3</a></li>
+						<li><a href="#">항목4</a></li>
+					</ul>
+				</div>
+				
+				<!-- 하위 카테고리 -->
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button"
+						id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="true">
+						하위카테고리 <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+						<li><a href="#">항목1</a></li>
+						<li><a href="#">항목2</a></li>
+						<li><a href="#">항목3</a></li>
+						<li><a href="#">항목4</a></li>
+					</ul>
+				</div>
+				
 				<br> <br>
 				<div class="row">
 					<div class="col-lg-6">
@@ -496,11 +485,14 @@ window.addEventListener("load", function(){
 					</div>
 				</div>
 				<!-- 지도 추가  -->
-				<div id="floating-panel">
-			      	<button id="addOneCart" onclick="addCart()">장바구니 담기</button>
-			    </div>
 				<div id="map"></div>
-
+				<div class="container" id="courseArea">
+					 <h2>★내가 만든 데이트 코스★</h2>
+					 <div id="showDateCourse"></div>
+				</div>
+				<div>
+					<button type="button" class="btn btn-danger">장바구니 담기</button>
+				</div>
 			</div>
 
 
@@ -692,37 +684,34 @@ window.addEventListener("load", function(){
 <!--여긴 지도 관련 script입니다.  -->
 
 <script>
+	
+	var map;
+	
 	var neighborhoods = [
 	  <%for (int i = 0; i < subCateList.size(); i++) {%>
 	  {lat: <%=subCateList.get(i).getLati()%>, lng: <%=subCateList.get(i).getLng()%>},
 	  <%}%>
 	];
 	
-	//alert("등록된 맛집의 수는" + neighborhoods.length);
+	alert("등록된 맛집의 수는" + neighborhoods.length);
+	
 	var markers = [];
 	var contentString=[];
 	var infowindow=[];
-	var map;
-
 	
-	function initMap() {
-	  var myLatLng = {lat: 37.497594, lng: 127.038105};
-
-	  var map = new google.maps.Map(document.getElementById('map'), {
-	    zoom: 15,
-	    center: myLatLng
-	  });
+	var images=[];
+	var makeDateCourseFirst=true;
+	
+  <%for (int i = 0; i < subCateList.size(); i++) {%>
 	  
-	  <%for (int i = 0; i < subCateList.size(); i++) {%>
-		  var images=[];
-			if((1<=<%=subCateList.get(i).getT_id()%>)&&(<%=subCateList.get(i).getT_id()%><=3)){
-				images="/images/food.png";
-			}else if((4<=<%=subCateList.get(i).getT_id()%>)&&(<%=subCateList.get(i).getT_id()%><=5)){				
-				images="/images/cafe.png";
-			}else if((6<=<%=subCateList.get(i).getT_id()%>)&&(<%=subCateList.get(i).getT_id()%><=9)){
-				images="/images/play.png";
-			}
-		
+		if((1<=<%=subCateList.get(i).getT_id()%>)&&(<%=subCateList.get(i).getT_id()%><=3)){
+			images[<%=i%>]="/images/food.png";
+		}else if((4<=<%=subCateList.get(i).getT_id()%>)&&(<%=subCateList.get(i).getT_id()%><=5)){				
+			images[<%=i%>]="/images/cafe.png";
+		}else if((6<=<%=subCateList.get(i).getT_id()%>)&&(<%=subCateList.get(i).getT_id()%><=9)){
+			images[<%=i%>]="/images/play.png";
+		}
+	
 		  contentString[<%=i%>]='<div id="content">'+
 	    '<div id="siteNotice">'+
 	    '</div>'+
@@ -733,15 +722,22 @@ window.addEventListener("load", function(){
 	    '<%=subCateList.get(i).getTel()%>'+'<br>'+
 	    '<%=subCateList.get(i).getPic()%>'+'<br>'+
 	    '<img src="/data/<%=subCateList.get(i).getPic()%>">'+'<br>'+
-	    '<button id="insertOneCart" onclick="insertCart(<%=i%>)">데이트 코스로 지정하기</button>'+
+	    '<button id="makeCourse" onclick=\'makeCourse(<%=i%>,<%=subCateList.get(i).getS_id()%>,<%String s_name='"'+subCateList.get(i).getName()+'"';%><%=s_name%>)\'>데이트 코스로 지정하기</button>'+
 	    '</div>'+
 	    '</div>';
-	 <%}%>  
-	  
+ 	<%}%>  
+	
+	function initMap() {
+		
+	
+	  var myLatLng = {lat: 37.497594, lng: 127.038105};
+
+	  var map = new google.maps.Map(document.getElementById('map'), {
+	    zoom: 15,
+	    center: myLatLng
+	  });
 	  
 	  <%for (int i = 0; i < subCateList.size(); i++) {%>
-			
-
 		  infowindow[<%=i%>] = new google.maps.InfoWindow({
 		    content: contentString[<%=i%>]
 		  });
@@ -750,7 +746,7 @@ window.addEventListener("load", function(){
 		    position: {lat: <%=subCateList.get(i).getLati()%>, lng: <%=subCateList.get(i).getLng()%>},
 		    map: map,
 		    title: 'Hello World!',
-		    icon: images
+		    icon: images[<%=i%>]
 		  });
 		  
 		  markers[<%=i%>].addListener('click', function() {
@@ -761,6 +757,7 @@ window.addEventListener("load", function(){
 	}
 	
 	
+	
 	//화면에 보여지는 모든 마커 지우기
 	function clearMarkers() {
 	  for (var i = 0; i < markers.length; i++) {
@@ -768,17 +765,68 @@ window.addEventListener("load", function(){
 	  }
 	  markers = [];//배열정보도 초기화
 	}
+
+	function makeCourse(i,placeId,subCateName){
+		var courseName;
+		if(makeDateCourseFirst==true){
+			alert("데이트 코스를 만드시겠습니까?");
+			
+			images[i]="/images/select.png"; //데이트 코스로 지정되어 이미지를 바꿔줌.
+			
+			//데이트 코스의 이름을 만들어 보자.
+			courseName=prompt("데이트 코스의 이름을 정해주세요","예) 100일 기념 데이트 코스");
+			
+			//이 이름 값을 넘겨 데이트 코스를 하나 만들자.
+			createDateCourse(courseName,placeId,subCateName);
+			initMap();
+		}else{
+			alert("데이트 코스를 추가하시겠습니까?");
+			images[i]="/images/select.png"; //데이트 코스로 지정되어 이미지를 바꿔줌.
+			
+			//이 이름 값을 넘겨 데이트 코스를 하나 만들자.
+			createDateCourse(courseName,placeId,subCateName);
+			initMap();
+		}
+	}
 	
-	function insertCart(placeId){
-		alert("장바구니에 데이트 코스가 추가되었습니다.");
-		markers[placeId].icon="/images/select.png";
-		alert(markers[placeId].icon);
+	var showDateCourse=document.getElementById("showDateCourse");
+	//데이트 코스 만들기 함수
+	function createDateCourse(courseName,placeId,subCateName){
+		//아작스 방식으로 데이터를 요청하자.
+		var xhttp=getHttp();
+		
+		 xhttp.onreadystatechange=function(){
+			 if(xhttp.readyState==4&&xhttp.status==200){
+				var data=xhttp.responseText;
+				alert(data);
+				alert(showDateCourse.innerHTML)
+				showDateCourse.innerHTML+=data;
+				alert(showDateCourse.innerHTML);
+			 }
+		 }
+
+		 xhttp.open("get","/main/insertDateCourse.do?name="+courseName+"&s_id="+placeId+"&subCateName="+subCateName+"&makeDateCourseFirst="+makeDateCourseFirst,"true");
+		 xhttp.send();
+		 
+		 makeDateCourseFirst=false;
 	}
 	
 	function addCart(){
 		alert("장바구니가 등록되었습니다.");
 	}
-
+	
+	 // 비동기 방식으로 가져오자
+	function getHttp() {
+		var xhttp; //비동기 요청을 처리하는 핵심 객체!!
+		if (xhttp == undefined) {
+			if (window.XMLHttpRequest) {
+				xhttp = new XMLHttpRequest();//모든 브라우저 공통 방법
+			} else {
+				xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+		}
+		return xhttp;
+	}
 </script>
 <script async defer
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0RriAhjUWzjJL9AIANougGoQCUXNXzPE&signed_in=true&callback=initMap"></script>
