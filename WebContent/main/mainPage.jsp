@@ -196,23 +196,18 @@ body {
 	-webkit-transform: translate(-50%, -50%);
 	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
-
 }
-/*  지도 관련  */ 
-
-#map{
-	width : 100%;
-	height : 600px;
-	border : 1px solid red;
+/*  지도 관련  */
+#map {
+	width: 100%;
+	height: 600px;
+	border: 1px solid red;
 }
-
-
 
 #courseArea {
 	width: 100%;
 	border: 1px solid yellow;
 }
-
 </style>
 <script>
 var d1;
@@ -460,9 +455,9 @@ window.addEventListener("load", function(){
 							aria-haspopup="true" aria-expanded="false">Dropdown <span
 								class="caret"></span></a>
 							<ul class="dropdown-menu" id="dropdown-menu">
-								<li><a href="#" onClick="openNav()">list</a></li>
+								<li><a href="#" onClick="openNav()">뉴스피드</a></li>
 								<li role="separator" class="divider"></li>
-								<li><a href="#" data-toggle="modal" data-target="#myModal">write</a></li>
+								<li><a href="#" data-toggle="modal" data-target="#myModal">글쓰기</a></li>
 
 								<li role="separator" class="divider"></li>
 								<li><a href="#">메뉴3</a></li>
@@ -479,8 +474,6 @@ window.addEventListener("load", function(){
 	<div class="container-fluid" id="wraaper">
 		<div class="row-fluid">
 			<div class="col-md-2" id="left"></div>
-
-
 
 			<!-- 지도를 포함한 center  -->
 			<div class="col-md-7" id="center">
@@ -650,20 +643,6 @@ window.addEventListener("load", function(){
 				</form>
 				<!-- 댓글 폼태그 끝 -->
 
-				<div id="list_content" role="button"
-					onClick="show(<%=board.getBoard_id()%>)">
-					<img src="/data/<%=board.getImg()%>" width="100%"> <br>
-					<br>
-					<%=board.getContent()%>
-				</div>
-				<br>
-				<div id="list_bottom">
-					<textarea name="content" class="form-control" rows="2" id="comment"
-						placeholder="comment...">
-								</textarea>
-				</div>
-
-				<br>
 			</div>
 			<%
 						}
