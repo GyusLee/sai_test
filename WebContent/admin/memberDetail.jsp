@@ -42,13 +42,13 @@
 			<div class="row">
 				<div class="col-md-12">
 					<table class="table table-bordered">
-						<thead>
+						<!-- <thead>
 							<tr>
 								<div class="thumbnail">
 									<img src="/images/img4.jpg" alt="...">
 								</div>
 							</tr>
-						</thead>
+						</thead> -->
 						<tbody>
 							<tr>
 								<td>Email</td>

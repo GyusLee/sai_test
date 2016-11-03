@@ -1,3 +1,4 @@
+<%@page import="com.sai.model.spring.dao.MemberDAO"%>
 <%@page import="com.sai.model.domain.SubCate"%>
 <%@page import="com.sai.model.domain.Couple"%>
 <%@page import="com.sai.model.domain.Member"%>
@@ -333,13 +334,22 @@ window.addEventListener("load", function(){
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<!-- 로고 및 프로젝트 명 -->
+
 					<a class="navbar-brand" href="#">WWW.SAI.CO.KR</a>
+
 				</div>
 
 				<div class="collapse navbar-collapse" id="here">
 
 					<ul class="nav navbar-nav navbar-right">
+					
+					<% if(member.getIsAdmin()==1){%>
+								
+								<li><a href="/admin/member.do">회원관리</a></li>
+								<li><a href="/admin/boardList.do">게시물관리</a></li>
+								<li><a href="/admin/index.do">지도관리</a></li>
+					<%}else{%>
+
 						<%
 							if (member.getM_gender().equals("M")) {
 						%>
@@ -350,7 +360,9 @@ window.addEventListener("load", function(){
 						<li class="navbar-brand"><%=couple.getM_email()%>님과 연결 됨</li>
 						<%
 							}
+				
 						%>
+						<%} %>
 
 
 						<!-- 알림 목록 -->
@@ -372,6 +384,7 @@ window.addEventListener("load", function(){
 								<li><a href="#" onClick="openNav()">list</a></li>
 								<li role="separator" class="divider"></li>
 								<li><a href="#" data-toggle="modal" data-target="#myModal">write</a></li>
+								
 								<li role="separator" class="divider"></li>
 								<li><a href="#">메뉴3</a></li>
 								<li role="separator" class="divider" role="button"></li>
