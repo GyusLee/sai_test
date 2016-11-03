@@ -11,4 +11,5 @@ public interface MemberService {
 	public int update_regist(Member member);
 	public int insert_first(Member member);
 	public int update(Member member);
+	public int update_profile(Member member);
 }

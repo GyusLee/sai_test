@@ -636,7 +636,9 @@ window.addEventListener("load", function(){
 							onKeyDown="registComment(<%=board.getBoard_id()%>)"></textarea>
 					</div>
 				</form>
+
 				<!-- 댓글 폼태그 끝 -->
+
 
 			</div>
 			<%
