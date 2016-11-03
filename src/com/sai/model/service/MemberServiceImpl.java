@@ -64,6 +64,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int update_profile(Member member) {
+		System.out.println("Service");
 		int result = memberDAO.update_profile(member);
 		return result;
 	}

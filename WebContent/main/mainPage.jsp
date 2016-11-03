@@ -9,7 +9,10 @@
 	request.setCharacterEncoding("utf-8");
 	Couple couple = (Couple) session.getAttribute("couple");
 	Member member = (Member) session.getAttribute("member");
+	
 	List<Board> list = (List) request.getAttribute("list");
+	List<String> memberList=(List)request.getAttribute("memberList");
+	
 	int height = 1000;
 	if (list.size() > 3) {
 		height = list.size() * 350;
@@ -197,6 +200,40 @@ body {
 	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 }
+
+/* 프리뷰 이미지 크기 css */
+.thumbnail-wrappper2 {
+	width: 25%;
+}
+
+.thumbnail2 {
+	position: relative;
+	padding-top: 30%; /* 1:1 ratio */
+	overflow: hidden;
+}
+
+.thumbnail2 .centered2 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	-webkit-transform: translate(50%, 50%);
+	-ms-transform: translate(50%, 50%);
+	transform: translate(50%, 50%);
+}
+
+.thumbnail2 .centered2 img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	max-width: 100%;
+	height: auto;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
 /*  지도 관련  */
 #map {
 	width: 100%;
@@ -257,6 +294,16 @@ window.addEventListener("load", function(){
 		form1.encoding="multipart/form-data";
 		form1.action = "/main/write.do";
 		form1.submit();
+	}
+	
+	// 프사 미리보기
+	function previewImg(){
+	      var oFReader = new FileReader();
+	      oFReader.readAsDataURL(document.getElementById("myProfile").files[0]);
+
+	      oFReader.onload = function (oFREvent) {
+	          document.getElementById("preImg").src = oFREvent.target.result;
+	      };
 	}
 	
 	// 프로필 사진 바꾸기!!
@@ -446,7 +493,10 @@ window.addEventListener("load", function(){
                   Messages <span class="badge">12</span>
                </button></li>-->
 						<!-- NickName 및 Icon Image-->
-						<li><button type="button" class="btn btn-primary btn-lg">
+					
+						<li><img src=<%if(member.getImg()==null){%> "/images/default.png"
+						<%}else{%><%="/data/"+member.getImg() %>
+						<%} %> id="profile" width="40px" height="40px">&nbsp<button type="button" class="btn btn-primary btn-lg">
 								<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 								<%=member.getM_name()%>님의 SAI
 							</button></li>
@@ -600,16 +650,15 @@ window.addEventListener("load", function(){
 								temp=d1.getFullYear()-<%=board.getRegdate().split("-")[0]%>;
 								document.getElementById("time<%=i%>").innerHTML=temp+"년 전에 게시";
 							}
+							
 							</script>
-					<img src="/images/default.png" id="profile" width="30px"
+					<img src=<%if(memberList.get(i)==null){%> "/images/default.png"<%}else{%><%=memberList.get(i) %><%} %> id="profile" width="30px" height="30px"
 						role="button" onClick="show(<%=board.getBoard_id()%>)">&nbsp<strong
 						role="button" onClick="show(<%=board.getBoard_id()%>)"><%=board.getM_email()%></strong>
 
 					<!-- 좋아요 버튼 -->
 					<button type="button" class="btn btn-default" style="border: none;"
 						onClick="likeChk(<%=board.getBoard_id()%>)">
-						<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
-							style="font-size: 12px;" id="likes<%=board.getBoard_id()%>"></span>
 					</button>
 
 					<!-- 좋아요 버튼 종료 -->
@@ -675,7 +724,7 @@ window.addEventListener("load", function(){
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<div class="row">
 							<div class="col-sm-12">
-								<img src="/images/default.png" id="profile" width="70px">&nbsp<strong><%=member.getM_name()%></strong>
+								<img src=<%if(member.getImg()==null){%>"/images/default.png"<%}else{ %>"/data/<%=member.getImg() %>"<%} %> id="profile" width="70px">&nbsp<strong><%=member.getM_name()%></strong>
 							</div>
 						</div>
 					</div>
@@ -707,8 +756,13 @@ window.addEventListener("load", function(){
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<div>
-								
+							<div class="thumbnail-wrapper2">
+								<div class="thumbnail2">
+									<div class="centered2">
+										<img id="preImg" src="/images/default.png" >
+										
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -716,7 +770,7 @@ window.addEventListener("load", function(){
 						<span id="x"></span> <img src="/images/cam.png" width="40px" onClick="changeProfile()">
 						<button type="button" class="btn btn-primary" onclick="registProfile()">등록</button>
 					</div>
-					<input type="file" id="myProfile" size:"50" name="myProfile"	style="display: none">
+					<input type="file" id="myProfile" size:"50" name="myProfile"	style="display: none" onChange="previewImg()">
 				</div>
 			</form>
 		</div>

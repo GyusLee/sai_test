@@ -1,13 +1,17 @@
 package com.sai.controller.member;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sai.common.page.PagingManager;
@@ -218,5 +222,35 @@ public class MemberController {
 		mav.setViewName("main/regist_temp");
 		mav.addObject("member",me);
 		return mav;
-	}	
+	}
+	
+	// 프로필 사진 등록
+	@RequestMapping("main/writePic.do")
+	public String insert(Member member, HttpServletRequest request, HttpSession session){
+		MultipartFile myProfile = member.getMyProfile();
+		String fileName=myProfile.getOriginalFilename();
+		
+		ServletContext application = request.getServletContext();
+		String realPath=application.getRealPath("/data/")+fileName;
+		
+		Member dto=(Member)session.getAttribute("member");
+		System.out.println("내 이메일"+dto.getM_email());
+		
+		
+		System.out.println(realPath);
+		
+		try {
+			myProfile.transferTo(new File(realPath));
+			dto.setImg(fileName);
+			System.out.println("이미지명"+dto.getImg());
+			
+			memberService.update_profile(dto);
+			
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "redirect:/main/list.do";
+	}
 }

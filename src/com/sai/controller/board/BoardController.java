@@ -3,6 +3,7 @@ package com.sai.controller.board;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sai.common.page.PagingManager;
 import com.sai.model.domain.Board;
 import com.sai.model.domain.Member;
-import com.sai.model.domain.SubCate;
 import com.sai.model.service.BoardService;
 import com.sai.model.service.CoupleService;
 import com.sai.model.service.MemberService;
@@ -100,9 +100,26 @@ public class BoardController {
 		 * request.setAttribute("couple", couple); mav.addObject("couple",
 		 * couple); }
 		 */
-
+		ServletContext application = request.getServletContext();
+		String realPath = application.getRealPath("/data/");
 		request.setAttribute("list", list);
 		mav.addObject("list", list);
+		List memberList=new LinkedList<>();
+		
+		for(int i=0;i<list.size();i++){
+			Board board=(Board)list.get(i);
+			Member member=new Member();
+			member.setM_email(board.getM_email());		
+			member=memberService.selectPartner(member);
+			if(member.getImg()==null){
+				memberList.add(member.getImg());
+			}else{
+			memberList.add("/data/"+member.getImg());
+			System.out.println(realPath+member.getImg());
+			}
+			
+		}
+		mav.addObject("memberList",memberList);
 		mav.setViewName("main/mainPage");
 
 		return mav;
