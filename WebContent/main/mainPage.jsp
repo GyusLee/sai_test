@@ -1,3 +1,4 @@
+<%@page import="com.sai.model.spring.dao.MemberDAO"%>
 <%@page import="com.sai.model.domain.SubCate"%>
 <%@page import="com.sai.model.domain.Couple"%>
 <%@page import="com.sai.model.domain.Member"%>
@@ -33,6 +34,7 @@
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/naverLogin_implicit-1.0.2-min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 
@@ -163,6 +165,7 @@ body {
 	border-top: none;
 }
 
+<<<<<<< HEAD
 #map {
 	width: 70%;
 	height: 800px;
@@ -202,6 +205,33 @@ body {
     -webkit-transform: translate(-50%,-50%);
     -ms-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
+=======
+
+/*  지도 관련  */
+#map{
+	width : 100%;
+	height : 800px;
+	border : 1px solid red;
+	float : left;
+}
+
+#floating-panel {
+  position: absolute;
+  top: 180px;
+  left: 7%;
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+  text-align: center;
+  font-family: 'Roboto','sans-serif';
+  line-height: 30px;
+  padding-left: 10px;
+}
+
+#floating-panel {
+  margin-left: -52px;
+>>>>>>> 98c850ef5f1b39a9d1a821c111cdc77e9cc0a61f
 }
 
 </style>
@@ -212,6 +242,7 @@ var myFile;
 var comment_txt;
 
 window.addEventListener("load", function(){
+	
 	myFile=document.getElementById("myFile");
 	comment_txt=document.getElementById("comment");
 
@@ -276,6 +307,81 @@ window.addEventListener("load", function(){
 				$("#listModal").modal('show');
 			}
 		});  
+
+	}
+ 	$(document).ready(function(){
+ 		
+ 		<%if(list.size()>0){%>
+ 		<%for(int i=0;i<list.size();i++){%>
+ 	
+ 		var m_email="<%=member.getM_email()%>";
+ 		
+ 		var board_id="<%=list.get(i).getBoard_id()%>";
+		
+ 		var iData = {"board_id" : board_id,"m_email":m_email};
+
+		$.ajax({
+			contentType:'application/json;charset=UTF-8',
+			dataType:'json',
+			url:'/main/initLikes.do',
+			type:'POST',
+			async   : false,
+			data:JSON.stringify(iData),
+			success:function(response){
+				
+				if(response.result==1){
+					//있다.
+					$("#likes"+board_id).css("color","#FFACA6");
+					$("#likes"+board_id).css("font-size","14px");
+					$("#likes"+board_id).css("font-weight","bold");
+				}else if(response.result==0){
+					//없다.	
+					$("#likes"+board_id).css("color","#333");
+					$("#likes"+board_id).css("font-size","12px");
+					$("#likes"+board_id).css("font-weight","normal");
+				}
+				if(response.maxNum!=0)
+					$("#likes"+board_id).html(response.maxNum);
+			}
+		});
+		<%}%>
+		<%}%>
+ 		
+ 	})
+ 	
+ 	
+ 	function likeChk(board_id){
+		//show 호출시 넘겨준 값을 이용하여 ajax 등을 통해 modal 을 띄울때 동적으로 바뀌어야 하는 값을 얻어온다.  
+		
+		var m_email="<%=member.getM_email()%>";
+		var jData = {"board_id" : board_id,"m_email":m_email};
+		
+		$.ajax({
+			contentType:'application/json;charset=UTF-8',
+			dataType:'json',
+			url:'/main/isLikes.do',
+			type:'POST',
+			data:JSON.stringify(jData),
+			success:function(response){
+				
+				if(response.result==1){
+					//있다.
+					$("#likes"+board_id).css("color","#FFACA6");
+					$("#likes"+board_id).css("font-size","14px");
+					$("#likes"+board_id).css("font-weight","bold");
+				}else if(response.result==0){
+					//없다.
+					$("#likes"+board_id).css("color","#333");
+					$("#likes"+board_id).css("font-size","12px");
+					$("#likes"+board_id).css("font-weight","normal");
+				}
+				if(response.maxNum!=0)
+					$("#likes"+board_id).html(response.maxNum);
+				else
+					$("#likes"+board_id).html("");
+			}
+		});  
+
 	}
 	function getFileName(){
 		var path=document.getElementById("myFile").value;
@@ -307,6 +413,14 @@ window.addEventListener("load", function(){
 		}
 	}
 	
+
+	}
+	//로그아웃
+	 function logout() {
+		  window.location.href="logout.jsp";
+	}	
+
+					
 </script>
 </head>
 <body>
@@ -322,13 +436,22 @@ window.addEventListener("load", function(){
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<!-- 로고 및 프로젝트 명 -->
+
 					<a class="navbar-brand" href="#">WWW.SAI.CO.KR</a>
+
 				</div>
 
 				<div class="collapse navbar-collapse" id="here">
 
 					<ul class="nav navbar-nav navbar-right">
+					
+					<% if(member.getIsAdmin()==1){%>
+								
+								<li><a href="/admin/member.do">회원관리</a></li>
+								<li><a href="/admin/boardList.do">게시물관리</a></li>
+								<li><a href="/admin/index.do">지도관리</a></li>
+					<%}else{%>
+
 						<%
 							if (member.getM_gender().equals("M")) {
 						%>
@@ -339,7 +462,9 @@ window.addEventListener("load", function(){
 						<li class="navbar-brand"><%=couple.getM_email()%>님과 연결 됨</li>
 						<%
 							}
+				
 						%>
+						<%} %>
 
 
 						<!-- 알림 목록 -->
@@ -358,13 +483,14 @@ window.addEventListener("load", function(){
 							aria-haspopup="true" aria-expanded="false">Dropdown <span
 								class="caret"></span></a>
 							<ul class="dropdown-menu" id="dropdown-menu">
-								<li><a href="#" onclick="openNav()">list</a></li>
+								<li><a href="#" onClick="openNav()">list</a></li>
 								<li role="separator" class="divider"></li>
 								<li><a href="#" data-toggle="modal" data-target="#myModal">write</a></li>
+								
 								<li role="separator" class="divider"></li>
 								<li><a href="#">메뉴3</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#">메뉴4</a></li>
+								<li role="separator" class="divider" role="button"></li>
+								<li><a href="#" onClick="logout()">로그아웃</a></li>
 							</ul></li>
 					</ul>
 				</div>
@@ -408,6 +534,11 @@ window.addEventListener("load", function(){
 				</div>
 			</div>
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 98c850ef5f1b39a9d1a821c111cdc77e9cc0a61f
 			<!-- 지도를 포함한 center  -->
 			<div class="col-md-7" id="center">
 
@@ -427,6 +558,10 @@ window.addEventListener("load", function(){
 						</div>
 					</div>
 				</div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 98c850ef5f1b39a9d1a821c111cdc77e9cc0a61f
 				<br> <br>
 				<div class="row">
 					<div class="col-lg-6">
@@ -447,12 +582,25 @@ window.addEventListener("load", function(){
 					</div>
 				</div>
 				<!-- 지도 추가  -->
+				<div id="floating-panel">
+			      	<button id="addOneCart" onclick="addCart()">장바구니 담기</button>
+			    </div>
 				<div id="map"></div>
+<<<<<<< HEAD
 			</div>
+=======
+
+			</div>
+
+
+
+
+>>>>>>> 98c850ef5f1b39a9d1a821c111cdc77e9cc0a61f
 			<div class="col-md-3" id="right">
 				<!-- 글 List  -->
 				<div id="mySidenav" class="sidenav">
-					<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+					<a href="javascript:void(0)" class="closebtn" onClick="closeNav()">&times;</a>
+
 					<%
 						for (int i = 0; i < list.size(); i++) {
 					%>
@@ -494,13 +642,24 @@ window.addEventListener("load", function(){
 							<img src="/images/default.png" id="profile" width="30px"
 								role="button" onClick="show(<%=board.getBoard_id()%>)">&nbsp<strong
 								role="button" onClick="show(<%=board.getBoard_id()%>)"><%=board.getM_email()%></strong>
+
+
+
+							<!-- 좋아요 버튼 -->
+
 							<button type="button" class="btn btn-default"
-								style="border: none;">
+								style="border: none;"
+								onClick="likeChk(<%=board.getBoard_id()%>)">
 								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
-									style="font-size: 12px;">11</span>
+									style="font-size: 12px;" id="likes<%=board.getBoard_id()%>"></span>
 							</button>
+
+							<!-- 좋아요 버튼 종료 -->
+
+
 						</div>
 						<br>
+<<<<<<< HEAD
 						<!-- 댓글 폼태그 시작 -->
 						<form name="form<%=board.getBoard_id() %>" method="post">
 							<div id="list_content<%=board.getBoard_id() %>" role="button"
@@ -522,6 +681,20 @@ window.addEventListener("load", function(){
 							</div>
 						</form>
 						<!-- 댓글 폼태그 끝 -->
+=======
+						<div id="list_content" role="button"
+							onClick="show(<%=board.getBoard_id()%>)">
+							<img src="/data/<%=board.getImg()%>" width="100%"> <br>
+							<br>
+							<%=board.getContent()%>
+						</div>
+						<br>
+						<div id="list_bottom">
+							<textarea name="content" class="form-control" rows="2"
+								id="comment" placeholder="comment...">
+								</textarea>
+						</div>
+>>>>>>> 98c850ef5f1b39a9d1a821c111cdc77e9cc0a61f
 						<br>
 					</div>
 					<%
@@ -532,6 +705,22 @@ window.addEventListener("load", function(){
 			</div>
 		</div>
 	</div>
+<<<<<<< HEAD
+=======
+	<!-- 	<script type="text/javascript">
+		// Add contents for max height
+		$(document).ready(function () {
+		$(mySidenav).scroll(function() {
+		maxHeight = $(document).height();
+		currentScroll = $(mySidenav).scrollTop() + $(mySidenav).height();
+		
+		if (maxHeight <= 1100) {
+			alert("스크롤");
+		}
+		})
+		});
+		</script> -->
+>>>>>>> 98c850ef5f1b39a9d1a821c111cdc77e9cc0a61f
 	<!-- modal start -->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
@@ -592,6 +781,18 @@ window.addEventListener("load", function(){
 </body>
 
 
+
+
+
+
+
+
+
+
+
+
+
+<!--***********************************************************************************************  -->
 <!--여긴 지도 관련 script입니다.  -->
 
 <script>
@@ -601,11 +802,12 @@ window.addEventListener("load", function(){
 	  <%}%>
 	];
 	
-	alert("등록된 맛집의 수는" + neighborhoods.length);
+	//alert("등록된 맛집의 수는" + neighborhoods.length);
 	var markers = [];
 	var contentString=[];
 	var infowindow=[];
 	var map;
+
 	
 	function initMap() {
 	  var myLatLng = {lat: 37.497594, lng: 127.038105};
@@ -616,28 +818,43 @@ window.addEventListener("load", function(){
 	  });
 	  
 	  <%for (int i = 0; i < subCateList.size(); i++) {%>
-	  
+		  var images=[];
+			if((1<=<%=subCateList.get(i).getT_id()%>)&&(<%=subCateList.get(i).getT_id()%><=3)){
+				images="/images/food.png";
+			}else if((4<=<%=subCateList.get(i).getT_id()%>)&&(<%=subCateList.get(i).getT_id()%><=5)){				
+				images="/images/cafe.png";
+			}else if((6<=<%=subCateList.get(i).getT_id()%>)&&(<%=subCateList.get(i).getT_id()%><=9)){
+				images="/images/play.png";
+			}
+		
 		  contentString[<%=i%>]='<div id="content">'+
-	      '<div id="siteNotice">'+
-	      '</div>'+
-	      '<h1 id="firstHeading" class="firstHeading"><%=subCateList.get(i).getName()%></h1>'+
-	      '<div id="bodyContent">'+
-	      '주소 : <%=subCateList.get(i).getSido()%> <%=subCateList.get(i).getGugun()%> <%=subCateList.get(i).getDong()%>'+
-	      '<%=subCateList.get(i).getAddress_detail()%>'+'<br>'+
-	      '<%=subCateList.get(i).getTel()%>'+'<br>'+
-	      '<%=subCateList.get(i).getPic()%>'+'<br>'+
-	      '<img src="/data/<%=subCateList.get(i).getPic()%>">'+
-	      '</div>'+
-	      '</div>';
+	    '<div id="siteNotice">'+
+	    '</div>'+
+	    '<h1 id="firstHeading" class="firstHeading"><%=subCateList.get(i).getName()%></h1>'+
+	    '<div id="bodyContent">'+
+	    '주소 : <%=subCateList.get(i).getSido()%> <%=subCateList.get(i).getGugun()%> <%=subCateList.get(i).getDong()%>'+
+	    '<%=subCateList.get(i).getAddress_detail()%>'+'<br>'+
+	    '<%=subCateList.get(i).getTel()%>'+'<br>'+
+	    '<%=subCateList.get(i).getPic()%>'+'<br>'+
+	    '<img src="/data/<%=subCateList.get(i).getPic()%>">'+'<br>'+
+	    '<button id="insertOneCart" onclick="insertCart(<%=i%>)">데이트 코스로 지정하기</button>'+
+	    '</div>'+
+	    '</div>';
+	 <%}%>  
+	  
+	  
+	  <%for (int i = 0; i < subCateList.size(); i++) {%>
+			
 
 		  infowindow[<%=i%>] = new google.maps.InfoWindow({
 		    content: contentString[<%=i%>]
 		  });
-	  
+	  		
 		  markers[<%=i%>]=new google.maps.Marker({
 		    position: {lat: <%=subCateList.get(i).getLati()%>, lng: <%=subCateList.get(i).getLng()%>},
 		    map: map,
-		    title: 'Hello World!'
+		    title: 'Hello World!',
+		    icon: images
 		  });
 		  
 		  markers[<%=i%>].addListener('click', function() {
@@ -652,6 +869,16 @@ window.addEventListener("load", function(){
 	    markers[i].setMap(null);//마커도 초기화
 	  }
 	  markers = [];//배열정보도 초기화
+	}
+	
+	function insertCart(placeId){
+		alert("장바구니에 데이트 코스가 추가되었습니다.");
+		markers[placeId].icon="/images/select.png";
+		alert(markers[placeId].icon);
+	}
+	
+	function addCart(){
+		alert("장바구니가 등록되었습니다.");
 	}
 
 </script>

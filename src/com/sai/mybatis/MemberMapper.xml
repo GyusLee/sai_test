@@ -17,8 +17,8 @@
 	<insert id="insert" parameterType="Member">
 		insert into
 		member(member_email, member_pwd, member_name, member_nickname,
-		couple_id)
-		values(#{member_email},#{member_pwd},#{member_name},#{member_nickname},#{couple_id})
+		couple_id, isAdmin)
+		values(#{member_email},#{member_pwd},#{member_name},#{member_nickname},#{couple_id},#{isAdmin})
 	</insert>
 	<delete id="delete" parameterType="Member">
 		delete from member where	m_email=#{m_email}
