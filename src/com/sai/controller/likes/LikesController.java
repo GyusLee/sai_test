@@ -28,7 +28,7 @@ public class LikesController {
 
 	@RequestMapping(value = "isLikes.do", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> isLikes(@RequestBody Map<String, Object> map){
-		System.out.println("좋아요");
+		
 		int l_num=(Integer)map.get("board_id");
 		String m_email=(String)map.get("m_email");
 		System.out.println(l_num);
@@ -36,8 +36,6 @@ public class LikesController {
 		Likes likes=new Likes();
 		likes.setL_num(l_num);
 		likes.setM_email(m_email);
-		List list1=likesService.selectAll(l_num);
-		System.out.println(list1.size());
 		int result=0;
 		System.out.println(likesService.select(likes));
 		if(likesService.select(likes)==null)
@@ -54,6 +52,32 @@ public class LikesController {
 			likesService.delete(likes);
 			result=0;
 		};
+		List list=likesService.selectAll(l_num);
+		int maxNum=list.size();
+		Map<String, Object> resultMap=new HashMap<String,Object>();
+		resultMap.put("maxNum", maxNum);
+		resultMap.put("result", result);
+		
+		return resultMap;
+	}
+	
+	@RequestMapping(value = "initLikes.do", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> initLikes(@RequestBody Map<String, Object> map){
+		System.out.println("좋아요 초기 체크");
+
+		int l_num=Integer.parseInt((String)map.get("board_id"));
+		String m_email=(String)map.get("m_email");
+		System.out.println(m_email);
+		System.out.println(l_num);
+		Likes likes=new Likes();
+		likes.setL_num(l_num);
+		likes.setM_email(m_email);
+		int result=0;
+		Likes check=likesService.select(likes);
+		if(check!=null)
+		{
+			result=1;
+		}
 		List list=likesService.selectAll(l_num);
 		int maxNum=list.size();
 		Map<String, Object> resultMap=new HashMap<String,Object>();

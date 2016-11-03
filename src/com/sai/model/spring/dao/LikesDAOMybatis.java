@@ -21,9 +21,6 @@ public class LikesDAOMybatis implements LikesDAO{
 	}
 
 	public Likes select(Likes likes) {
-		System.out.println("마이바티스");
-		System.out.println(likes.getL_num());
-		System.out.println(likes.getM_email());
 		Likes likesTemp=new Likes();
 		likesTemp=sqlSessionTemplate.selectOne("Likes.selectOne", likes);
 		System.out.println(likesTemp);

@@ -175,6 +175,7 @@ var d1;
 var temp;
 var myFile;
 window.addEventListener("load", function(){
+	
 	myFile=document.getElementById("myFile");
 	var x=document.getElementById("x");
 	$('#myFile').change(function(){
@@ -227,13 +228,51 @@ window.addEventListener("load", function(){
 			}
 		});  
 
-	}	 
+	}
+ 	$(document).ready(function(){
+ 		<%for(int i=0;i<2;i++){%>
+ 	
+ 		var m_email="<%=member.getM_email()%>";
+ 		
+ 		var board_id="<%=list.get(i).getBoard_id()%>";
+		
+ 		var iData = {"board_id" : board_id,"m_email":m_email};
+
+		$.ajax({
+			contentType:'application/json;charset=UTF-8',
+			dataType:'json',
+			url:'/main/initLikes.do',
+			type:'POST',
+			async   : false,
+			data:JSON.stringify(iData),
+			success:function(response){
+				
+				if(response.result==1){
+					//있다.
+					$("#likes"+board_id).css("color","#FFACA6");
+					$("#likes"+board_id).css("font-size","14px");
+					$("#likes"+board_id).css("font-weight","bold");
+				}else if(response.result==0){
+					//없다.	
+					$("#likes"+board_id).css("color","#333");
+					$("#likes"+board_id).css("font-size","12px");
+					$("#likes"+board_id).css("font-weight","normal");
+				}
+				if(response.maxNum!=0)
+					$("#likes"+board_id).html(response.maxNum);
+			}
+		});
+		<%}%>
+ 		
+ 	})
+ 	
+ 	
  	function likeChk(board_id){
 		//show 호출시 넘겨준 값을 이용하여 ajax 등을 통해 modal 을 띄울때 동적으로 바뀌어야 하는 값을 얻어온다.  
 		
 		var m_email="<%=member.getM_email()%>";
 		var jData = {"board_id" : board_id,"m_email":m_email};
-		alert("되냐?");
+		
 		$.ajax({
 			contentType:'application/json;charset=UTF-8',
 			dataType:'json',
@@ -241,10 +280,22 @@ window.addEventListener("load", function(){
 			type:'POST',
 			data:JSON.stringify(jData),
 			success:function(response){
-				alert(response.maxNum);
-				alert(response.result);
-			
 				
+				if(response.result==1){
+					//있다.
+					$("#likes"+board_id).css("color","#FFACA6");
+					$("#likes"+board_id).css("font-size","14px");
+					$("#likes"+board_id).css("font-weight","bold");
+				}else if(response.result==0){
+					//없다.
+					$("#likes"+board_id).css("color","#333");
+					$("#likes"+board_id).css("font-size","12px");
+					$("#likes"+board_id).css("font-weight","normal");
+				}
+				if(response.maxNum!=0)
+					$("#likes"+board_id).html(response.maxNum);
+				else
+					$("#likes"+board_id).html("");
 			}
 		});  
 
@@ -466,22 +517,20 @@ window.addEventListener("load", function(){
 							<img src="/images/default.png" id="profile" width="30px"
 								role="button" onClick="show(<%=board.getBoard_id()%>)">&nbsp<strong
 								role="button" onClick="show(<%=board.getBoard_id()%>)"><%=board.getM_email()%></strong>
-<<<<<<< HEAD
+
 							
 							
 							<!-- 좋아요 버튼 -->
-=======
->>>>>>> 722169c06634223d171bcafa8eeb3b196c97bf5e
+
 							<button type="button" class="btn btn-default"
 								style="border: none;" onClick="likeChk(<%=board.getBoard_id()%>)">
 								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
-									style="font-size: 12px;">11</span>
+									style="font-size: 12px;" id="likes<%=board.getBoard_id()%>"></span>
 							</button>
-<<<<<<< HEAD
+
 							<!-- 좋아요 버튼 종료 -->
 
-=======
->>>>>>> 722169c06634223d171bcafa8eeb3b196c97bf5e
+
 						</div>
 						<br>
 						<div id="list_content" role="button"
@@ -578,7 +627,7 @@ window.addEventListener("load", function(){
 	  <%}%>
 	];
 	
-	alert("등록된 맛집의 수는" + neighborhoods.length);
+	//alert("등록된 맛집의 수는" + neighborhoods.length);
 	var markers = [];
 	var contentString=[];
 	var infowindow=[];
