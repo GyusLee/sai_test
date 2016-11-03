@@ -8,30 +8,12 @@ public class Member {
 	private String m_nickname;
 	private String m_gender;
 	private String m_regdate;
-
+	private String img;
 	private String p_email;
 
 	private int couple_id;
 	
 	private int isAdmin;
-	
-	public int getIsAdmin() {
-		return isAdmin;
-	}
-
-	public void setIsAdmin(int isAdmin) {
-		this.isAdmin = isAdmin;
-	}
-
-	public String getM_regdate() {
-		return m_regdate;
-	}
-
-	public void setM_regdate(String m_regdate) {
-		this.m_regdate = m_regdate;
-	}
-
-
 
 	public String getM_email() {
 		return m_email;
@@ -73,6 +55,22 @@ public class Member {
 		this.m_gender = m_gender;
 	}
 
+	public String getM_regdate() {
+		return m_regdate;
+	}
+
+	public void setM_regdate(String m_regdate) {
+		this.m_regdate = m_regdate;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
 	public String getP_email() {
 		return p_email;
 	}
@@ -89,4 +87,12 @@ public class Member {
 		this.couple_id = couple_id;
 	}
 
+	public int getIsAdmin() {
+		return isAdmin;
+	}
+
+	public void setIsAdmin(int isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+	
 }
