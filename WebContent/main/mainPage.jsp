@@ -641,11 +641,10 @@ window.addEventListener("load", function(){
 							onKeyDown="registComment(<%=board.getBoard_id()%>)"></textarea>
 					</div>
 				</form>
-<<<<<<< HEAD
-=======
+
 				<!-- 댓글 폼태그 끝 -->
 
->>>>>>> 7f52ea86951e8b5a58588dce0c7a988a3da312a5
+
 			</div>
 			<%
 						}

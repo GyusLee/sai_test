@@ -55,4 +55,11 @@ public class MemberDAOMybatis implements MemberDAO{
 		return result;
 	}
 
+
+	@Override
+	public int update_profile(Member member) {
+		int result = sqlSessionTemplate.update("Member.update_profile", member);
+		return result;
+	}
+
 }

@@ -20,10 +20,14 @@
 		couple_id, isAdmin)
 		values(#{member_email},#{member_pwd},#{member_name},#{member_nickname},#{couple_id},#{isAdmin})
 	</insert>
+	
+	<update id="update_profile" parameterType="Member">
+		update member set img=#{img} where m_email=#{m_email}
+	</update>
+	
 	<delete id="delete" parameterType="Member">
 		delete from member where	m_email=#{m_email}
 	</delete>
-
 
 	<insert id="insert_first" parameterType="Member">
 		insert into
