@@ -163,11 +163,11 @@ body {
 	border-top: none;
 }
 
-#map{
-	width : 70%;
-	height : 800px;
-	border : 1px solid red;
-	float : left;
+#map {
+	width: 70%;
+	height: 800px;
+	border: 1px solid red;
+	float: left;
 }
 </style>
 <script>
@@ -230,7 +230,9 @@ window.addEventListener("load", function(){
 
 	}
  	$(document).ready(function(){
- 		<%for(int i=0;i<2;i++){%>
+ 		
+ 		<%if(list.size()>0){%>
+ 		<%for(int i=0;i<list.size();i++){%>
  	
  		var m_email="<%=member.getM_email()%>";
  		
@@ -262,6 +264,7 @@ window.addEventListener("load", function(){
 					$("#likes"+board_id).html(response.maxNum);
 			}
 		});
+		<%}%>
 		<%}%>
  		
  	})
@@ -307,8 +310,10 @@ window.addEventListener("load", function(){
 		var fileName=path.substring(x, path.length);
 		console.log(fileName);
 
-	}	
-	
+	}
+			
+
+					
 </script>
 </head>
 <body>
@@ -410,9 +415,9 @@ window.addEventListener("load", function(){
 				</div>
 
 			</div>
-			
-			
-			
+
+
+
 			<!-- 지도를 포함한 center  -->
 			<div class="col-md-7" id="center">
 
@@ -432,7 +437,7 @@ window.addEventListener("load", function(){
 						</div>
 					</div>
 				</div>
-				
+
 				<br> <br>
 				<div class="row">
 					<div class="col-lg-6">
@@ -454,18 +459,19 @@ window.addEventListener("load", function(){
 				</div>
 				<!-- 지도 추가  -->
 				<div id="map"></div>
-				
+
 			</div>
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
 			<div class="col-md-3" id="right">
 				<!-- 글 List  -->
 				<div id="mySidenav" class="sidenav">
 					<a href="javascript:void(0)" class="closebtn" onClick="closeNav()">&times;</a>
+
 					<%
 						for (int i = 0; i < list.size(); i++) {
 					%>
@@ -518,12 +524,13 @@ window.addEventListener("load", function(){
 								role="button" onClick="show(<%=board.getBoard_id()%>)">&nbsp<strong
 								role="button" onClick="show(<%=board.getBoard_id()%>)"><%=board.getM_email()%></strong>
 
-							
-							
+
+
 							<!-- 좋아요 버튼 -->
 
 							<button type="button" class="btn btn-default"
-								style="border: none;" onClick="likeChk(<%=board.getBoard_id()%>)">
+								style="border: none;"
+								onClick="likeChk(<%=board.getBoard_id()%>)">
 								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
 									style="font-size: 12px;" id="likes<%=board.getBoard_id()%>"></span>
 							</button>
@@ -535,7 +542,8 @@ window.addEventListener("load", function(){
 						<br>
 						<div id="list_content" role="button"
 							onClick="show(<%=board.getBoard_id()%>)">
-							<img src="/data/<%=board.getImg()%>" width="100%"> <br><br>
+							<img src="/data/<%=board.getImg()%>" width="100%"> <br>
+							<br>
 							<%=board.getContent()%>
 						</div>
 						<br>
@@ -554,7 +562,19 @@ window.addEventListener("load", function(){
 			</div>
 		</div>
 	</div>
-
+<!-- 	<script type="text/javascript">
+		// Add contents for max height
+		$(document).ready(function () {
+		$(mySidenav).scroll(function() {
+		maxHeight = $(document).height();
+		currentScroll = $(mySidenav).scrollTop() + $(mySidenav).height();
+		
+		if (maxHeight <= 1100) {
+			alert("스크롤");
+		}
+		})
+		});
+		</script> -->
 	<!-- modal start -->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
@@ -576,12 +596,12 @@ window.addEventListener("load", function(){
 						</div>
 					</div>
 					<div class="modal-footer">
-						<span id="x"></span>
-						<img src="/images/cam.png" width="40px" onClick="getFile()">
+						<span id="x"></span> <img src="/images/cam.png" width="40px"
+							onClick="getFile()">
 						<button type="button" class="btn btn-primary" onclick="regist()">post</button>
 					</div>
 					<input type="file" id="myFile" size:"50" name="myFile"
-						style="display:none">
+						style="display: none">
 				</div>
 			</form>
 		</div>

@@ -40,14 +40,11 @@ public class LikesController {
 		System.out.println(likesService.select(likes));
 		if(likesService.select(likes)==null)
 		{
-			//좋아요가 없다
-			System.out.println("좋아요가 없다");
 			likesService.insert(likes);
 			result=1;
 			//좋아요 추가하고 전체 갯수 반환
 		}else{
-			System.out.println("좋아요가 있따");
-			//좋아요가 있다
+
 			//지우고 전체 갯수 반환
 			likesService.delete(likes);
 			result=0;
@@ -62,7 +59,7 @@ public class LikesController {
 	}
 	
 	@RequestMapping(value = "initLikes.do", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> initLikes(@RequestBody Map<String, Object> map){
+	public @ResponseBody Map<String, Object> checkLikes(@RequestBody Map<String, Object> map){
 		System.out.println("좋아요 초기 체크");
 
 		int l_num=Integer.parseInt((String)map.get("board_id"));
