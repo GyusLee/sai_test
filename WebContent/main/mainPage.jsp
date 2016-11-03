@@ -34,6 +34,7 @@
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/naverLogin_implicit-1.0.2-min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 
@@ -312,7 +313,10 @@ window.addEventListener("load", function(){
 		console.log(fileName);
 
 	}
-			
+	//로그아웃
+	 function logout() {
+		  window.location.href="logout.jsp";
+	}	
 
 					
 </script>
@@ -383,8 +387,8 @@ window.addEventListener("load", function(){
 								
 								<li role="separator" class="divider"></li>
 								<li><a href="#">메뉴3</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#">메뉴4</a></li>
+								<li role="separator" class="divider" role="button"></li>
+								<li><a href="#" onClick="logout()">로그아웃</a></li>
 							</ul></li>
 					</ul>
 				</div>
@@ -575,7 +579,7 @@ window.addEventListener("load", function(){
 			</div>
 		</div>
 	</div>
-<!-- 	<script type="text/javascript">
+	<!-- 	<script type="text/javascript">
 		// Add contents for max height
 		$(document).ready(function () {
 		$(mySidenav).scroll(function() {
