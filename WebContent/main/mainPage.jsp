@@ -43,9 +43,12 @@
 <title>Insert title here</title>
 
 <style>
+/* MainPage head */
+
 /* 모달 css */
 .modal-header {
-	background-color: #ffc4b2;
+	background-color: #FFEBE4;
+	padding:5px;
 }
 
 .modal-body {
@@ -156,7 +159,7 @@ body {
 	height: 50px;
 	position: fixed;
 	z-index: 999;
-	background: rgba(255, 255, 255, 0.95);
+	background: #FFEBE4;
 	border: 1px solid #e7e7e7;
 	border-top: none;
 	top: 0px;
@@ -503,6 +506,7 @@ window.addEventListener("load", function(){
 					
 					var list_content=document.getElementById("list_content"+board_id);
 					var div=document.createElement("div");
+					div.style.backgroundColor="gray";
 					div.style.fontSize="10px";
 					div.innerText="[ <%=member.getM_name()%> ] : 	"+document.getElementById("comment"+board_id).value;
 					list_content.appendChild(div);
@@ -533,9 +537,7 @@ window.addEventListener("load", function(){
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-
-					<a class="navbar-brand" href="#">WWW.SAI.CO.KR</a>
-
+					<img src="/images/sai.png" width="20%"><a class="navbar-brand" href="#">www.sai.co.kr</a>
 				</div>
 
 				<div class="collapse navbar-collapse" id="here">
@@ -575,9 +577,9 @@ window.addEventListener("load", function(){
 						<%}else{%>
 							<%="/data/"+member.getImg() %> <%} %> id="profile" width="40px"
 							height="40px">&nbsp
-							<button type="button" class="btn btn-primary btn-lg">
-								<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-								<%=member.getM_name()%>님의 SAI
+							<button type="button" class="btn btn-primary btn-lg" style="font-size: 14px" >
+								<span class="glyphicon glyphicon-user" aria-hidden="true" ></span>
+								<font face="나눔고딕"><%=member.getM_name()%>님의 sai</font>
 							</button></li>
 						<!-- 드랍 박스 -->
 
@@ -839,7 +841,6 @@ window.addEventListener("load", function(){
 	</div>
 	<!-- modal end -->
 
-	<<<<<<< HEAD
 	<!-- 프로필 사진 업로드 모달 시작-->
 	<div class="modal fade" id="myProfileModal" role="dialog">
 		<div class="modal-dialog">
@@ -886,7 +887,7 @@ window.addEventListener("load", function(){
 					<img src="/images/default.png" id="list_profile" width="50px">&nbsp<strong
 						id="timeline_top" style="font-size: 20px;"></strong>
 					<button type="button" class="btn btn-default"
-						style="border: none; background: #ffc4b2">
+						style="border: none; background: #FFEBE4">
 						<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
 							style="font-size: 20px;" id="modal_like"></span>
 					</button>
