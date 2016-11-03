@@ -214,10 +214,12 @@ var d1;
 var temp;
 var myFile;
 var comment_txt;
+var myProfile;
 
 window.addEventListener("load", function(){
 	
 	myFile=document.getElementById("myFile");
+	myProfile=document.getElementById("myProfile");
 	comment_txt=document.getElementById("comment");
 
 	var x=document.getElementById("x");
@@ -248,20 +250,26 @@ window.addEventListener("load", function(){
 	// file 함수 호출
 	function getFile(){
 		myFile.click();
-		getFileName();
 	}
 	
 	// 글 업로드
 	function regist() {
-		alert("버튼눌렀어?");
 		form1.encoding="multipart/form-data";
 		form1.action = "/main/write.do";
 		form1.submit();
 	}
 	
-	// 댓글 업로드
-	function registReply(){
-		alert("엔터키 눌렀어?");
+	// 프로필 사진 바꾸기!!
+	function changeProfile(){
+		myProfile.click();
+	}
+	
+	// 사진 등록
+	function registProfile(){
+		alert("프사");
+		form3.encoding="multipart/form-data";
+		form3.action = "/main/writePic.do";
+		form3.submit();
 	}
 	
  	function show(board_id){
@@ -320,10 +328,7 @@ window.addEventListener("load", function(){
 		});
 		<%}%>
 		<%}%>
- 		
  	})
- 	
- 	
  	function likeChk(board_id){
 		//show 호출시 넘겨준 값을 이용하여 ajax 등을 통해 modal 을 띄울때 동적으로 바뀌어야 하는 값을 얻어온다.  
 		
@@ -432,10 +437,7 @@ window.addEventListener("load", function(){
 							} else {
 						%>
 						<li class="navbar-brand"><%=couple.getM_email()%>님과 연결 됨</li>
-						<%
-							}
-				
-						%>
+						<%} %>
 						<%} %>
 
 
@@ -458,9 +460,8 @@ window.addEventListener("load", function(){
 								<li><a href="#" onClick="openNav()">뉴스피드</a></li>
 								<li role="separator" class="divider"></li>
 								<li><a href="#" data-toggle="modal" data-target="#myModal">글쓰기</a></li>
-
 								<li role="separator" class="divider"></li>
-								<li><a href="#">프로필</a></li>
+								<li><a href="#" data-toggle="modal" data-target="#myProfileModal">프로필</a></li>
 								<li role="separator" class="divider" role="button"></li>
 								<li><a href="#" onClick="logout()">로그아웃</a></li>
 							</ul></li>
@@ -564,10 +565,10 @@ window.addEventListener("load", function(){
 
 			<%
 						for (int i = 0; i < list.size(); i++) {
-					%>
+			%>
 			<%
 						Board board = list.get(i);
-					%>
+			%>
 			<!-- list 나오는 부분  -->
 			<div style="border: solid 1px #D3D2E0"></div>
 			<br>
@@ -604,10 +605,7 @@ window.addEventListener("load", function(){
 						role="button" onClick="show(<%=board.getBoard_id()%>)">&nbsp<strong
 						role="button" onClick="show(<%=board.getBoard_id()%>)"><%=board.getM_email()%></strong>
 
-
-
 					<!-- 좋아요 버튼 -->
-
 					<button type="button" class="btn btn-default" style="border: none;"
 						onClick="likeChk(<%=board.getBoard_id()%>)">
 						<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
@@ -615,11 +613,8 @@ window.addEventListener("load", function(){
 					</button>
 
 					<!-- 좋아요 버튼 종료 -->
-
-
 				</div>
 				<br>
-
 				<!-- 댓글 폼태그 시작 -->
 				<form name="form<%=board.getBoard_id() %>" method="post">
 					<div id="list_content<%=board.getBoard_id() %>" role="button"
@@ -645,8 +640,8 @@ window.addEventListener("load", function(){
 
 			</div>
 			<%
-						}
-					%>
+				}
+			%>
 		</div>
 		<!-- 글 List  끝-->
 	</div>
@@ -689,17 +684,43 @@ window.addEventListener("load", function(){
 						</div>
 					</div>
 					<div class="modal-footer">
-						<span id="x"></span> <img src="/images/cam.png" width="40px"
-							onClick="getFile()">
+						<span id="x"></span> <img src="/images/cam.png" width="40px" onClick="getFile()">
 						<button type="button" class="btn btn-primary" onclick="regist()">post</button>
 					</div>
-					<input type="file" id="myFile" size:"50" name="myFile"
-						style="display: none">
+					<input type="file" id="myFile" size:"50" name="myFile"	style="display: none">
 				</div>
 			</form>
 		</div>
 	</div>
 	<!-- modal end -->
+	
+	<!-- 프로필 사진 업로드 모달 시작-->
+	<div class="modal fade" id="myProfileModal" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<form name="form3" method="post">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<div>
+								
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<span id="x"></span> <img src="/images/cam.png" width="40px" onClick="changeProfile()">
+						<button type="button" class="btn btn-primary" onclick="registProfile()">등록</button>
+					</div>
+					<input type="file" id="myProfile" size:"50" name="myProfile"	style="display: none">
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- 프로필 사진 업로드 모달 끝 -->
+	
 
 	<!--리스트 모달-->
 	<div class="modal bs-example-modal-lg" id="listModal" role="dialog">
@@ -726,17 +747,6 @@ window.addEventListener("load", function(){
 	</div>
 	<!-- modal end -->
 </body>
-
-
-
-
-
-
-
-
-
-
-
 
 
 <!--***********************************************************************************************  -->
