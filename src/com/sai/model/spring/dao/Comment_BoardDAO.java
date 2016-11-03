@@ -9,5 +9,5 @@ public interface Comment_BoardDAO {
 	public int insert(Comment_Board comment_Board);
 	public int delete(int comment_id);
 	public int update(int comment_id);
-	public int updateRank(Comment_Board comment_Board);
+
 }
