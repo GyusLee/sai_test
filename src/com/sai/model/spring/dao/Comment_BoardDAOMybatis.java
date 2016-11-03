@@ -13,8 +13,8 @@ public class Comment_BoardDAOMybatis implements Comment_BoardDAO{
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 
-	public List selectAll(Comment_Board comment_Board) {
-		List list=sqlSessionTemplate.selectList("Comment_Board.selectAll");
+	public List selectAll(int board_id) {
+		List list=sqlSessionTemplate.selectList("Comment_Board.selectAll",board_id);
 		
 		return list;
 	}

@@ -14,6 +14,7 @@
 	if (list.size() > 3) {
 		height = list.size() * 350;
 	}
+
 %>
 <!-- 지도 관련 -->
 <%
@@ -318,6 +319,35 @@ window.addEventListener("load", function(){
 					$("#likes"+board_id).html(response.maxNum);
 			}
 		});
+		var rData={"board_id" : board_id};
+		
+		$.ajax({
+			contentType:'application/json;charset=UTF-8',
+			dataType:'json',
+			url:'/main/getReply.do',
+			type:'POST',
+			async   : false,
+			data:JSON.stringify(rData),
+			success:function(response){	
+				var json=JSON.stringify(response);
+				var json2=JSON.parse(json);	
+					
+					for(var i=0;i<json2.name.length;i++){
+						var name=json2.name[i];
+						var content=json2.rList[i].content;
+						var list_content=document.getElementById("list_content"+board_id);
+						var div=document.createElement("div");
+						div.style.fontSize="10px"
+						div.innerText="[ "+name+" ] : "+content;
+						list_content.appendChild(div);
+						document.getElementById("comment"+board_id).value=""; 
+					}
+				}
+
+			});
+
+		
+		
 		<%}%>
 		<%}%>
  		
@@ -379,7 +409,8 @@ window.addEventListener("load", function(){
 					
 					var list_content=document.getElementById("list_content"+board_id);
 					var div=document.createElement("div");
-					div.innerText="<%=member.getM_name()%> : 	"+document.getElementById("comment"+board_id).value;
+					div.style.fontSize="12px";
+					div.innerText="[ <%=member.getM_name()%> ] : 	"+document.getElementById("comment"+board_id).value;
 					list_content.appendChild(div);
 					document.getElementById("comment"+board_id).value="";
 				}
@@ -476,7 +507,7 @@ window.addEventListener("load", function(){
 			<div class="col-md-2" id="left"></div>
 
 			<!-- 지도를 포함한 center  -->
-			<div class="col-md-7" id="center">
+			<div class="col-md-9" id="center">
 				<!-- 찾기 -->
 				<br>
 				<div class="row">
@@ -553,28 +584,25 @@ window.addEventListener("load", function(){
 				</div>
 			</div>
 
-		</div>
 
-	</div>
+			<div class="col-md-1" id="right">
+				<!-- 글 List  -->
+				<div id="mySidenav" class="sidenav">
+					<a href="javascript:void(0)" class="closebtn" onClick="closeNav()">&times;</a>
 
-	<div class="col-md-3" id="right">
-		<!-- 글 List  -->
-		<div id="mySidenav" class="sidenav">
-			<a href="javascript:void(0)" class="closebtn" onClick="closeNav()">&times;</a>
-
-			<%
+					<%
 						for (int i = 0; i < list.size(); i++) {
 					%>
-			<%
+					<%
 						Board board = list.get(i);
 					%>
-			<!-- list 나오는 부분  -->
-			<div style="border: solid 1px #D3D2E0"></div>
-			<br>
-			<div id="list_div" data-target="#listModal">
-				<div id="list_top">
-					<div id="time<%=i%>" style="font-size: 11px;"></div>
-					<script>
+					<!-- list 나오는 부분  -->
+					<div style="border: solid 1px #D3D2E0"></div>
+					<br>
+					<div id="list_div" data-target="#listModal">
+						<div id="list_top">
+							<div id="time<%=i%>" style="font-size: 11px;"></div>
+							<script>
 							d1=new Date();
 							if(d1.getFullYear()==<%=board.getRegdate().split("-")[0]%>){
 								if(d1.getMonth()+1==<%=board.getRegdate().split("-")[1]%>){
@@ -600,62 +628,60 @@ window.addEventListener("load", function(){
 								document.getElementById("time<%=i%>").innerHTML=temp+"년 전에 게시";
 							}
 							</script>
-					<img src="/images/default.png" id="profile" width="30px"
-						role="button" onClick="show(<%=board.getBoard_id()%>)">&nbsp<strong
-						role="button" onClick="show(<%=board.getBoard_id()%>)"><%=board.getM_email()%></strong>
+							<img src="/images/default.png" id="profile" width="30px"
+								role="button" onClick="show(<%=board.getBoard_id()%>)">&nbsp<strong
+								role="button" onClick="show(<%=board.getBoard_id()%>)"><%=board.getM_email()%></strong>
 
 
 
-					<!-- 좋아요 버튼 -->
+							<!-- 좋아요 버튼 -->
 
-					<button type="button" class="btn btn-default" style="border: none;"
-						onClick="likeChk(<%=board.getBoard_id()%>)">
-						<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
-							style="font-size: 12px;" id="likes<%=board.getBoard_id()%>"></span>
-					</button>
+							<button type="button" class="btn btn-default"
+								style="border: none;"
+								onClick="likeChk(<%=board.getBoard_id()%>)">
+								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
+									style="font-size: 12px;" id="likes<%=board.getBoard_id()%>"></span>
+							</button>
 
-					<!-- 좋아요 버튼 종료 -->
+							<!-- 좋아요 버튼 종료 -->
 
 
-				</div>
-				<br>
-
-				<!-- 댓글 폼태그 시작 -->
-				<form name="form<%=board.getBoard_id() %>" method="post">
-					<div id="list_content<%=board.getBoard_id() %>" role="button"
-						onClick="show(<%=board.getBoard_id()%>)">
-						<div class="thumbnail-wrapper">
-							<div class="thumbnail">
-								<div class="centered">
-									<img src="/data/<%=board.getImg()%>" width="80%" height="auto">
-								</div>
-							</div>
 						</div>
-						<%=board.getContent()%>
-					</div>
-					<br>
-					<div id="list_bottom">
+						<br>
 
-						<textarea name=content class="form-control" rows="2"
-							id="comment<%=board.getBoard_id()%>" placeholder="comment..."
-							onKeyDown="registComment(<%=board.getBoard_id()%>)"></textarea>
-					</div>
-				</form>
-<<<<<<< HEAD
-=======
-				<!-- 댓글 폼태그 끝 -->
+						<!-- 댓글 폼태그 시작 -->
+						<form name="form<%=board.getBoard_id() %>" method="post">
+							<div id="list_content<%=board.getBoard_id() %>" role="button"
+								onClick="show(<%=board.getBoard_id()%>)">
+								<div class="thumbnail-wrapper">
+									<div class="thumbnail">
+										<div class="centered">
+											<img src="/data/<%=board.getImg()%>" width="80%"
+												height="auto">
+										</div>
+									</div>
+								</div>
+								<%=board.getContent()%><br><br>
+							</div>
+							<br>
+							<div id="list_bottom">
 
->>>>>>> 7f52ea86951e8b5a58588dce0c7a988a3da312a5
+								<textarea name=content class="form-control" rows="2"
+									id="comment<%=board.getBoard_id()%>" placeholder="comment..."
+									onKeyDown="registComment(<%=board.getBoard_id()%>)"></textarea>
+							</div>
+						</form>
+						<!-- 댓글 폼태그 끝 -->
+					</div>
+					<%
+				}
+			%>
+				</div>
+				<!-- 글 List  끝-->
 			</div>
-			<%
-						}
-					%>
 		</div>
-		<!-- 글 List  끝-->
-	</div>
-	</div>
-	</div>
 
+	</div>
 
 	<!-- 	<script type="text/javascript">
 		// Add contents for max height
