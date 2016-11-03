@@ -252,10 +252,11 @@ var d1;
 var temp;
 var myFile;
 var comment_txt;
-
+var myProfile;
 window.addEventListener("load", function(){
 	
 	myFile=document.getElementById("myFile");
+	myProfile=document.getElementById("myProfile");
 	comment_txt=document.getElementById("comment");
 
 	var x=document.getElementById("x");
@@ -318,6 +319,7 @@ window.addEventListener("load", function(){
 		form3.encoding="multipart/form-data";
 		form3.action = "/main/writePic.do";
 		form3.submit();
+	}
 	// 댓글 업로드
 	function registReply(){
 		alert("엔터키 눌렀어?");
@@ -589,7 +591,7 @@ window.addEventListener("load", function(){
 								<li><a href="#" data-toggle="modal" data-target="#myModal">글쓰기</a></li>
 
 								<li role="separator" class="divider"></li>
-								<li><a href="#">프로필</a></li>
+								<li><a href="#" data-toggle="modal" data-target="#myProfileModal">프로필</a></li>
 								<li role="separator" class="divider" role="button"></li>
 								<li><a href="#" onClick="logout()">로그아웃</a></li>
 							</ul></li>
@@ -874,7 +876,6 @@ window.addEventListener("load", function(){
 	<!-- 프로필 사진 업로드 모달 끝 -->
 
 
-	======= >>>>>>> dccf5e0542d870957688297eb92926460271f327
 	<!--리스트 모달-->
 	<div class="modal bs-example-modal-lg" id="listModal" role="dialog">
 		<div class="modal-dialog" id="listModalSetting">
