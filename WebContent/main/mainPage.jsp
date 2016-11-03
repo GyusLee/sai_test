@@ -567,10 +567,13 @@ window.addEventListener("load", function(){
                   Messages <span class="badge">12</span>
                </button></li>-->
 						<!-- NickName 및 Icon Image-->
-					
-						<li><img src=<%if(member.getImg()==null){%> "/images/default.png"
-						<%}else{%><%="/data/"+member.getImg() %>
-						<%} %> id="profile" width="40px" height="40px">&nbsp<button type="button" class="btn btn-primary btn-lg">
+
+						<li><img src=<%if(member.getImg()==null){%>
+							"/images/default.png"
+						<%}else{%>
+							<%="/data/"+member.getImg() %> <%} %> id="profile" width="40px"
+							height="40px">&nbsp
+							<button type="button" class="btn btn-primary btn-lg">
 								<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 								<%=member.getM_name()%>님의 SAI
 							</button></li>
@@ -725,14 +728,16 @@ window.addEventListener("load", function(){
 							
 							</script>
 
-					<img src=<%if(memberList.get(i)==null){%> "/images/default.png"<%}else{%><%=memberList.get(i) %><%} %> id="profile" width="30px" height="30px"
-						role="button" onClick="show(<%=board.getBoard_id()%>)">&nbsp<strong
-						role="button" onClick="show(<%=board.getBoard_id()%>)"><%=board.getM_email()%></strong>
+							<img src=<%if(memberList.get(i)==null){%>
+								"/images/default.png"<%}else{%> <%=memberList.get(i) %> <%} %>
+								id="profile" width="30px" height="30px" role="button"
+								onClick="show(<%=board.getBoard_id()%>)">&nbsp<strong
+								role="button" onClick="show(<%=board.getBoard_id()%>)"><%=board.getM_email()%></strong>
 
-					<!-- 좋아요 버튼 -->
-					<button type="button" class="btn btn-default" style="border: none;"
-						onClick="likeChk(<%=board.getBoard_id()%>)">
-					</button>
+							<!-- 좋아요 버튼 -->
+							<button type="button" class="btn btn-default"
+								style="border: none;"
+								onClick="likeChk(<%=board.getBoard_id()%>)"></button>
 
 							<!-- 좋아요 버튼 -->
 
@@ -761,8 +766,7 @@ window.addEventListener("load", function(){
 										</div>
 									</div>
 								</div>
-								<%=board.getContent()%><br>
-								<br>
+								<%=board.getContent()%><br> <br>
 							</div>
 							<br>
 							<div id="list_bottom">
@@ -808,7 +812,9 @@ window.addEventListener("load", function(){
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<div class="row">
 							<div class="col-sm-12">
-								<img src=<%if(member.getImg()==null){%>"/images/default.png"<%}else{ %>"/data/<%=member.getImg() %>"<%} %> id="profile" width="70px">&nbsp<strong><%=member.getM_name()%></strong>
+								<img src=<%if(member.getImg()==null){%>
+									"/images/default.png"<%}else{ %>"/data/<%=member.getImg() %>"<%} %>
+									id="profile" width="70px">&nbsp<strong><%=member.getM_name()%></strong>
 							</div>
 						</div>
 					</div>
@@ -830,8 +836,8 @@ window.addEventListener("load", function(){
 		</div>
 	</div>
 	<!-- modal end -->
-	
-<<<<<<< HEAD
+
+	<<<<<<< HEAD
 	<!-- 프로필 사진 업로드 모달 시작-->
 	<div class="modal fade" id="myProfileModal" role="dialog">
 		<div class="modal-dialog">
@@ -846,27 +852,29 @@ window.addEventListener("load", function(){
 							<div class="thumbnail-wrapper2">
 								<div class="thumbnail2">
 									<div class="centered2">
-										<img id="preImg" src="/images/default.png" >
-										
+										<img id="preImg" src="/images/default.png">
+
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<span id="x"></span> <img src="/images/cam.png" width="40px" onClick="changeProfile()">
-						<button type="button" class="btn btn-primary" onclick="registProfile()">등록</button>
+						<span id="x"></span> <img src="/images/cam.png" width="40px"
+							onClick="changeProfile()">
+						<button type="button" class="btn btn-primary"
+							onclick="registProfile()">등록</button>
 					</div>
-					<input type="file" id="myProfile" size:"50" name="myProfile"	style="display: none" onChange="previewImg()">
+					<input type="file" id="myProfile" size:"50" name="myProfile"
+						style="display: none" onChange="previewImg()">
 				</div>
 			</form>
 		</div>
 	</div>
 	<!-- 프로필 사진 업로드 모달 끝 -->
-	
 
-=======
->>>>>>> dccf5e0542d870957688297eb92926460271f327
+
+	======= >>>>>>> dccf5e0542d870957688297eb92926460271f327
 	<!--리스트 모달-->
 	<div class="modal bs-example-modal-lg" id="listModal" role="dialog">
 		<div class="modal-dialog" id="listModalSetting">
@@ -875,8 +883,9 @@ window.addEventListener("load", function(){
 				<div class="modal-header">
 
 					<img src="/images/default.png" id="list_profile" width="50px">&nbsp<strong
-						id="timeline_top" style="font-size:20px;"></strong>
-					<button type="button" class="btn btn-default" style="border: none; background:#ffc4b2">
+						id="timeline_top" style="font-size: 20px;"></strong>
+					<button type="button" class="btn btn-default"
+						style="border: none; background: #ffc4b2">
 						<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
 							style="font-size: 20px;" id="modal_like"></span>
 					</button>
@@ -885,7 +894,7 @@ window.addEventListener("load", function(){
 					<br>
 				</div>
 				<div class="modal-body" id="listModelBody">
-					
+
 					<div id="modal_img"></div>
 					<p id="timeline_content"></p>
 					<div id="modal_txt"></div>
@@ -1029,7 +1038,7 @@ window.addEventListener("load", function(){
 			 if(xhttp.readyState==4&&xhttp.status==200){
 				var data=xhttp.responseText;
 				alert(data);
-				alert(showDateCourse.innerHTML)
+				alert(showDateCourse.innerHTML);
 				showDateCourse.innerHTML+=data;
 				alert(showDateCourse.innerHTML);
 			 }
