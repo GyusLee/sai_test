@@ -164,6 +164,7 @@ public class BoardController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("img", board.getImg());
 		result.put("name",searchMember.getM_name());
+		result.put("myImg", searchMember.getImg());
 		result.put("email", board.getM_email());
 		result.put("content", board.getContent());
 		result.put("likesNumber", likesNumber);

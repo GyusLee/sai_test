@@ -287,7 +287,10 @@ window.addEventListener("load", function(){
 				var jason=JSON.stringify(response);
 				var jasonParcing=JSON.parse(jason);
 				
-				alert(jasonParcing.listName[0]);
+
+				var list_profile=document.getElementById("list_profile");
+				if(jasonParcing.myImg!=null)
+					list_profile.src="/data/"+jasonParcing.myImg;
 				
 				var img=document.createElement("img");
 				img.style.width="300px";
