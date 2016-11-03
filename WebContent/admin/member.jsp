@@ -24,7 +24,7 @@
 		alert("검색");
 	}
 	function back(){
-		form1.action="admin.jsp"
+		form1.action="../main/list.do"
 		form1.submit();
 	}
 </script>

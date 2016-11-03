@@ -1,3 +1,4 @@
+<%@page import="com.sai.model.spring.dao.MemberDAO"%>
 <%@page import="com.sai.model.domain.SubCate"%>
 <%@page import="com.sai.model.domain.Couple"%>
 <%@page import="com.sai.model.domain.Member"%>
@@ -163,11 +164,11 @@ body {
 	border-top: none;
 }
 
-#map{
-	width : 70%;
-	height : 800px;
-	border : 1px solid red;
-	float : left;
+#map {
+	width: 70%;
+	height: 800px;
+	border: 1px solid red;
+	float: left;
 }
 </style>
 <script>
@@ -250,13 +251,22 @@ window.addEventListener("load", function(){
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<!-- 로고 및 프로젝트 명 -->
+
 					<a class="navbar-brand" href="#">WWW.SAI.CO.KR</a>
+
 				</div>
 
 				<div class="collapse navbar-collapse" id="here">
 
 					<ul class="nav navbar-nav navbar-right">
+					
+					<% if(member.getIsAdmin()==1){%>
+								
+								<li><a href="/admin/member.do">회원관리</a></li>
+								<li><a href="/admin/boardList.do">게시물관리</a></li>
+								<li><a href="/admin/index.do">지도관리</a></li>
+					<%}else{%>
+
 						<%
 							if (member.getM_gender().equals("M")) {
 						%>
@@ -267,7 +277,9 @@ window.addEventListener("load", function(){
 						<li class="navbar-brand"><%=couple.getM_email()%>님과 연결 됨</li>
 						<%
 							}
+				
 						%>
+						<%} %>
 
 
 						<!-- 알림 목록 -->
@@ -289,6 +301,7 @@ window.addEventListener("load", function(){
 								<li><a href="#" onclick="openNav()">list</a></li>
 								<li role="separator" class="divider"></li>
 								<li><a href="#" data-toggle="modal" data-target="#myModal">write</a></li>
+								
 								<li role="separator" class="divider"></li>
 								<li><a href="#">메뉴3</a></li>
 								<li role="separator" class="divider"></li>
@@ -336,9 +349,9 @@ window.addEventListener("load", function(){
 				</div>
 
 			</div>
-			
-			
-			
+
+
+
 			<!-- 지도를 포함한 center  -->
 			<div class="col-md-7" id="center">
 
@@ -358,7 +371,7 @@ window.addEventListener("load", function(){
 						</div>
 					</div>
 				</div>
-				
+
 				<br> <br>
 				<div class="row">
 					<div class="col-lg-6">
@@ -380,14 +393,14 @@ window.addEventListener("load", function(){
 				</div>
 				<!-- 지도 추가  -->
 				<div id="map"></div>
-				
+
 			</div>
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
 			<div class="col-md-3" id="right">
 				<!-- 글 List  -->
 				<div id="mySidenav" class="sidenav">
@@ -452,7 +465,8 @@ window.addEventListener("load", function(){
 						<br>
 						<div id="list_content" role="button"
 							onClick="show(<%=board.getBoard_id()%>)">
-							<img src="/data/<%=board.getImg()%>" width="100%"> <br><br>
+							<img src="/data/<%=board.getImg()%>" width="100%"> <br>
+							<br>
 							<%=board.getContent()%>
 						</div>
 						<br>
@@ -493,12 +507,12 @@ window.addEventListener("load", function(){
 						</div>
 					</div>
 					<div class="modal-footer">
-						<span id="x"></span>
-						<img src="/images/cam.png" width="40px" onClick="getFile()">
+						<span id="x"></span> <img src="/images/cam.png" width="40px"
+							onClick="getFile()">
 						<button type="button" class="btn btn-primary" onclick="regist()">post</button>
 					</div>
 					<input type="file" id="myFile" size:"50" name="myFile"
-						style="display:none">
+						style="display: none">
 				</div>
 			</form>
 		</div>

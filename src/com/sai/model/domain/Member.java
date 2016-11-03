@@ -13,6 +13,16 @@ public class Member {
 
 	private int couple_id;
 	
+	private int isAdmin;
+	
+	public int getIsAdmin() {
+		return isAdmin;
+	}
+
+	public void setIsAdmin(int isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
 	public String getM_regdate() {
 		return m_regdate;
 	}
