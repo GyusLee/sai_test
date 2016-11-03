@@ -1,3 +1,4 @@
+<%@page import="com.sai.model.spring.dao.MemberDAO"%>
 <%@page import="com.sai.model.domain.SubCate"%>
 <%@page import="com.sai.model.domain.Couple"%>
 <%@page import="com.sai.model.domain.Member"%>
@@ -33,6 +34,7 @@
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/naverLogin_implicit-1.0.2-min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 
@@ -163,6 +165,7 @@ body {
 	border-top: none;
 }
 
+
 /*  지도 관련  */
 #map{
 	width : 100%;
@@ -193,9 +196,14 @@ body {
 <script>
 var d1;
 var temp;
+var myFile;
 window.addEventListener("load", function(){
-
 	
+	myFile=document.getElementById("myFile");
+	var x=document.getElementById("x");
+	$('#myFile').change(function(){
+		x.innerHTML=$('#myFile').val().substring($('#myFile').val().lastIndexOf("\\")+1,$('#myFile').val().length);
+	});
 })
 	function openNav() {
 		document.getElementById("mySidenav").style.width = "25%";
@@ -211,8 +219,8 @@ window.addEventListener("load", function(){
 
 	// file 함수 호출
 	function getFile(){
-		var myFile=document.getElementById("myFile");
 		myFile.click();
+		getFileName();
 	}
 	
 	// 글 업로드
@@ -242,9 +250,96 @@ window.addEventListener("load", function(){
 				
 			}
 		});  
-	}	 
-	
-	
+
+	}
+ 	$(document).ready(function(){
+ 		
+ 		<%if(list.size()>0){%>
+ 		<%for(int i=0;i<list.size();i++){%>
+ 	
+ 		var m_email="<%=member.getM_email()%>";
+ 		
+ 		var board_id="<%=list.get(i).getBoard_id()%>";
+		
+ 		var iData = {"board_id" : board_id,"m_email":m_email};
+
+		$.ajax({
+			contentType:'application/json;charset=UTF-8',
+			dataType:'json',
+			url:'/main/initLikes.do',
+			type:'POST',
+			async   : false,
+			data:JSON.stringify(iData),
+			success:function(response){
+				
+				if(response.result==1){
+					//있다.
+					$("#likes"+board_id).css("color","#FFACA6");
+					$("#likes"+board_id).css("font-size","14px");
+					$("#likes"+board_id).css("font-weight","bold");
+				}else if(response.result==0){
+					//없다.	
+					$("#likes"+board_id).css("color","#333");
+					$("#likes"+board_id).css("font-size","12px");
+					$("#likes"+board_id).css("font-weight","normal");
+				}
+				if(response.maxNum!=0)
+					$("#likes"+board_id).html(response.maxNum);
+			}
+		});
+		<%}%>
+		<%}%>
+ 		
+ 	})
+ 	
+ 	
+ 	function likeChk(board_id){
+		//show 호출시 넘겨준 값을 이용하여 ajax 등을 통해 modal 을 띄울때 동적으로 바뀌어야 하는 값을 얻어온다.  
+		
+		var m_email="<%=member.getM_email()%>";
+		var jData = {"board_id" : board_id,"m_email":m_email};
+		
+		$.ajax({
+			contentType:'application/json;charset=UTF-8',
+			dataType:'json',
+			url:'/main/isLikes.do',
+			type:'POST',
+			data:JSON.stringify(jData),
+			success:function(response){
+				
+				if(response.result==1){
+					//있다.
+					$("#likes"+board_id).css("color","#FFACA6");
+					$("#likes"+board_id).css("font-size","14px");
+					$("#likes"+board_id).css("font-weight","bold");
+				}else if(response.result==0){
+					//없다.
+					$("#likes"+board_id).css("color","#333");
+					$("#likes"+board_id).css("font-size","12px");
+					$("#likes"+board_id).css("font-weight","normal");
+				}
+				if(response.maxNum!=0)
+					$("#likes"+board_id).html(response.maxNum);
+				else
+					$("#likes"+board_id).html("");
+			}
+		});  
+
+	}
+	function getFileName(){
+		var path=document.getElementById("myFile").value;
+		var x=path.lastIndexOf("\\");
+		console.log(path);
+		var fileName=path.substring(x, path.length);
+		console.log(fileName);
+
+	}
+	//로그아웃
+	 function logout() {
+		  window.location.href="logout.jsp";
+	}	
+
+					
 </script>
 </head>
 <body>
@@ -260,13 +355,22 @@ window.addEventListener("load", function(){
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<!-- 로고 및 프로젝트 명 -->
+
 					<a class="navbar-brand" href="#">WWW.SAI.CO.KR</a>
+
 				</div>
 
 				<div class="collapse navbar-collapse" id="here">
 
 					<ul class="nav navbar-nav navbar-right">
+					
+					<% if(member.getIsAdmin()==1){%>
+								
+								<li><a href="/admin/member.do">회원관리</a></li>
+								<li><a href="/admin/boardList.do">게시물관리</a></li>
+								<li><a href="/admin/index.do">지도관리</a></li>
+					<%}else{%>
+
 						<%
 							if (member.getM_gender().equals("M")) {
 						%>
@@ -277,7 +381,9 @@ window.addEventListener("load", function(){
 						<li class="navbar-brand"><%=couple.getM_email()%>님과 연결 됨</li>
 						<%
 							}
+				
 						%>
+						<%} %>
 
 
 						<!-- 알림 목록 -->
@@ -296,13 +402,14 @@ window.addEventListener("load", function(){
 							aria-haspopup="true" aria-expanded="false">Dropdown <span
 								class="caret"></span></a>
 							<ul class="dropdown-menu" id="dropdown-menu">
-								<li><a href="#" onclick="openNav()">list</a></li>
+								<li><a href="#" onClick="openNav()">list</a></li>
 								<li role="separator" class="divider"></li>
 								<li><a href="#" data-toggle="modal" data-target="#myModal">write</a></li>
+								
 								<li role="separator" class="divider"></li>
 								<li><a href="#">메뉴3</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#">메뉴4</a></li>
+								<li role="separator" class="divider" role="button"></li>
+								<li><a href="#" onClick="logout()">로그아웃</a></li>
 							</ul></li>
 					</ul>
 				</div>
@@ -346,9 +453,9 @@ window.addEventListener("load", function(){
 				</div>
 
 			</div>
-			
-			
-			
+
+
+
 			<!-- 지도를 포함한 center  -->
 			<div class="col-md-7" id="center">
 
@@ -368,7 +475,7 @@ window.addEventListener("load", function(){
 						</div>
 					</div>
 				</div>
-				
+
 				<br> <br>
 				<div class="row">
 					<div class="col-lg-6">
@@ -393,15 +500,19 @@ window.addEventListener("load", function(){
 			      	<button id="addOneCart" onclick="addCart()">장바구니 담기</button>
 			    </div>
 				<div id="map"></div>
-				
+
 			</div>
+
+
+
 
 			<div class="col-md-3" id="right">
 				<!-- 글 List  -->
 				<div id="mySidenav" class="sidenav">
-					<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+					<a href="javascript:void(0)" class="closebtn" onClick="closeNav()">&times;</a>
+
 					<%
-						for (int i = 0; i <list.size(); i++) {
+						for (int i = 0; i < list.size(); i++) {
 					%>
 					<%
 						Board board = list.get(i);
@@ -411,11 +522,10 @@ window.addEventListener("load", function(){
 					<br>
 					<div id="list_div" data-target="#listModal">
 						<div id="list_top">
-							<div id="time<%=i%>" style="font-size:11px;"></div>
+							<div id="time<%=i%>" style="font-size: 11px;"></div>
 							<script>
 							
 							d1=new Date();
-							
 							
 							if(d1.getFullYear()==<%=board.getRegdate().split("-")[0]%>){
 								if(d1.getMonth()+1==<%=board.getRegdate().split("-")[1]%>){
@@ -427,7 +537,7 @@ window.addEventListener("load", function(){
 											
 										}else{
 			
-											temp=d1.getHours()-<%=board.getRegdate().substring(11,13)%>;
+											temp=d1.getHours()-<%=board.getRegdate().substring(11, 13)%>;
 											document.getElementById("time<%=i%>").innerHTML=temp+"시간 전에 게시";
 										}
 											
@@ -453,19 +563,25 @@ window.addEventListener("load", function(){
 								role="button" onClick="show(<%=board.getBoard_id()%>)">&nbsp<strong
 								role="button" onClick="show(<%=board.getBoard_id()%>)"><%=board.getM_email()%></strong>
 
+
+
+							<!-- 좋아요 버튼 -->
+
 							<button type="button" class="btn btn-default"
-								style="border: none;">
+								style="border: none;"
+								onClick="likeChk(<%=board.getBoard_id()%>)">
 								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
-									style="font-size: 12px;">11</span>
+									style="font-size: 12px;" id="likes<%=board.getBoard_id()%>"></span>
 							</button>
+
+							<!-- 좋아요 버튼 종료 -->
 
 
 						</div>
 						<br>
-
 						<div id="list_content" role="button"
 							onClick="show(<%=board.getBoard_id()%>)">
-							<img src="/data/<%=board.getImg() %>" width="100%">
+							<img src="/data/<%=board.getImg()%>" width="100%"> <br>
 							<br>
 							<%=board.getContent()%>
 						</div>
@@ -485,7 +601,19 @@ window.addEventListener("load", function(){
 			</div>
 		</div>
 	</div>
-
+	<!-- 	<script type="text/javascript">
+		// Add contents for max height
+		$(document).ready(function () {
+		$(mySidenav).scroll(function() {
+		maxHeight = $(document).height();
+		currentScroll = $(mySidenav).scrollTop() + $(mySidenav).height();
+		
+		if (maxHeight <= 1100) {
+			alert("스크롤");
+		}
+		})
+		});
+		</script> -->
 	<!-- modal start -->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
@@ -507,10 +635,12 @@ window.addEventListener("load", function(){
 						</div>
 					</div>
 					<div class="modal-footer">
-						<img src="/images/cam.png" width="40px" onClick="getFile()">
+						<span id="x"></span> <img src="/images/cam.png" width="40px"
+							onClick="getFile()">
 						<button type="button" class="btn btn-primary" onclick="regist()">post</button>
 					</div>
-					<input type="file" id="myFile" style="display: none" name="myFile">
+					<input type="file" id="myFile" size:"50" name="myFile"
+						style="display: none">
 				</div>
 			</form>
 		</div>
@@ -568,7 +698,7 @@ window.addEventListener("load", function(){
 	  <%}%>
 	];
 	
-	alert("등록된 맛집의 수는" + neighborhoods.length);
+	//alert("등록된 맛집의 수는" + neighborhoods.length);
 	var markers = [];
 	var contentString=[];
 	var infowindow=[];

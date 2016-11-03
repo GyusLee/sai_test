@@ -60,7 +60,6 @@ public class BoardController {
 				
 				System.out.println("사진 저장 경로"+realPath);
 
-				
 				// 글 처리!!
 				int result = boardService.insert(board);
 

@@ -261,6 +261,10 @@ function getHttp() {
 	}
 	return xhttp;
 }
+function back(){
+	form1.action="../main/list.do"
+	form1.submit();
+}
  
 </script>
 </head>
@@ -328,6 +332,8 @@ function getHttp() {
 			<input type="button" value="등록" onClick="regist()">
 			<input type="button" value="수정" onClick="update()">
 			<input type="button" value="삭제" onClick="delete1()">
+			<input type="button" class="btn btn-default" onClick="back()"
+						value="뒤로가기">
 			</li>
 		</ul>
 	</form>

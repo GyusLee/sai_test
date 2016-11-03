@@ -84,7 +84,7 @@ public class MemberController {
 			couple=coupleService.select(searchMember.getCouple_id());
 
 			session.setAttribute("couple", couple);
-			session.setAttribute("member", member);
+			session.setAttribute("member", searchMember);
 		
 			mav.setViewName("redirect:/main/index.do");
 		}
