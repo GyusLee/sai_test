@@ -152,19 +152,19 @@
 		</div>
 		<div class="col-xs-6 col-md-4">
 			<div class="thumbnail">
-				<img src="/images/img1.jpg" alt="...">
+				<img src="/images/img4.jpg" alt="...">
 				<div class="caption">
-					<h3>우리만 아는 핫 플레이스</h3>
-					<p>여러분들의 핫플레이스를 공유하세요.</p>
+				<h3>우리의 데이트코스</h3>
+					<p>여러분들의 데이트코스를 공유하세요.</p>
 				</div>
 			</div>
 		</div>
 		<div class="col-xs-6 col-md-4">
 			<div class="thumbnail">
-				<img src="/images/img4.jpg" alt="...">
+				<img src="/images/img1.jpg" alt="...">
 				<div class="caption">
-					<h3>우리의 데이트코스</h3>
-					<p>여러분들의 데이트코스를 공유하세요.</p>
+					<h3>커플에게만 제공되는 서비스</h3>
+					<p>지금 바로 네이버 계정으로 손쉽게 로그인 하세요</p>					
 				</div>
 			</div>
 		</div>

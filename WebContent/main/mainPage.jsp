@@ -400,7 +400,7 @@ window.addEventListener("load", function(){
 	}
 	// 댓글 업로드
 	function registReply(){
-		alert("엔터키 눌렀어?");
+		/* alert("엔터키 눌렀어?"); */
 	}
 	
  	function show(board_id){
@@ -616,7 +616,7 @@ window.addEventListener("load", function(){
 	
 	//로그아웃
 	 function logout() {
-		  window.location.href="logout.jsp";
+		  window.location.href="http://nid.naver.com/nidlogin.logout";
 	}	
 
 </script>
@@ -709,10 +709,10 @@ window.addEventListener("load", function(){
 			
 			
 			<!-- 카트가 들어가는 Left -->
-			<div class="col-md-2" id="left">
-				<div class="container">
+			<div class="col-md-2" id="left" style="width:23%">
+				<div class="container" style="width:100%">
 				  <h3>데이트 코스</h3>
-				  <ul id="cartList" class="nav nav-pills nav-stacked" style="width:23%">
+				  <ul id="cartList" class="nav nav-pills nav-stacked" style="width:100%">
 				    
 				  </ul>
 				  <div class="modal fade" id="myModalDate" role="dialog">
@@ -1183,10 +1183,9 @@ window.addEventListener("load", function(){
 		 xhttp.onreadystatechange=function(){
 			 if(xhttp.readyState==4&&xhttp.status==200){
 				var data=xhttp.responseText;
-				alert(data);
-				alert(showDateCourse.innerHTML);
+				
 				showDateCourse.innerHTML+=data;
-				alert(showDateCourse.innerHTML);
+				
 			 }
 		 }
 
@@ -1214,14 +1213,12 @@ window.addEventListener("load", function(){
 
 		 xhttp.open("get","/main/insertCart.do?course_id="+course_id+"&couple_id="+couple_id,true);
 		 xhttp.send();
-		 alert("넘어가나?");
 		
 	}
 	
 	var showDateCourseDetail = document.getElementById("showDateCourseDetail");
 	//장바구니를 선택했을떄..색깔 변화 밑 코스 디테일과 업체 정보를 불러오자.
 	function showCourse(courseId){
-		alert("데이트 코스를 보여드리죠..");
 		//selectedItem.className="active";
 		//비동기 방식으로 값을 가져오자...
 		var xhttp=getHttp();
@@ -1235,7 +1232,6 @@ window.addEventListener("load", function(){
 		
 		 xhttp.open("get","/main/selectCourseAndSid.do?course_id="+courseId,"true");
 		 xhttp.send();
-		 alert("넘어가나?");
 	}
 	
 	 // 비동기 방식으로 가져오자

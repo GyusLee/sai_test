@@ -33,7 +33,7 @@
 			<h2>
 				회원 정보 디테일
 				<p>
-				<input type="button" class="btn btn-default" onClick="back()"
+				<input type="button" class="btn btn-primary" onClick="back()"
 						value="뒤로가기">
 					<input type="button" class="btn btn-danger" onClick="del()"
 						value="회원 삭제">
