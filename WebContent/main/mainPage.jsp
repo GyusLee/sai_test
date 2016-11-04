@@ -9,11 +9,15 @@
 	request.setCharacterEncoding("utf-8");
 	Couple couple = (Couple) session.getAttribute("couple");
 	Member member = (Member) session.getAttribute("member");
+	
 	List<Board> list = (List) request.getAttribute("list");
+	List<String> memberList=(List)request.getAttribute("memberList");
+	
 	int height = 1000;
 	if (list.size() > 3) {
 		height = list.size() * 350;
 	}
+
 %>
 <!-- 지도 관련 -->
 <%
@@ -39,6 +43,12 @@
 <title>Insert title here</title>
 
 <style>
+/* 프로필 */
+#modalBodyProfile{
+	height: 200px;
+
+}
+
 /* 모달 css */
 .modal-header {
 	background-color: #ffc4b2;
@@ -54,11 +64,11 @@ body {
 
 .sidenav {
 	height: 100%;
+	top: 70px;
 	width: 0;
 	border-left: 1px solid #e7e7e7;
 	position: fixed;
 	z-index: 10;
-	top: 10%;
 	left: 100%;
 	background-color: white;
 	overflow-x: hidden;
@@ -89,6 +99,12 @@ body {
 	padding-top: 0px;
 	font-size: 36px;
 	margin-left: 50px;
+}
+
+#mySidenav {
+	top: 70px;
+	border-top: 1px solid #e7e7e7;
+	height: 800px;
 }
 
 #main {
@@ -134,7 +150,7 @@ body {
 }
 
 #listModalSetting {
-	width: 75%;
+	width: 85%;
 	height: 800px;
 }
 
@@ -196,29 +212,90 @@ body {
 	-webkit-transform: translate(-50%, -50%);
 	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
+}
 
+/* 프리뷰 이미지 크기 css */
+.thumbnail-wrappper2 {
+	width: 25%;
 }
-/*  지도 관련  */ 
-#map{
-	width : 100%;
-	height : 600px;
-	border : 1px solid red;
+
+.thumbnail2 {
+	position: relative;
+	padding-top: 68%; /* 1:1 ratio */
+	overflow: hidden;
 }
+
+.thumbnail2 .centered2 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	-webkit-transform: translate(50%, 50%);
+	-ms-transform: translate(50%, 50%);
+	transform: translate(50%, 50%);
+}
+
+.thumbnail2 .centered2 img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	max-width: 100%;
+	height: auto;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+#modalCon {
+	width: 30%;
+	height: 400px;
+	text-overflow: ellipsis;
+	border: 1px solid #e7e7e7;
+}
+
+#modalCon2 {
+	margin-top: 20px;
+	padding-top: 20px;
+	width: 30%;
+	height: 230px;
+	text-overflow: ellipsis;
+	border: 1px solid #e7e7e7;
+}
+
+#modal_thumbnail {
+	padding-top: 75%;
+}
+
+/*  지도 관련  */
+#map {
+	width: 100%;
+	height: 600px;
+	border: 1px solid #e7e7e7;
+}
+
 
 #courseArea {
 	width: 100%;
-	border: 1px solid yellow;
+	border: 1px solid #e7e7e7;
+}
+
+/* writeModal */
+#writeModalHeader{
+	height: 70px;
 }
 </style>
 <script>
+var openFlag;
 var d1;
 var temp;
 var myFile;
 var comment_txt;
-
+var myProfile;
 window.addEventListener("load", function(){
-	
+	openFlag=0;
 	myFile=document.getElementById("myFile");
+	myProfile=document.getElementById("myProfile");
 	comment_txt=document.getElementById("comment");
 
 	var x=document.getElementById("x");
@@ -235,15 +312,47 @@ window.addEventListener("load", function(){
 	}); */
 })
 	function openNav() {
+		
+		if(openFlag==0){
+	 	$("#mySidenav").animate({
+	 		left:"75%"
+	 		,width:"25%"
+	 		},"fast");	
+	 	
+	 	$("#left").hide(300);
+	 			
+	 	
+
+		openFlag=1;
+		
+	 	
+		/* document.getElementById("left").style.right="10%";
+		document.getElementById("center").style.right="10%";
+		document.getElementById("right").style.right="10%";
 		document.getElementById("mySidenav").style.width = "25%";
-		document.getElementById("mySidenav").style.left = "75%";
-		document.getElementById("main").style.marginRight = "0";
+		document.getElementById("mySidenav").style.left = "75%"; */
+		document.getElementById("main").style.marginRight ="none";
+
+		}
 	}
 
 	function closeNav() {
+	 	
+		if(openFlag==1){
+
+		$("#left").show(300);
+
+	 	$("#mySidenav").animate({left:"100%",width:"0px"},"fast");	
+	 	
+	 	openFlag=0;
+		/* document.getElementById("left").style.right="0";
+		document.getElementById("center").style.right="0";
+		document.getElementById("right").style.right="0";
 		document.getElementById("mySidenav").style.width = "0";
-		document.getElementById("mySidenav").style.left = "100%";
-		document.getElementById("main").style.marginRight = "0";
+		document.getElementById("mySidenav").style.left = "100%";*/
+		document.getElementById("main").style.marginRight = "none";
+		
+		}
 	}
 
 	// file 함수 호출
@@ -260,6 +369,27 @@ window.addEventListener("load", function(){
 		form1.submit();
 	}
 	
+	// 프사 미리보기
+	function previewImg(){
+	      var oFReader = new FileReader();
+	      oFReader.readAsDataURL(document.getElementById("myProfile").files[0]);
+
+	      oFReader.onload = function (oFREvent) {
+	          document.getElementById("preImg").src = oFREvent.target.result;
+	      };
+	}
+	
+	// 프로필 사진 바꾸기!!
+	function changeProfile(){
+		myProfile.click();
+	}
+	
+	// 사진 등록
+	function registProfile(){
+		form3.encoding="multipart/form-data";
+		form3.action = "/main/writePic.do";
+		form3.submit();
+	}
 	// 댓글 업로드
 	function registReply(){
 		alert("엔터키 눌렀어?");
@@ -267,19 +397,54 @@ window.addEventListener("load", function(){
 	
  	function show(board_id){
 		//show 호출시 넘겨준 값을 이용하여 ajax 등을 통해 modal 을 띄울때 동적으로 바뀌어야 하는 값을 얻어온다.  
-		
+		var modal_img=document.getElementById("modal_img");
+		var modal_txt=document.getElementById("modal_txt");
 		var jData = {"board_id" : board_id};
-		
+		while (modal_txt.hasChildNodes()) {   
+			modal_txt.removeChild(modal_txt.firstChild);
+		}
+		while (modal_img.hasChildNodes()) {   
+			modal_img.removeChild(modal_img.firstChild);
+		}
 		$.ajax({
 			contentType:'application/json;charset=UTF-8',
 			dataType:'json',
 			url:'/main/modal.do',
 			type:'POST',
+			async   : false,
 			data:JSON.stringify(jData),
 			success:function(response){
-				$("#timeline_top").html(response.email);
+				var jason=JSON.stringify(response);
+				var jasonParcing=JSON.parse(jason);
+				
+
+				var list_profile=document.getElementById("list_profile");
+				if(jasonParcing.myImg!=null)
+					list_profile.src="/data/"+jasonParcing.myImg;
+				
+				var img=document.createElement("img");
+				img.style.maxWidth="100%";
+				img.style.height="auto";
+				img.src="/data/"+jasonParcing.img;
+				modal_img.appendChild(img);
+				$("#timeline_top").html(jasonParcing.name+" ( "+ response.email+" ) ");
+				/* document.getElementById("createSpan").style.fontFamily="'Roboto', sans-serif;"; */
 				$("#timeline_content").html(response.content);
+				$("#modal_like").html(" "+jasonParcing.likesNumber+"명이 좋아합니다.");
+				for(var i=0;i<jasonParcing.listName.length;i++){
+					
+					var name=jasonParcing.listName[i];
+					var content=jasonParcing.rList[i].content;
+					var div=document.createElement("div");
+					div.style.fontSize="15px"
+					div.innerText="[ "+name+" ] : "+content;
+					
+					modal_txt.appendChild(div);
+					 
+				}
 				$("#listModal").modal('show');
+
+			
 			}
 		});  
 
@@ -319,6 +484,35 @@ window.addEventListener("load", function(){
 					$("#likes"+board_id).html(response.maxNum);
 			}
 		});
+		var rData={"board_id" : board_id};
+		
+		$.ajax({
+			contentType:'application/json;charset=UTF-8',
+			dataType:'json',
+			url:'/main/getReply.do',
+			type:'POST',
+			async   : false,
+			data:JSON.stringify(rData),
+			success:function(response){	
+				var json=JSON.stringify(response);
+				var json2=JSON.parse(json);	
+					
+					for(var i=0;i<json2.name.length;i++){
+						var name=json2.name[i];
+						var content=json2.rList[i].content;
+						var list_content=document.getElementById("list_content"+board_id);
+						var div=document.createElement("div");
+						div.style.fontSize="10px"
+						div.innerText="[ "+name+" ] : "+content;
+						list_content.appendChild(div);
+						document.getElementById("comment"+board_id).value=""; 
+					}
+				}
+
+			});
+
+		
+		
 		<%}%>
 		<%}%>
  		
@@ -380,7 +574,8 @@ window.addEventListener("load", function(){
 					
 					var list_content=document.getElementById("list_content"+board_id);
 					var div=document.createElement("div");
-					div.innerText="<%=member.getM_name()%> : 	"+document.getElementById("comment"+board_id).value;
+					div.style.fontSize="10px";
+					div.innerText="[ <%=member.getM_name()%> ] : 	"+document.getElementById("comment"+board_id).value;
 					list_content.appendChild(div);
 					document.getElementById("comment"+board_id).value="";
 				}
@@ -410,7 +605,8 @@ window.addEventListener("load", function(){
 							class="icon-bar"></span>
 					</button>
 
-					<a class="navbar-brand" href="#">WWW.SAI.CO.KR</a>
+					<img src="/images/sai.png" width="20%"><a
+						class="navbar-brand" href="#">www.sai.co.kr</a>
 
 				</div>
 
@@ -418,7 +614,7 @@ window.addEventListener("load", function(){
 
 					<ul class="nav navbar-nav navbar-right">
 
-						<% if(member.getIsAdmin()==1){%>
+						<% if(member.getIsAdmin()!=0){%>
 
 						<li><a href="/admin/member.do">회원관리</a></li>
 						<li><a href="/admin/boardList.do">게시물관리</a></li>
@@ -445,32 +641,38 @@ window.addEventListener("load", function(){
                   Messages <span class="badge">12</span>
                </button></li>-->
 						<!-- NickName 및 Icon Image-->
-						<li><button type="button" class="btn btn-primary btn-lg">
+
+						<li><img src=<%if(member.getImg()==null){%>
+							"/images/default.png"
+						<%}else{%>
+							<%="/data/"+member.getImg() %> <%} %> id="profile" width="40px"
+							height="40px">&nbsp
+							<button type="button" class="btn btn-primary btn-lg"
+								style="font-size: 14px">
 								<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-								<%=member.getM_name()%>님의 SAI
+								<%=member.getM_name()%>님의 sai
 							</button></li>
 						<!-- 드랍 박스 -->
 
 						<li class="dropdown" id="dropdown"><a href="#"
 							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-haspopup="true" aria-expanded="false">Dropdown <span
+							aria-haspopup="true" aria-expanded="false">메뉴 <span
 								class="caret"></span></a>
 							<ul class="dropdown-menu" id="dropdown-menu">
-								<li><a href="#" onClick="openNav()">list</a></li>
+								<li><a href="#" data-toggle="modal"
+									data-target="#myProfileModal">프로필</a></li>
 								<li role="separator" class="divider"></li>
-								<li><a href="#" data-toggle="modal" data-target="#myModal">write</a></li>
-
+								<li><a href="#" onClick="openNav()">뉴스피드</a></li>
 								<li role="separator" class="divider"></li>
-								<li><a href="#">메뉴3</a></li>
+								<li><a href="#" data-toggle="modal" data-target="#myModal">글쓰기</a></li>
 								<li role="separator" class="divider" role="button"></li>
 								<li><a href="#" onClick="logout()">로그아웃</a></li>
 							</ul></li>
 					</ul>
+					<!-- /.navbar-collapse -->
 				</div>
-				<!-- /.navbar-collapse -->
 			</div>
-		</div>
-		<!-- /.container-fluid -->
+			<!-- /.container-fluid -->
 	</nav>
 	<div class="container-fluid" id="wraaper">
 		<div class="row-fluid">
@@ -493,10 +695,8 @@ window.addEventListener("load", function(){
 				</div>
 			</div>
 
-
-
 			<!-- 지도를 포함한 center  -->
-			<div class="col-md-7" id="center">
+			<div class="col-md-9" id="center">
 				<!-- 찾기 -->
 				<br>
 				<div class="row">
@@ -513,40 +713,39 @@ window.addEventListener("load", function(){
 						</div>
 					</div>
 				</div>
-				<!-- 상위 카테고리 -->
-				<br>
-				<div class="dropdown">
-					<button class="btn btn-default dropdown-toggle" type="button"
-						id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="true">
-						상위카테고리 <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						<li><a href="#">항목1</a></li>
-						<li><a href="#">항목2</a></li>
-						<li><a href="#">항목3</a></li>
-						<li><a href="#">항목4</a></li>
-					</ul>
-				</div>
-
-				<!-- 하위 카테고리 -->
-				<div class="dropdown">
-					<button class="btn btn-default dropdown-toggle" type="button"
-						id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="true">
-						하위카테고리 <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-						<li><a href="#">항목1</a></li>
-						<li><a href="#">항목2</a></li>
-						<li><a href="#">항목3</a></li>
-						<li><a href="#">항목4</a></li>
-					</ul>
-				</div>
-				<br> <br>
 				<div class="row">
-					<div class="col-lg-6">
-						<div class="dropdown">
+					<!-- 상위 카테고리 -->
+					<br>
+					<div class="col-lg-10">
+						<div class="dropdown" style="width: 20%; float: left;">
+							<button class="btn btn-default dropdown-toggle" type="button"
+								id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="true">
+								상위카테고리 <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+								<li><a href="#">항목1</a></li>
+								<li><a href="#">항목2</a></li>
+								<li><a href="#">항목3</a></li>
+								<li><a href="#">항목4</a></li>
+							</ul>
+						</div>
+						<!-- 하위 카테고리 -->
+						<div class="dropdown" style="width: 20%; float: left;">
+							<button class="btn btn-default dropdown-toggle" type="button"
+								id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="true">
+								하위카테고리 <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+								<li><a href="#">항목1</a></li>
+								<li><a href="#">항목2</a></li>
+								<li><a href="#">항목3</a></li>
+								<li><a href="#">항목4</a></li>
+							</ul>
+						</div>
+
+						<div class="dropdown" style="width: 20%; float: left;">
 							<button class="btn btn-default dropdown-toggle" type="button"
 								id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="true">
@@ -560,11 +759,18 @@ window.addEventListener("load", function(){
 								<li><a href="#">부산</a></li>
 							</ul>
 						</div>
+
 					</div>
+					<div class="row"></div>
+					<br>
 				</div>
+<<<<<<< HEAD
 				
 				
 				
+=======
+
+>>>>>>> dac122a8db4d152b64a2028d93b9ae897058ae7a
 				<!-- 지도 추가  -->
 				<div id="map"></div>
 				<div class="container" id="courseArea">
@@ -578,28 +784,24 @@ window.addEventListener("load", function(){
 				
 			</div>
 
-		</div>
 
-	</div>
+			<div class="col-md-1" id="right">
+				<!-- 글 List  -->
+				<div id="mySidenav" class="sidenav">
+					<a href="javascript:void(0)" class="closebtn" onClick="closeNav()">&times;</a>
 
-	<div class="col-md-3" id="right">
-		<!-- 글 List  -->
-		<div id="mySidenav" class="sidenav">
-			<a href="javascript:void(0)" class="closebtn" onClick="closeNav()">&times;</a>
-
-			<%
+					<%
 						for (int i = 0; i < list.size(); i++) {
 					%>
-			<%
+					<%
 						Board board = list.get(i);
 					%>
-			<!-- list 나오는 부분  -->
-			<div style="border: solid 1px #D3D2E0"></div>
-			<br>
-			<div id="list_div" data-target="#listModal">
-				<div id="list_top">
-					<div id="time<%=i%>" style="font-size: 11px;"></div>
-					<script>
+					<!-- list 나오는 부분  -->
+					<br>
+					<div id="list_div" data-target="#listModal">
+						<div id="list_top">
+							<div id="time<%=i%>" style="font-size: 11px;"></div>
+							<script>
 							d1=new Date();
 							if(d1.getFullYear()==<%=board.getRegdate().split("-")[0]%>){
 								if(d1.getMonth()+1==<%=board.getRegdate().split("-")[1]%>){
@@ -624,110 +826,105 @@ window.addEventListener("load", function(){
 								temp=d1.getFullYear()-<%=board.getRegdate().split("-")[0]%>;
 								document.getElementById("time<%=i%>").innerHTML=temp+"년 전에 게시";
 							}
+							
 							</script>
-					<img src="/images/default.png" id="profile" width="30px"
-						role="button" onClick="show(<%=board.getBoard_id()%>)">&nbsp<strong
-						role="button" onClick="show(<%=board.getBoard_id()%>)"><%=board.getM_email()%></strong>
+
+							<img src=<%if(memberList.get(i)==null){%>
+								"/images/default.png"<%}else{%> <%=memberList.get(i) %> <%} %>
+								id="profile" width="30px" height="30px" role="button"
+								onClick="show(<%=board.getBoard_id()%>)">&nbsp<strong
+								role="button" onClick="show(<%=board.getBoard_id()%>)"><%=board.getM_email()%></strong>
+
+							<!-- 좋아요 버튼 -->
+
+							<button type="button" class="btn btn-default"
+								style="border: none;"
+								onClick="likeChk(<%=board.getBoard_id()%>)">
+								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
+									style="font-size: 12px;" id="likes<%=board.getBoard_id()%>"></span>
+							</button>
+
+							<!-- 좋아요 버튼 종료 -->
 
 
-
-					<!-- 좋아요 버튼 -->
-
-					<button type="button" class="btn btn-default" style="border: none;"
-						onClick="likeChk(<%=board.getBoard_id()%>)">
-						<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
-							style="font-size: 12px;" id="likes<%=board.getBoard_id()%>"></span>
-					</button>
-
-					<!-- 좋아요 버튼 종료 -->
-
-
-				</div>
-				<br>
-
-				<!-- 댓글 폼태그 시작 -->
-				<form name="form<%=board.getBoard_id() %>" method="post">
-					<div id="list_content<%=board.getBoard_id() %>" role="button"
-						onClick="show(<%=board.getBoard_id()%>)">
-						<div class="thumbnail-wrapper">
-							<div class="thumbnail">
-								<div class="centered">
-									<img src="/data/<%=board.getImg()%>" width="80%" height="auto">
-								</div>
-							</div>
 						</div>
-						<%=board.getContent()%>
+						<br>
+
+						<!-- 댓글 폼태그 시작 -->
+						<form name="form<%=board.getBoard_id() %>" method="post">
+							<div id="list_content<%=board.getBoard_id() %>" role="button"
+								onClick="show(<%=board.getBoard_id()%>)">
+								<div class="thumbnail-wrapper">
+									<div class="thumbnail" id="modal_thumbnail">
+										<div class="centered">
+											<img src="/data/<%=board.getImg()%>" width="80%"
+												height="auto">
+										</div>
+									</div>
+								</div>
+
+								<%=board.getContent()%><br> <br>
+								<div style="border-top: solid 1px #D3D2E0"></div>
+								<br>
+							</div>
+							<br>
+							<div id="list_bottom">
+
+								<textarea name=content class="form-control" rows="2"
+									id="comment<%=board.getBoard_id()%>" placeholder="comment..."
+									onKeyDown="registComment(<%=board.getBoard_id()%>)"></textarea>
+							</div>
+						</form>
+						<!-- 댓글 폼태그 끝 -->
 					</div>
-					<br>
-					<div id="list_bottom">
-
-						<textarea name=content class="form-control" rows="2"
-							id="comment<%=board.getBoard_id()%>" placeholder="comment..."
-							onKeyDown="registComment(<%=board.getBoard_id()%>)"></textarea>
-					</div>
-				</form>
-				<!-- 댓글 폼태그 끝 -->
-
-				<div id="list_content" role="button"
-					onClick="show(<%=board.getBoard_id()%>)">
-					<img src="/data/<%=board.getImg()%>" width="100%"> <br>
-					<br>
-					<%=board.getContent()%>
+					<%
+				}
+			%>
 				</div>
-				<br>
-				<div id="list_bottom">
-					<textarea name="content" class="form-control" rows="2" id="comment"
-						placeholder="comment...">
-								</textarea>
-				</div>
-
-				<br>
+				<!-- 글 List  끝-->
 			</div>
-			<%
-						}
-					%>
 		</div>
-		<!-- 글 List  끝-->
-	</div>
-	</div>
+
 	</div>
 
-
-	<!-- 	<script type="text/javascript">
+	<!-- 	 	<script type="text/javascript">
 		// Add contents for max height
 		$(document).ready(function () {
 		$(mySidenav).scroll(function() {
-		maxHeight = $(document).height();
-		currentScroll = $(mySidenav).scrollTop() + $(mySidenav).height();
+		maxHeight = $(mySidenav).height();
 		
-		if (maxHeight <= 1100) {
-			alert("스크롤");
+		currentScroll = $(mySidenav).scrollTop()- $(mySidenav).height();
+		console.log(currentScroll);
+		if (maxHeight <= currentScroll) {
+			alert("이상!!");
 		}
 		})
 		});
-		</script> -->
+		</script>  -->
 
 	<!-- modal start -->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
 			<!-- Modal content-->
 			<form name="form1" method="post">
-				<div class="modal-content">
-					<div class="modal-header">
+				<div class="modal-content" id="writeModalContent">
+					<div class="modal-header" id="writeModalHeader">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<div class="row">
 							<div class="col-sm-12">
-								<img src="/images/default.png" id="profile" width="70px">&nbsp<strong><%=member.getM_name()%></strong>
+								<img src=<%if(member.getImg()==null){%>
+									"/images/default.png"<%}else{ %>"/data/<%=member.getImg() %>"<%} %>
+									id="profile" width="70px">&nbsp<strong><%=member.getM_name()%></strong>
 							</div>
 						</div>
 					</div>
-					<div class="modal-body">
+					<div class="modal-body" id="writeModalBody">
 						<div class="form-group">
 							<textarea class="form-control" rows="9" id="content"
-								name="content" placeholder="우리들의 핫 플레이스.."></textarea>
+								name="content" placeholder="글 쓰기..."></textarea>
 						</div>
 					</div>
-					<div class="modal-footer">
+					<div class="modal-footer" id="writeModalFooter">
 						<span id="x"></span> <img src="/images/cam.png" width="40px"
 							onClick="getFile()">
 						<button type="button" class="btn btn-primary" onclick="regist()">post</button>
@@ -740,28 +937,95 @@ window.addEventListener("load", function(){
 	</div>
 	<!-- modal end -->
 
+
+	<!-- 프로필 사진 업로드 모달 시작-->
+	<div class="modal fade" id="myProfileModal" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<!-- Modal content-->
+			<form name="form3" method="post">
+				<div class="modal-content" id="modalProfileContent">
+					<div class="modal-header" id="modalProfileContentHeader" style="background: #BAF2E8;">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<font face="나눔고딕" color="black">아래의 사진을 클릭하세요</font>
+					</div>
+					<div class="modal-body" id="modalBodyProfile">
+						<div class="form-group">
+							<div class="thumbnail-wrapper2">
+								<div class="thumbnail2">
+									<div class="centered2">
+										<span id="x"></span><%if(member.getImg()==null){ %>
+										<img id="preImg" src="/images/default.png" onClick="changeProfile()">
+										<%}else{ %>
+										<img id="preImg" src="/data/<%=member.getImg() %>" onClick="changeProfile()">
+										<%} %>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary"
+							onclick="registProfile()">등록</button>
+					</div>
+					<input type="file" id="myProfile" size:"50" name="myProfile"
+						style="display: none" onChange="previewImg()">
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- 프로필 사진 업로드 모달 끝 -->
+
 	<!--리스트 모달-->
 	<div class="modal bs-example-modal-lg" id="listModal" role="dialog">
 		<div class="modal-dialog" id="listModalSetting">
 			<!-- 모달 내용-->
 			<div class="modal-content" id="listModelContent">
-				<div class="modal-header">
+				<div class="modal-header" style="background: #BAF2E8;">
 
-					<img src="/images/default.png" id="list_profile" width="50px">&nbsp<strong
-						id="timeline_top"></strong>
+					<img src="/images/default.png" id="list_profile"
+						style="width: 100px; height: auto; padding-left: 30px; padding-right: 15px;">&nbsp<strong
+						id="timeline_top"
+						style="font-size: 20px; color: rgba(255, 255, 255, 1);"></strong>
+
 					<button type="button" class="close" data-dismiss="modal"
 						style="font-size: 30px">&times;</button>
 					<br>
 				</div>
 				<div class="modal-body" id="listModelBody">
-					<p id="timeline_content"></p>
-				</div>
-				<div class="modal-footer">
-					<textarea name="content" class="form-control" rows="2" id="comment"
-						placeholder="comment..."></textarea>
+
+					<div class="row">
+						<div class="col-sm-8">
+
+							<div class="thumbnail-wrapper">
+								<div class="thumbnail" style="height: 650px;">
+									<div class="centered">
+										<div id="modal_img"></div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3" id="modalCon">
+							<h3
+								style="font-family: 'Roboto', sans-serif; border-bottom: 1px solid #e7e7e7; padding-bottom: 10px;">
+								CONTENTS<br>
+							</h3>
+							<button type="button" class="btn btn-default"
+								style="border: none; padding-left: 0px;">
+								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
+									style="font-size: 15px;" id="modal_like"> </span>
+							</button>
+							<p id="timeline_content" style="padding-top: 10px;"></p>
+						</div>
+						<div class="col-md-3" id="modalCon2">
+							<div id="modal_txt"></div>
+						</div>
+
+					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 	<!-- modal end -->
 </body>
@@ -790,8 +1054,6 @@ window.addEventListener("load", function(){
 	  {lat: <%=subCateList.get(i).getLati()%>, lng: <%=subCateList.get(i).getLng()%>},
 	  <%}%>
 	];
-	
-	alert("등록된 맛집의 수는" + neighborhoods.length);
 	
 	var markers = [];
 	var contentString=[];
@@ -895,7 +1157,7 @@ window.addEventListener("load", function(){
 			 if(xhttp.readyState==4&&xhttp.status==200){
 				var data=xhttp.responseText;
 				alert(data);
-				alert(showDateCourse.innerHTML)
+				alert(showDateCourse.innerHTML);
 				showDateCourse.innerHTML+=data;
 				alert(showDateCourse.innerHTML);
 			 }

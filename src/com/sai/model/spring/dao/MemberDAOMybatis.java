@@ -55,4 +55,13 @@ public class MemberDAOMybatis implements MemberDAO{
 		return result;
 	}
 
+
+	@Override
+	public int update_profile(Member member) {
+		System.out.println("Mybatis");
+		System.out.println("¼º¼ö"+member.getM_email());
+		int result = sqlSessionTemplate.update("Member.update_profile", member);
+		return result;
+	}
+
 }

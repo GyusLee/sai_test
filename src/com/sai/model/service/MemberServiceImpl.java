@@ -61,4 +61,11 @@ public class MemberServiceImpl implements MemberService {
 		int result=memberDAO.update(member);
 		return result;
 	}
+
+	@Override
+	public int update_profile(Member member) {
+		System.out.println("Service");
+		int result = memberDAO.update_profile(member);
+		return result;
+	}
 }

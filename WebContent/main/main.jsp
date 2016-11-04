@@ -79,8 +79,8 @@
 	z-index: 999;
 	background: rgba(255, 255, 255, 0.95);
 	border: 1px solid #e7e7e7;
-	border-top:none;
-	top:0px;
+	border-top: none;
+	top: 0px;
 }
 </style>
 </head>
@@ -117,8 +117,8 @@
 
 	<div class="jumbotron" id="jumbotron_color">
 		<div class="container" id="jumbotron_con">
-			<h1 style="color: #FFEBE4; font-weight: bold;">사이(4SAI2)</h1>
-			<h2 style="color: #FFEBE4;">연인과 함께 새로운 데이트 코스를 정해 보세요.</h2>
+			<h1 style="color: #FFEBE4; font-family: 나눔손글씨 펜">사이(4SAI2)</h1>
+			<h2 style="color: #FFEBE4; font-family: 나눔고딕">연인과 함께 새로운 데이트 코스를 정해 보세요.</h2>
 			<br>
 
 			<div class="panel-group" id="accordion" role="tablist"
@@ -127,12 +127,12 @@
 					<p>
 						<a class="btn btn-primary btn-lg" id="jubotron_btn"
 							href="#collapseOne" role="button" data-toggle="collapse"
-							aria-controls="collapseOne">Learn more</a>
+							aria-controls="collapseOne" style="font-family: 나눔고딕">더 알아보기</a>
 					</p>
 					<div id="collapseOne" class="panel-collapse collapse"
 						role="tabpanel" aria-labelledby="headingOne" aria-expanded="true">
 						<div class="panel-body">
-							<h3 style="color: #FFEBE4;">이 프로그램은 멀티캠퍼스 IoT 개발자 양성 과정, 스프링
+							<h3 style="color: #FFEBE4;  font-family: 나눔고딕">이 프로그램은 멀티캠퍼스 IoT 개발자 양성 과정, 스프링
 								기반 웹 개발 프로젝트 입니다.</h3>
 						</div>
 					</div>
@@ -140,13 +140,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
-
-
-
 	<div class="row-fluid">
 		<div class="col-xs-6 col-md-4">
 			<div class="thumbnail">
@@ -154,10 +147,6 @@
 				<div class="caption">
 					<h3>우리들만의 추억</h3>
 					<p>연인과의 소중한 추억을 만들고 공유하세요.</p>
-					<p>
-						<a href="#" class="btn btn-primary" role="button">Button</a> <a
-							href="#" class="btn btn-default" role="button">Button</a>
-					</p>
 				</div>
 			</div>
 		</div>
@@ -165,14 +154,8 @@
 			<div class="thumbnail">
 				<img src="/images/img1.jpg" alt="...">
 				<div class="caption">
-					<h3>Thumbnail label</h3>
-					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-						Donec id elit non mi porta gravida at eget metus. Nullam id dolor
-						id nibh ultricies vehicula ut id elit.</p>
-					<p>
-						<a href="#" class="btn btn-primary" role="button">Button</a> <a
-							href="#" class="btn btn-default" role="button">Button</a>
-					</p>
+					<h3>우리만 아는 핫 플레이스</h3>
+					<p>여러분들의 핫플레이스를 공유하세요.</p>
 				</div>
 			</div>
 		</div>
@@ -180,23 +163,12 @@
 			<div class="thumbnail">
 				<img src="/images/img4.jpg" alt="...">
 				<div class="caption">
-					<h3>Thumbnail label</h3>
-					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-						Donec id elit non mi porta gravida at eget metus. Nullam id dolor
-						id nibh ultricies vehicula ut id elit.</p>
-					<p>
-						<a href="#" class="btn btn-primary" role="button">Button</a> <a
-							href="#" class="btn btn-default" role="button">Button</a>
-					</p>
+					<h3>우리의 데이트코스</h3>
+					<p>여러분들의 데이트코스를 공유하세요.</p>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
-
-
-
 
 	<!-- 모달 -->
 	<div class="modal fade" id="login_modal" role="dialog">
@@ -204,16 +176,19 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">로그인</h4>
+					<h4 class="modal-title ">로그인</h4>
 				</div>
-				<div class="modal-body">
-					<p>
+				<div class="modal-body" text-align= "center">
+					<p  class="center">
 						<!-- 네이버아이디로로그인 버튼 노출 영역 -->
 					<div id="naver_id_login"></div>
 					</p>
+					
+
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					<h6 class="text-info">사이는 네이버 로그인만을 지원합니다.<br> Only Login With NAVER</h6>
+					<!-- <button type="submit" class="btn btn-default " data-dismiss="modal">닫기</button> -->
 				</div>
 			</div>
 		</div>

@@ -15,8 +15,8 @@ public class Comment_BoardServiceImpl implements Comment_BoardService{
 	@Autowired
 	private Comment_BoardDAO comment_BoardDAO;
 
-	public List selectAll(Comment_Board comment_Board) {
-		return comment_BoardDAO.selectAll(comment_Board);
+	public List selectAll(int board_id) {
+		return comment_BoardDAO.selectAll(board_id);
 	}
 
 	public int insert(Comment_Board comment_Board) {
