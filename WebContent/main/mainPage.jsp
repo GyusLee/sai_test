@@ -372,7 +372,7 @@ window.addEventListener("load", function(){
 	
 	// 글 업로드
 	function regist() {
-		alert("버튼눌렀어?");
+		/* alert("버튼눌렀어?"); */
 		form1.encoding="multipart/form-data";
 		form1.action = "/main/write.do";
 		form1.submit();
@@ -401,7 +401,7 @@ window.addEventListener("load", function(){
 	}
 	// 댓글 업로드
 	function registReply(){
-		alert("엔터키 눌렀어?");
+		/* alert("엔터키 눌렀어?"); */
 	}
 	
  	function show(board_id){

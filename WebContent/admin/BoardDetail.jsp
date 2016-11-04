@@ -23,7 +23,7 @@
 		form1.submit();
 	}
 	function back(){
-		form1.action="member.do"
+		form1.action="boardList.do"
 		form1.submit();
 	}
 </script>
@@ -34,7 +34,7 @@
 			<h2>
 				게시물 정보 디테일
 				<p>
-				<input type="button" class="btn btn-default" onClick="back()"
+				<input type="button" class="btn btn-primary" onClick="back()"
 						value="뒤로가기">
 					<input type="button" class="btn btn-danger" onClick="del()"
 						value="게시물 삭제">
@@ -46,7 +46,7 @@
 						<thead>
 							<tr>
 								<div class="thumbnail">
-									<img src="/data/<%=board.getImg() %>" width="100%">
+									<img src="/data/<%=board.getImg() %>" width="30%">
 								</div>
 							</tr>
 						</thead>

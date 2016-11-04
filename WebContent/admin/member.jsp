@@ -36,7 +36,7 @@
 		<h2>
 			회원 정보 조회
 				<p>
-				<input type="button" class="btn btn-default" onClick="back()"
+				<input type="button" class="btn btn-primary" onClick="back()"
 						value="뒤로가기">
 						</p>
 			<div class="input-group">
