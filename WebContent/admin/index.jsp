@@ -68,7 +68,7 @@ function loadMap(){
 	 
 	var option = {
 			center : new google.maps.LatLng(37.497594, 127.038105),
-			zoom : 30
+			zoom : 16
 	}
 	
 	var map = new google.maps.Map(container,option);
@@ -275,7 +275,7 @@ function back(){
 </script>
 </head>
 <body>
-	<div id="map">여기에 지도 나올 예정</div>
+	<div id="map"></div>
 	<div id="info">
 	<form name="form1" method="post">
 		<ul>
