@@ -79,8 +79,8 @@
 	z-index: 999;
 	background: rgba(255, 255, 255, 0.95);
 	border: 1px solid #e7e7e7;
-	border-top:none;
-	top:0px;
+	border-top: none;
+	top: 0px;
 }
 </style>
 </head>
@@ -204,16 +204,19 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">로그인</h4>
+					<h4 class="modal-title ">로그인</h4>
 				</div>
 				<div class="modal-body">
-					<p>
+					<p  class="center">
 						<!-- 네이버아이디로로그인 버튼 노출 영역 -->
 					<div id="naver_id_login"></div>
 					</p>
+					
+
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					<h6 class="text-info">사이는 네이버 로그인만을 지원합니다.<br> Only Login With NAVER</h6>
+					<!-- <button type="submit" class="btn btn-default " data-dismiss="modal">닫기</button> -->
 				</div>
 			</div>
 		</div>
