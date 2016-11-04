@@ -617,7 +617,7 @@ window.addEventListener("load", function(){
 	
 	//로그아웃
 	 function logout() {
-		  window.location.href="logout.jsp";
+		  window.location.href="http://nid.naver.com/nidlogin.logout";
 	}	
 
 					
