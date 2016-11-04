@@ -800,7 +800,7 @@ window.addEventListener("load", function(){
 				<!-- 지도 추가  -->
 				<div id="map"></div>
 				<div class="container" id="courseArea">
-					<h2>★내가 만든 데이트 코스★</h2>
+					<h2>내가 만든 데이트 코스</h2>
 					<div id="showDateCourse"></div>
 				</div>
 				<div>
@@ -1104,7 +1104,7 @@ window.addEventListener("load", function(){
 		  contentString[<%=i%>]='<div id="content">'+
 	    '<div id="siteNotice">'+
 	    '</div>'+
-	    '<h1 id="firstHeading" class="firstHeading"><%=subCateList.get(i).getName()%></h1>'+
+	    '<h2 id="firstHeading" class="firstHeading"><%=subCateList.get(i).getName()%></h2>'+
 	    '<div id="bodyContent">'+
 	    '주소 : <%=subCateList.get(i).getSido()%> <%=subCateList.get(i).getGugun()%> <%=subCateList.get(i).getDong()%>'+
 	    '<%=subCateList.get(i).getAddress_detail()%>'+'<br>'+
