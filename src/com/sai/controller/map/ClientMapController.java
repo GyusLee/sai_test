@@ -51,17 +51,18 @@ public class ClientMapController {
 	@RequestMapping(value="insertDateCourse.do", method = RequestMethod.GET)
 	public void insertDateCourse(@RequestParam HashMap<String,Object> param,HttpServletResponse response, HttpSession session){
 		System.out.println(Integer.parseInt((String)param.get("s_id"))+"  "+(String)param.get("name"));
-		
 		Date_Course date_Course=new Date_Course();
-		date_Course.setName((String)param.get("name"));
-		clientMapService.insertDateCourse(date_Course);
-		System.out.println("dateCourse에 insert 완료!" +date_Course.getCourse_id());
-		//이러면 안되지만 course_id를 session에 저장하자.
-		session.setAttribute("course_id", date_Course.getCourse_id());
 		
+		if(param.get("makeDateCourseFirst").equals("true")){
+			date_Course.setName((String)param.get("name"));
+			clientMapService.insertDateCourse(date_Course);
+			System.out.println("dateCourse에 insert 완료!" +date_Course.getCourse_id());
+			//이러면 안되지만 course_id를 session에 저장하자.
+			session.setAttribute("course_id", date_Course.getCourse_id());
+		}
 		System.out.println("date_detail에 insert를 해보자.");
 		Date_Detail date_Detail = new Date_Detail();
-		date_Detail.setCourse_id(date_Course.getCourse_id());
+		date_Detail.setCourse_id((Integer)session.getAttribute("course_id"));
 		date_Detail.setS_id(Integer.parseInt((String)param.get("s_id")));
 		date_Detail.setName((String)param.get("subCateName"));
 		clientMapService.insertDateDetail(date_Detail);
@@ -85,7 +86,7 @@ public class ClientMapController {
 			
 			if(param.get("makeDateCourseFirst").equals("true")){
 				
-				sb.append("<input type='hidden' id='course_id' value="+date_Course.getCourse_id()+">");
+				sb.append("<input type='hidden' id='course_id' value="+(Integer)session.getAttribute("course_id")+">");
 			}
 			
 			printWriter.print(sb.toString());
