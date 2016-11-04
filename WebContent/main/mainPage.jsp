@@ -46,8 +46,7 @@
 /* 프로필 */
 #modalBodyProfile{
 	height: 200px;
-.myProfileModal {
-	width: 20%;
+
 }
 
 /* 모달 css */
