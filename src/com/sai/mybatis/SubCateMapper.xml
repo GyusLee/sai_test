@@ -12,5 +12,9 @@
 	<select id="selectAll" resultType="SubCate">
 		select * from subcate
 	</select>
+	
+	<select id="select" parameterType="int" resultType="SubCate">
+		select * from subcate where s_id=#{s_id}
+	</select>
 
 </mapper>

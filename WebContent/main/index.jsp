@@ -180,8 +180,10 @@
 			 }
 		 }
 
-		 xhttp.open("get","/main/insertDateCourse.do?name="+courseName+"&s_id="+placeId+"&subCateName="+subCateName+"&makeDateCourseFirst="+makeDateCourseFirst,"true");
-		 xhttp.send();
+		 
+		 xhttp.open("post","/admin/insertLeftCart.do","true");
+		 xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		 xhttp.send("course_id="+course_id+"&couple_id="+couple_id);
 		 
 		 makeDateCourseFirst=false;
 	}

@@ -7,4 +7,5 @@ import com.sai.model.domain.SubCate;
 public interface SubCateDAO {
 	public int insert(SubCate subCate);
 	public List<SubCate> selectAllSubCate();
+	public SubCate selectOneSubCate(int s_id);
 }

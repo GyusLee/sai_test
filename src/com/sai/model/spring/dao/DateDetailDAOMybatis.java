@@ -1,5 +1,7 @@
 package com.sai.model.spring.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,6 +21,12 @@ public class DateDetailDAOMybatis implements DateDetailDAO{
 		}else{
 			System.out.println("등록 실패");
 		}
+	}
+
+	@Override
+	public List selectAll(int course_id) {
+		
+		return sqlSessionTemplate.selectList("Date_Detail.selectAll", course_id);
 	}
 
 }

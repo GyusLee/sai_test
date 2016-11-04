@@ -24,4 +24,10 @@ public class SubCateDAOMybatis implements SubCateDAO{
 		List<SubCate> subCateList = sqlSessionTemplate.selectList("SubCate.selectAll");
 		return subCateList;
 	}
+
+	@Override
+	public SubCate selectOneSubCate(int s_id) {
+		
+		return sqlSessionTemplate.selectOne("SubCate.select", s_id);
+	}
 }

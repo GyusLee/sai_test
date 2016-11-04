@@ -9,4 +9,8 @@
 			</selectKey>
 		insert into date_course(name) values(#{name})
 	</insert>
+	
+	<select id="selectOne" parameterType="int" resultType="Date_Course">
+		select * from date_course where course_id=#{course_id}
+	</select>
 </mapper>
