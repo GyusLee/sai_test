@@ -284,7 +284,11 @@ body {
 
 /* writeModal */
 #writeModalHeader{
-	height: 70px;
+	height: 100px;
+	background-color: #BAF2E8;
+}
+#writeModalBody{
+	height: 270px;
 }
 
 </style>
@@ -892,20 +896,23 @@ window.addEventListener("load", function(){
 							<div class="col-sm-12">
 								<img src=<%if(member.getImg()==null){%>
 									"/images/default.png"<%}else{ %>"/data/<%=member.getImg() %>"<%} %>
-									id="profile" width="70px">&nbsp<strong><%=member.getM_name()%></strong>
+									id="profile" width="50px" style="vertical-align:text-bottom">&nbsp&nbsp<strong style="font-family:나눔고딕; color:black"><%=member.getM_name()%></strong>
 							</div>
 						</div>
 					</div>
 					<div class="modal-body" id="writeModalBody">
 						<div class="form-group">
+							<font face="Roboto', sans-serif ">CONTENT</font>
+							<br>
+							<br>
 							<textarea class="form-control" rows="9" id="content"
-								name="content" placeholder="글 쓰기..."></textarea>
+								name="content" placeholder="우리들이 핫플레이스~"></textarea>
 						</div>
 					</div>
 					<div class="modal-footer" id="writeModalFooter">
 						<span id="x"></span> <img src="/images/cam.png" width="40px"
 							onClick="getFile()">
-						<button type="button" class="btn btn-primary" onclick="regist()">post</button>
+						<button type="button" class="btn btn-primary" onclick="regist()" style="font-family:나눔고딕">등록</button>
 					</div>
 					<input type="file" id="myFile" size:"50" name="myFile"
 						style="display: none">
