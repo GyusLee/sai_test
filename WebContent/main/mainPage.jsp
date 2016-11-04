@@ -372,7 +372,6 @@ window.addEventListener("load", function(){
 	
 	// 글 업로드
 	function regist() {
-		/* alert("버튼눌렀어?"); */
 		form1.encoding="multipart/form-data";
 		form1.action = "/main/write.do";
 		form1.submit();
@@ -620,7 +619,6 @@ window.addEventListener("load", function(){
 		  window.location.href="http://nid.naver.com/nidlogin.logout";
 	}	
 
-					
 </script>
 </head>
 <body>
