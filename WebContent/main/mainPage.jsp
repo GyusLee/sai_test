@@ -43,7 +43,10 @@
 <title>Insert title here</title>
 
 <style>
-@import url('font.css');
+/* 프로필 */
+.myProfileModal{
+	width: 20%;
+}
 
 /* 모달 css */
 .modal-header {
@@ -608,18 +611,15 @@ window.addEventListener("load", function(){
 							aria-haspopup="true" aria-expanded="false">Dropdown <span
 								class="caret"></span></a>
 							<ul class="dropdown-menu" id="dropdown-menu">
+								<li><a href="#" data-toggle="modal" data-target="#myProfileModal">프로필</a></li>
+								<li role="separator" class="divider"></li>
 								<li><a href="#" onClick="openNav()">뉴스피드</a></li>
 								<li role="separator" class="divider"></li>
 								<li><a href="#" data-toggle="modal" data-target="#myModal">글쓰기</a></li>
-
-								<li role="separator" class="divider"></li>
-								<li><a href="#" data-toggle="modal"
-									data-target="#myProfileModal">프로필</a></li>
 								<li role="separator" class="divider" role="button"></li>
 								<li><a href="#" onClick="logout()">로그아웃</a></li>
 							</ul></li>
 					</ul>
-				</div>
 				<!-- /.navbar-collapse -->
 			</div>
 		</div>
@@ -863,8 +863,8 @@ window.addEventListener("load", function(){
 		<div class="modal-dialog">
 			<!-- Modal content-->
 			<form name="form3" method="post">
-				<div class="modal-content">
-					<div class="modal-header">
+				<div class="modal-content" id="modalProfileContent">
+					<div class="modal-header" id="modalProfileContentHeader">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body">
