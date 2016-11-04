@@ -175,7 +175,7 @@ public class BoardController {
 			Member member=new Member();
 			member.setM_email(reBoard.getM_email());
 			member=memberService.selectPartner(member);
-			listName.add(member.getM_name());
+			listName.add(member);
 		}
 		
 		Map<String, Object> result = new HashMap<String, Object>();
