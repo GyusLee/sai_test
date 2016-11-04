@@ -54,6 +54,7 @@ function naverSignInCallback() {
 <input type="hidden" id="m_nickname" name="m_nickname" value="">
 <input type="hidden" id="m_gender" name="m_gender" value="">
 <!-- //네이버아디디로로그인 Callback페이지 처리 Script -->
+
 </form>
 </body>
 </html>

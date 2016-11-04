@@ -46,6 +46,8 @@
 /* 프로필 */
 #modalBodyProfile{
 	height: 200px;
+.myProfileModal {
+	width: 20%;
 }
 
 /* 모달 css */
@@ -63,11 +65,12 @@ body {
 
 .sidenav {
 	height: 100%;
+	top: 70px;
 	width: 0;
 	border-left: 1px solid #e7e7e7;
 	position: fixed;
 	z-index: 10;
-	top: 10%;
+	top: 0%;
 	left: 100%;
 	background-color: white;
 	overflow-x: hidden;
@@ -75,6 +78,7 @@ body {
 	padding-top: 0px;
 	padding-left: 30px;
 	padding-right: 30px;
+	width: 0;
 }
 
 .sidenav a {
@@ -98,6 +102,13 @@ body {
 	padding-top: 0px;
 	font-size: 36px;
 	margin-left: 50px;
+}
+
+#mySidenav {
+	top: 70px;
+	border-top: 1px solid #e7e7e7;
+	height: 800px;
+	border-top: 1px solid #e7e7e7;
 }
 
 #main {
@@ -143,7 +154,7 @@ body {
 }
 
 #listModalSetting {
-	width: 75%;
+	width: 85%;
 	height: 800px;
 }
 
@@ -246,9 +257,10 @@ body {
 	text-overflow: ellipsis;
 	border: 1px solid #e7e7e7;
 }
-#modalCon2{
-	margin-top:20px;
-	padding-top:20px;
+
+#modalCon2 {
+	margin-top: 20px;
+	padding-top: 20px;
 	width: 30%;
 	height: 230px;
 	text-overflow: ellipsis;
@@ -278,13 +290,14 @@ body {
 
 </style>
 <script>
+var openFlag;
 var d1;
 var temp;
 var myFile;
 var comment_txt;
 var myProfile;
 window.addEventListener("load", function(){
-	
+	openFlag=0;
 	myFile=document.getElementById("myFile");
 	myProfile=document.getElementById("myProfile");
 	comment_txt=document.getElementById("comment");
@@ -303,15 +316,47 @@ window.addEventListener("load", function(){
 	}); */
 })
 	function openNav() {
+		
+		if(openFlag==0){
+	 	$("#mySidenav").animate({
+	 		left:"75%"
+	 		,width:"25%"
+	 		},"fast");	
+	 	
+	 	$("#left").hide(300);
+	 			
+	 	
+
+		openFlag=1;
+		
+	 	
+		/* document.getElementById("left").style.right="10%";
+		document.getElementById("center").style.right="10%";
+		document.getElementById("right").style.right="10%";
 		document.getElementById("mySidenav").style.width = "25%";
-		document.getElementById("mySidenav").style.left = "75%";
-		document.getElementById("main").style.marginRight = "0";
+		document.getElementById("mySidenav").style.left = "75%"; */
+		document.getElementById("main").style.marginRight ="none";
+
+		}
 	}
 
 	function closeNav() {
+	 	
+		if(openFlag==1){
+
+		$("#left").show(300);
+
+	 	$("#mySidenav").animate({left:"100%",width:"0px"},"fast");	
+	 	
+	 	openFlag=0;
+		/* document.getElementById("left").style.right="0";
+		document.getElementById("center").style.right="0";
+		document.getElementById("right").style.right="0";
 		document.getElementById("mySidenav").style.width = "0";
-		document.getElementById("mySidenav").style.left = "100%";
-		document.getElementById("main").style.marginRight = "0";
+		document.getElementById("mySidenav").style.left = "100%";*/
+		document.getElementById("main").style.marginRight = "none";
+		
+		}
 	}
 
 	// file 함수 호출
@@ -564,7 +609,8 @@ window.addEventListener("load", function(){
 							class="icon-bar"></span>
 					</button>
 
-					<img src="/images/sai.png" width="20%"><a class="navbar-brand" href="#">www.sai.co.kr</a>
+					<img src="/images/sai.png" width="20%"><a
+						class="navbar-brand" href="#">www.sai.co.kr</a>
 
 				</div>
 
@@ -605,7 +651,8 @@ window.addEventListener("load", function(){
 						<%}else{%>
 							<%="/data/"+member.getImg() %> <%} %> id="profile" width="40px"
 							height="40px">&nbsp
-							<button type="button" class="btn btn-primary btn-lg" style="font-size:14px">
+							<button type="button" class="btn btn-primary btn-lg"
+								style="font-size: 14px">
 								<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 								<%=member.getM_name()%>님의 sai
 							</button></li>
@@ -616,7 +663,8 @@ window.addEventListener("load", function(){
 							aria-haspopup="true" aria-expanded="false">메뉴 <span
 								class="caret"></span></a>
 							<ul class="dropdown-menu" id="dropdown-menu">
-								<li><a href="#" data-toggle="modal" data-target="#myProfileModal">프로필</a></li>
+								<li><a href="#" data-toggle="modal"
+									data-target="#myProfileModal">프로필</a></li>
 								<li role="separator" class="divider"></li>
 								<li><a href="#" onClick="openNav()">뉴스피드</a></li>
 								<li role="separator" class="divider"></li>
@@ -625,10 +673,10 @@ window.addEventListener("load", function(){
 								<li><a href="#" onClick="logout()">로그아웃</a></li>
 							</ul></li>
 					</ul>
-				<!-- /.navbar-collapse -->
+					<!-- /.navbar-collapse -->
+				</div>
 			</div>
-		</div>
-		<!-- /.container-fluid -->
+			<!-- /.container-fluid -->
 	</nav>
 	<div class="container-fluid" id="wraaper">
 		<div class="row-fluid">
@@ -652,40 +700,39 @@ window.addEventListener("load", function(){
 						</div>
 					</div>
 				</div>
-				<!-- 상위 카테고리 -->
-				<br>
-				<div class="dropdown">
-					<button class="btn btn-default dropdown-toggle" type="button"
-						id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="true">
-						상위카테고리 <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						<li><a href="#">항목1</a></li>
-						<li><a href="#">항목2</a></li>
-						<li><a href="#">항목3</a></li>
-						<li><a href="#">항목4</a></li>
-					</ul>
-				</div>
-
-				<!-- 하위 카테고리 -->
-				<div class="dropdown">
-					<button class="btn btn-default dropdown-toggle" type="button"
-						id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="true">
-						하위카테고리 <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-						<li><a href="#">항목1</a></li>
-						<li><a href="#">항목2</a></li>
-						<li><a href="#">항목3</a></li>
-						<li><a href="#">항목4</a></li>
-					</ul>
-				</div>
-				<br> <br>
 				<div class="row">
-					<div class="col-lg-6">
-						<div class="dropdown">
+					<!-- 상위 카테고리 -->
+					<br>
+					<div class="col-lg-10">
+						<div class="dropdown" style="width: 20%; float: left;">
+							<button class="btn btn-default dropdown-toggle" type="button"
+								id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="true">
+								상위카테고리 <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+								<li><a href="#">항목1</a></li>
+								<li><a href="#">항목2</a></li>
+								<li><a href="#">항목3</a></li>
+								<li><a href="#">항목4</a></li>
+							</ul>
+						</div>
+						<!-- 하위 카테고리 -->
+						<div class="dropdown" style="width: 20%; float: left;">
+							<button class="btn btn-default dropdown-toggle" type="button"
+								id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="true">
+								하위카테고리 <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+								<li><a href="#">항목1</a></li>
+								<li><a href="#">항목2</a></li>
+								<li><a href="#">항목3</a></li>
+								<li><a href="#">항목4</a></li>
+							</ul>
+						</div>
+
+						<div class="dropdown" style="width: 20%; float: left;">
 							<button class="btn btn-default dropdown-toggle" type="button"
 								id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="true">
@@ -699,8 +746,12 @@ window.addEventListener("load", function(){
 								<li><a href="#">부산</a></li>
 							</ul>
 						</div>
+
 					</div>
+					<div class="row"></div>
+					<br>
 				</div>
+
 				<!-- 지도 추가  -->
 				<div id="map"></div>
 				<div class="container" id="courseArea">
@@ -725,7 +776,6 @@ window.addEventListener("load", function(){
 						Board board = list.get(i);
 					%>
 					<!-- list 나오는 부분  -->
-					<div style="border: solid 1px #D3D2E0"></div>
 					<br>
 					<div id="list_div" data-target="#listModal">
 						<div id="list_top">
@@ -791,7 +841,10 @@ window.addEventListener("load", function(){
 										</div>
 									</div>
 								</div>
+
 								<%=board.getContent()%><br> <br>
+								<div style="border-top: solid 1px #D3D2E0"></div>
+								<br>
 							</div>
 							<br>
 							<div id="list_bottom">
@@ -813,19 +866,20 @@ window.addEventListener("load", function(){
 
 	</div>
 
-	<!-- 	<script type="text/javascript">
+	<!-- 	 	<script type="text/javascript">
 		// Add contents for max height
 		$(document).ready(function () {
 		$(mySidenav).scroll(function() {
-		maxHeight = $(document).height();
-		currentScroll = $(mySidenav).scrollTop() + $(mySidenav).height();
+		maxHeight = $(mySidenav).height();
 		
-		if (maxHeight <= 1100) {
-			alert("스크롤");
+		currentScroll = $(mySidenav).scrollTop()- $(mySidenav).height();
+		console.log(currentScroll);
+		if (maxHeight <= currentScroll) {
+			alert("이상!!");
 		}
 		})
 		});
-		</script> -->
+		</script>  -->
 
 	<!-- modal start -->
 	<div class="modal fade" id="myModal" role="dialog">
@@ -908,7 +962,7 @@ window.addEventListener("load", function(){
 				<div class="modal-header" style="background: #BAF2E8;">
 
 					<img src="/images/default.png" id="list_profile"
-						style="width: 100px; padding-left: 30px; padding-right:15px;">&nbsp<strong
+						style="width: 100px; height: auto; padding-left: 30px; padding-right: 15px;">&nbsp<strong
 						id="timeline_top"
 						style="font-size: 20px; color: rgba(255, 255, 255, 1);"></strong>
 
