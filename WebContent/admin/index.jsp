@@ -14,26 +14,31 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 #map{
 	width : 70%;
-	height : 800px;
-	border : 1px solid red;
+	height : 700px;
 	float : left;
 }
 
 #info{
 	width : 25%;
-	height: 800px;
-	border : 1px solid blue;
-	float : left;
-	background : yellow;
+	height: 700px;
+	float : left;	
 }
 
 ul{
 	width : 90%;
+	hight : 60%;
 }
 
 ul li{
@@ -41,11 +46,12 @@ ul li{
 }
 
 ul li img{
-	width : 90%;
+	width : 100%;
 }
 
 textarea{
-	width : 90%;
+	width : 80%;
+	
 }
 
 #star img{
@@ -273,49 +279,47 @@ function back(){
 	<div id="info">
 	<form name="form1" method="post">
 		<ul>
-			<li>위도 : <input type="text" name="lati"></li>
-			<li>경도 : <input type="text" name="lng"></li>
+		<input type="button" class="btn btn-primary btn-block" onClick="back()" value="뒤로가기"><br>
+			<li><input type="text" class="form-control input-sm"placeholder="위도" name="lati"></li>
+			<li><input type="text" class="form-control input-sm"placeholder="경도" name="lng"></li>
 			<li>
-				범주 1:
-				<select name="m_type" onChange ="Mtype(this.value)">
-					<option> 선 택 ▼</option>
+				
+				<select name="m_type" class="form-control input-sm"onChange ="Mtype(this.value)">
+					<option> 범주 1 ▼</option>
 					<%for(int i=0;i<masterCateList.size();i++){ %>
 					<option><%=masterCateList.get(i).getM_type() %></option>
 					<%} %>
 				</select>
 			</li>
 			<li>
-				범주 2 : 
-				<select id="t_type" onChange="Ttype(this.value)">
-					<option> 선 택 ▼</option>
+				<select id="t_type"class="form-control input-sm" onChange="Ttype(this.value)">
+					<option> 범주 2 ▼</option>
 				</select>
 				<input type="hidden" name="t_id" id="t_id">
 			</li>
-			<li>상호명 : <input type="text" name="name"></li>
+			<li><input type="text" class="form-control input-sm"placeholder="상호명"  name="name"></li>
 			<li>주소 
 			<br> 
-			시:<select name="sido" onChange="Sido(this.value)">
+			<select name="sido" class="form-control input-sm"onChange="Sido(this.value)">
 				<%for(int i=0;i<sidoList.size();i++){ %>
-				<option> 선 택 ▼</option>
+				<option> 시 ▼</option>
 				<option><%=sidoList.get(i).getSido() %></option>
 				<%} %>	
 			</select> 	
-			</li>
-			<li>
-			구:<select name="gugun" id="gugun" onChange="Gugun(this.value)">
-			<option> 선 택 ▼<option>
+			
+			<select name="gugun"class="form-control input-sm" id="gugun" onChange="Gugun(this.value)">
+			<option> 구 ▼<option>
 			</select> 
-			</li>
-			<li>
-			동: <select name="dong" id="dong">
-			<option> 선 택 ▼<option>
+			
+			<select name="dong" class="form-control input-sm" id="dong">
+			<option> 동 ▼<option>
 			</select>
 			</li>
-			<li>업체 상세 주소 : <input type="text" name="address_detail"></li>
-			<li>전화번호 : <input type="text" name="tel"></li>
-			<li>사진 : <input type="file" id="img" name="myFile" onChange="preView()"></li>
-			<li><img id="preImg" src="http://cfile8.uf.tistory.com/image/1442534D4FC3A17004001B"></li>
-			<li>업체 상세 정보: <textarea name="content"></textarea></li>
+			<li><input type="text" class="form-control input-sm" placeholder="업체 상세 주소"  name="address_detail"></li>
+			<li><input type="text" class="form-control input-sm" placeholder="전화번호" name="tel"></li>
+			<li><input type="file" class="form-control input-sm" id="img" name="myFile" onChange="preView()"></li>
+			<li><img id="preImg" src="http://www.iyimi.com/wp-content/themes/qaengine/img/default-thumbnail.jpg"></li>
+			<li><textarea name="content" class="form-control input-sm"  placeholder="업체 상세 정보"  ></textarea></li>
 			<li>
 				<select onChange="Score(this.value)">
 					<%for(int i=1;i<=10;i++){ %>
@@ -329,11 +333,10 @@ function back(){
 				</span>
 			</li>
 			<li>
-			<input type="button" value="등록" onClick="regist()">
-			<input type="button" value="수정" onClick="update()">
-			<input type="button" value="삭제" onClick="delete1()">
-			<input type="button" class="btn btn-default" onClick="back()"
-						value="뒤로가기">
+			<input type="button" class="btn btn-default btn-sm" value="등록" onClick="regist()">
+			<input type="button" class="btn btn-default btn-sm" value="수정" onClick="update()">
+			<input type="button" class="btn btn-danger btn-sm"value="삭제" onClick="delete1()">
+			
 			</li>
 		</ul>
 	</form>
