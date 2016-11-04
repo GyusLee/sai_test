@@ -9,7 +9,7 @@ public interface BoardService {
 	public List selectAll();
 	public Board selectOne(int board_id);
 	public int insert(Board board);
-	public int delete(int board_id);
+	public int delete(Board board);
 	public int update(Board board);
 	public int updateEmail(HashMap map);
 }

@@ -251,20 +251,23 @@ body {
 	width: 30%;
 	height: 400px;
 	text-overflow: ellipsis;
-	border: 1px solid #e7e7e7;
+	border: 1px solid #BAF2E8;
 }
 
 #modalCon2 {
-	margin-top: 20px;
+	margin-top: 5px;
 	padding-top: 20px;
 	width: 30%;
 	height: 230px;
 	text-overflow: ellipsis;
-	border: 1px solid #e7e7e7;
+	border: 1px solid #BAF2E8;
 }
 
 #modal_thumbnail {
 	padding-top: 75%;
+}
+.allReply{
+	padding-top:5px;
 }
 
 /*  지도 관련  */
@@ -282,7 +285,11 @@ body {
 
 /* writeModal */
 #writeModalHeader{
-	height: 70px;
+	height: 100px;
+	background-color: #BAF2E8;
+}
+#writeModalBody{
+	height: 270px;
 }
 </style>
 <script>
@@ -433,11 +440,34 @@ window.addEventListener("load", function(){
 				$("#modal_like").html(" "+jasonParcing.likesNumber+"명이 좋아합니다.");
 				for(var i=0;i<jasonParcing.listName.length;i++){
 					
-					var name=jasonParcing.listName[i];
+					var name=jasonParcing.listName[i].m_name;
+					var myImg=jasonParcing.listName[i].img;
 					var content=jasonParcing.rList[i].content;
+					var span=document.createElement("span");
+					var span2=document.createElement("span");
 					var div=document.createElement("div");
-					div.style.fontSize="15px"
-					div.innerText="[ "+name+" ] : "+content;
+					var img=document.createElement("img");
+					if(myImg==null){
+						img.src="/images/default.png";
+					}else{
+						img.src="/data/"+myImg;
+					}
+					img.style.width="30px";
+					img.style.height="30px";
+					span2.innerText="  ";
+					span.className="label label-default";
+					span.innerText=" "+name+"  ";
+					span.style.fontSize="12px";
+					span.appendChild=img;
+					span.style.background="#BAF2E8";
+					span.style.fontWeight="bold";
+					modal_txt.appendChild(img);
+					modal_txt.appendChild(span2);
+					modal_txt.appendChild(span);
+					div.style.fontSize="12px";
+					div.className="allReply";
+					//div.style.paddingTop="5px";
+					div.innerText=content;
 					
 					modal_txt.appendChild(div);
 					 
@@ -908,20 +938,23 @@ window.addEventListener("load", function(){
 							<div class="col-sm-12">
 								<img src=<%if(member.getImg()==null){%>
 									"/images/default.png"<%}else{ %>"/data/<%=member.getImg() %>"<%} %>
-									id="profile" width="70px">&nbsp<strong><%=member.getM_name()%></strong>
+									id="profile" width="50px" style="vertical-align:text-bottom">&nbsp&nbsp<strong style="font-family:나눔고딕; color:black"><%=member.getM_name()%></strong>
 							</div>
 						</div>
 					</div>
 					<div class="modal-body" id="writeModalBody">
 						<div class="form-group">
+							<font face="Roboto', sans-serif ">CONTENT</font>
+							<br>
+							<br>
 							<textarea class="form-control" rows="9" id="content"
-								name="content" placeholder="글 쓰기..."></textarea>
+								name="content" placeholder="우리들이 핫플레이스~"></textarea>
 						</div>
 					</div>
 					<div class="modal-footer" id="writeModalFooter">
 						<span id="x"></span> <img src="/images/cam.png" width="40px"
 							onClick="getFile()">
-						<button type="button" class="btn btn-primary" onclick="regist()">post</button>
+						<button type="button" class="btn btn-primary" onclick="regist()" style="font-family:나눔고딕">등록</button>
 					</div>
 					<input type="file" id="myFile" size:"50" name="myFile"
 						style="display: none">
@@ -990,8 +1023,8 @@ window.addEventListener("load", function(){
 					<div class="row">
 						<div class="col-sm-8">
 
-							<div class="thumbnail-wrapper">
-								<div class="thumbnail" style="height: 650px;">
+							<div class="thumbnail-wrapper" >
+								<div class="thumbnail" style="height: 635px; border-color:#BAF2E8;">
 									<div class="centered">
 										<div id="modal_img"></div>
 
@@ -1000,10 +1033,10 @@ window.addEventListener("load", function(){
 							</div>
 						</div>
 						<div class="col-md-3" id="modalCon">
-							<h3
+							<h4
 								style="font-family: 'Roboto', sans-serif; border-bottom: 1px solid #e7e7e7; padding-bottom: 10px;">
 								CONTENTS<br>
-							</h3>
+							</h4>
 							<button type="button" class="btn btn-default"
 								style="border: none; padding-left: 0px;">
 								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
@@ -1012,7 +1045,7 @@ window.addEventListener("load", function(){
 							<p id="timeline_content" style="padding-top: 10px;"></p>
 						</div>
 						<div class="col-md-3" id="modalCon2">
-							<div id="modal_txt"></div>
+							<div id="modal_txt" style="font-size:12px;"></div>
 						</div>
 
 					</div>
