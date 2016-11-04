@@ -178,7 +178,8 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title ">로그인</h4>
 				</div>
-				<div class="modal-body">
+				<div class="modal-body" align="center">
+			
 					<p  class="center">
 						<!-- 네이버아이디로로그인 버튼 노출 영역 -->
 					<div id="naver_id_login"></div>

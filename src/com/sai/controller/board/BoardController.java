@@ -155,8 +155,8 @@ public class BoardController {
 	}
 
 	@RequestMapping("admin/Bdelete.do")
-	public String delete(int board_id) {
-		boardDAOMybatis.delete(board_id);
+	public String delete(Board board) {
+		boardService.delete(board);
 		return "redirect:/admin/boardList.do";
 	}
 
@@ -175,7 +175,7 @@ public class BoardController {
 			Member member=new Member();
 			member.setM_email(reBoard.getM_email());
 			member=memberService.selectPartner(member);
-			listName.add(member.getM_name());
+			listName.add(member);
 		}
 		
 		Map<String, Object> result = new HashMap<String, Object>();

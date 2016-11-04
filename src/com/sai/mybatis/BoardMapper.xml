@@ -28,7 +28,7 @@
 	<update id="updateEmail" parameterType="hashmap">
 		update board set m_email=#{m_email} where board_id=#{board_id}
 	</update>
-	<delete id="delete" parameterType="int">
+	<delete id="delete" parameterType="Board">
 		delete from board where board_id=#{board_id}
 	</delete>
 	<update id="update" parameterType="Board">

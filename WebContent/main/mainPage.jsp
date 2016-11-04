@@ -69,7 +69,6 @@ body {
 	border-left: 1px solid #e7e7e7;
 	position: fixed;
 	z-index: 10;
-	top: 0%;
 	left: 100%;
 	background-color: white;
 	overflow-x: hidden;
@@ -77,7 +76,6 @@ body {
 	padding-top: 0px;
 	padding-left: 30px;
 	padding-right: 30px;
-	width: 0;
 }
 
 .sidenav a {
@@ -107,7 +105,6 @@ body {
 	top: 70px;
 	border-top: 1px solid #e7e7e7;
 	height: 800px;
-	border-top: 1px solid #e7e7e7;
 }
 
 #main {
@@ -254,20 +251,23 @@ body {
 	width: 30%;
 	height: 400px;
 	text-overflow: ellipsis;
-	border: 1px solid #e7e7e7;
+	border: 1px solid #BAF2E8;
 }
 
 #modalCon2 {
-	margin-top: 20px;
+	margin-top: 5px;
 	padding-top: 20px;
 	width: 30%;
 	height: 230px;
 	text-overflow: ellipsis;
-	border: 1px solid #e7e7e7;
+	border: 1px solid #BAF2E8;
 }
 
 #modal_thumbnail {
 	padding-top: 75%;
+}
+.allReply{
+	padding-top:5px;
 }
 
 /*  지도 관련  */
@@ -276,6 +276,7 @@ body {
 	height: 600px;
 	border: 1px solid #e7e7e7;
 }
+
 
 #courseArea {
 	width: 100%;
@@ -290,7 +291,6 @@ body {
 #writeModalBody{
 	height: 270px;
 }
-
 </style>
 <script>
 var openFlag;
@@ -440,11 +440,34 @@ window.addEventListener("load", function(){
 				$("#modal_like").html(" "+jasonParcing.likesNumber+"명이 좋아합니다.");
 				for(var i=0;i<jasonParcing.listName.length;i++){
 					
-					var name=jasonParcing.listName[i];
+					var name=jasonParcing.listName[i].m_name;
+					var myImg=jasonParcing.listName[i].img;
 					var content=jasonParcing.rList[i].content;
+					var span=document.createElement("span");
+					var span2=document.createElement("span");
 					var div=document.createElement("div");
-					div.style.fontSize="15px"
-					div.innerText="[ "+name+" ] : "+content;
+					var img=document.createElement("img");
+					if(myImg==null){
+						img.src="/images/default.png";
+					}else{
+						img.src="/data/"+myImg;
+					}
+					img.style.width="30px";
+					img.style.height="30px";
+					span2.innerText="  ";
+					span.className="label label-default";
+					span.innerText=" "+name+"  ";
+					span.style.fontSize="12px";
+					span.appendChild=img;
+					span.style.background="#BAF2E8";
+					span.style.fontWeight="bold";
+					modal_txt.appendChild(img);
+					modal_txt.appendChild(span2);
+					modal_txt.appendChild(span);
+					div.style.fontSize="12px";
+					div.className="allReply";
+					//div.style.paddingTop="5px";
+					div.innerText=content;
 					
 					modal_txt.appendChild(div);
 					 
@@ -683,7 +706,24 @@ window.addEventListener("load", function(){
 	</nav>
 	<div class="container-fluid" id="wraaper">
 		<div class="row-fluid">
-			<div class="col-md-2" id="left"></div>
+			
+			
+			<!-- 카트가 들어가는 Left -->
+			<div class="col-md-2" id="left">
+				<div class="container">
+				  <h3>데이트 코스</h3>
+				  <ul id="cartList" class="nav nav-pills nav-stacked" style="width:23%">
+				    
+				  </ul>
+				  <div class="modal fade" id="myModal" role="dialog">
+				    <div class="modal-dialog modal-sm" style="width : 30%">
+				      <div class="modal-content" id="showDateCourseDetail">
+				        
+				      </div>
+				    </div>
+				  </div>
+				</div>
+			</div>
 
 			<!-- 지도를 포함한 center  -->
 			<div class="col-md-9" id="center">
@@ -762,8 +802,10 @@ window.addEventListener("load", function(){
 					<div id="showDateCourse"></div>
 				</div>
 				<div>
-					<button type="button" class="btn btn-danger">장바구니 담기</button>
+					<button align="right" type="button" class="btn btn-danger" onClick="addCart()">장바구니 담기</button>
 				</div>
+				
+				
 			</div>
 
 
@@ -981,8 +1023,8 @@ window.addEventListener("load", function(){
 					<div class="row">
 						<div class="col-sm-8">
 
-							<div class="thumbnail-wrapper">
-								<div class="thumbnail" style="height: 650px;">
+							<div class="thumbnail-wrapper" >
+								<div class="thumbnail" style="height: 635px; border-color:#BAF2E8;">
 									<div class="centered">
 										<div id="modal_img"></div>
 
@@ -991,10 +1033,10 @@ window.addEventListener("load", function(){
 							</div>
 						</div>
 						<div class="col-md-3" id="modalCon">
-							<h3
+							<h4
 								style="font-family: 'Roboto', sans-serif; border-bottom: 1px solid #e7e7e7; padding-bottom: 10px;">
 								CONTENTS<br>
-							</h3>
+							</h4>
 							<button type="button" class="btn btn-default"
 								style="border: none; padding-left: 0px;">
 								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"
@@ -1003,7 +1045,7 @@ window.addEventListener("load", function(){
 							<p id="timeline_content" style="padding-top: 10px;"></p>
 						</div>
 						<div class="col-md-3" id="modalCon2">
-							<div id="modal_txt"></div>
+							<div id="modal_txt" style="font-size:12px;"></div>
 						</div>
 
 					</div>
@@ -1154,8 +1196,46 @@ window.addEventListener("load", function(){
 		 makeDateCourseFirst=false;
 	}
 	
+	var cartList = document.getElementById("cartList");
+	
+	
 	function addCart(){
-		alert("장바구니가 등록되었습니다.");
+		
+		var xhttp=getHttp();
+		var course_id=document.getElementById("course_id").value;
+		var couple_id=<%=couple.getCouple_id()%>;
+		
+		 xhttp.onreadystatechange=function(){
+			 if(xhttp.readyState==4&&xhttp.status==200){
+				 var data=xhttp.responseText;
+					cartList.innerHTML += data;
+			 }
+		 }
+
+		 xhttp.open("get","/main/insertCart.do?course_id="+course_id+"&couple_id="+couple_id,true);
+		 xhttp.send();
+		 alert("넘어가나?");
+		
+	}
+	
+	var showDateCourseDetail = document.getElementById("showDateCourseDetail");
+	//장바구니를 선택했을떄..색깔 변화 밑 코스 디테일과 업체 정보를 불러오자.
+	function showCourse(courseId){
+		alert("데이트 코스를 보여드리죠..");
+		//selectedItem.className="active";
+		//비동기 방식으로 값을 가져오자...
+		var xhttp=getHttp();
+		
+		xhttp.onreadystatechange=function(){
+			 if(xhttp.readyState==4&&xhttp.status==200){
+				 var data=xhttp.responseText;
+					showDateCourseDetail.innerHTML += data;
+			 }
+		 }
+		
+		 xhttp.open("get","/main/selectCourseAndSid.do?course_id="+courseId,"true");
+		 xhttp.send();
+		 alert("넘어가나?");
 	}
 	
 	 // 비동기 방식으로 가져오자
