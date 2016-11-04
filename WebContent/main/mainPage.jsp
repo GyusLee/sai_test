@@ -44,8 +44,9 @@
 
 <style>
 /* 프로필 */
-.myProfileModal {
-	width: 20%;
+#modalBodyProfile{
+	height: 200px;
+
 }
 
 /* 모달 css */
@@ -223,7 +224,7 @@ body {
 
 .thumbnail2 {
 	position: relative;
-	padding-top: 30%; /* 1:1 ratio */
+	padding-top: 68%; /* 1:1 ratio */
 	overflow: hidden;
 }
 
@@ -280,6 +281,12 @@ body {
 	width: 100%;
 	border: 1px solid #e7e7e7;
 }
+
+/* writeModal */
+#writeModalHeader{
+	height: 70px;
+}
+
 </style>
 <script>
 var openFlag;
@@ -382,7 +389,6 @@ window.addEventListener("load", function(){
 	
 	// 사진 등록
 	function registProfile(){
-		alert("프사");
 		form3.encoding="multipart/form-data";
 		form3.action = "/main/writePic.do";
 		form3.submit();
@@ -653,7 +659,7 @@ window.addEventListener("load", function(){
 
 						<li class="dropdown" id="dropdown"><a href="#"
 							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-haspopup="true" aria-expanded="false">Dropdown <span
+							aria-haspopup="true" aria-expanded="false">메뉴 <span
 								class="caret"></span></a>
 							<ul class="dropdown-menu" id="dropdown-menu">
 								<li><a href="#" data-toggle="modal"
@@ -879,8 +885,8 @@ window.addEventListener("load", function(){
 		<div class="modal-dialog">
 			<!-- Modal content-->
 			<form name="form1" method="post">
-				<div class="modal-content">
-					<div class="modal-header">
+				<div class="modal-content" id="writeModalContent">
+					<div class="modal-header" id="writeModalHeader">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<div class="row">
 							<div class="col-sm-12">
@@ -890,13 +896,13 @@ window.addEventListener("load", function(){
 							</div>
 						</div>
 					</div>
-					<div class="modal-body">
+					<div class="modal-body" id="writeModalBody">
 						<div class="form-group">
 							<textarea class="form-control" rows="9" id="content"
-								name="content" placeholder="우리들의 핫 플레이스.."></textarea>
+								name="content" placeholder="글 쓰기..."></textarea>
 						</div>
 					</div>
-					<div class="modal-footer">
+					<div class="modal-footer" id="writeModalFooter">
 						<span id="x"></span> <img src="/images/cam.png" width="40px"
 							onClick="getFile()">
 						<button type="button" class="btn btn-primary" onclick="regist()">post</button>
@@ -912,28 +918,30 @@ window.addEventListener("load", function(){
 
 	<!-- 프로필 사진 업로드 모달 시작-->
 	<div class="modal fade" id="myProfileModal" role="dialog">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-sm">
 			<!-- Modal content-->
 			<form name="form3" method="post">
 				<div class="modal-content" id="modalProfileContent">
-					<div class="modal-header" id="modalProfileContentHeader">
+					<div class="modal-header" id="modalProfileContentHeader" style="background: #BAF2E8;">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<font face="나눔고딕" color="black">아래의 사진을 클릭하세요</font>
 					</div>
-					<div class="modal-body">
+					<div class="modal-body" id="modalBodyProfile">
 						<div class="form-group">
 							<div class="thumbnail-wrapper2">
 								<div class="thumbnail2">
 									<div class="centered2">
-										<img id="preImg" src="/images/default.png">
-
+										<span id="x"></span><%if(member.getImg()==null){ %>
+										<img id="preImg" src="/images/default.png" onClick="changeProfile()">
+										<%}else{ %>
+										<img id="preImg" src="/data/<%=member.getImg() %>" onClick="changeProfile()">
+										<%} %>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<span id="x"></span> <img src="/images/cam.png" width="40px"
-							onClick="changeProfile()">
 						<button type="button" class="btn btn-primary"
 							onclick="registProfile()">등록</button>
 					</div>
@@ -944,7 +952,6 @@ window.addEventListener("load", function(){
 		</div>
 	</div>
 	<!-- 프로필 사진 업로드 모달 끝 -->
-
 
 	<!--리스트 모달-->
 	<div class="modal bs-example-modal-lg" id="listModal" role="dialog">
@@ -1025,8 +1032,6 @@ window.addEventListener("load", function(){
 	  {lat: <%=subCateList.get(i).getLati()%>, lng: <%=subCateList.get(i).getLng()%>},
 	  <%}%>
 	];
-	
-	alert("등록된 맛집의 수는" + neighborhoods.length);
 	
 	var markers = [];
 	var contentString=[];
