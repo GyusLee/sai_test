@@ -194,9 +194,9 @@ function Mtype(option){
 	 
 	 xhttp.onreadystatechange=function(){
 		 if(xhttp.readyState==4&&xhttp.status==200){
-			 alert("서버에 요청 전달 완료");
+			
 			 var data = xhttp.responseText;
-			 alert(data);
+			
 			 var Ttype = document.getElementById("t_type");
 			 Ttype.innerHTML=data;
 		 }
@@ -214,9 +214,9 @@ function Mtype(option){
 	 
 	 xhttp.onreadystatechange=function(){
 		 if(xhttp.readyState==4&&xhttp.status==200){
-			 alert("서버에 요청 전달 완료");
+			 
 			 var data = xhttp.responseText;
-			 alert(data);
+			 
 			 var gugun=document.getElementById("gugun");
 			 gugun.innerHTML=data;
 		 }
@@ -234,9 +234,9 @@ function Mtype(option){
 	 
 	 xhttp.onreadystatechange=function(){
 		 if(xhttp.readyState==4&&xhttp.status==200){
-			 alert("서버에 요청 전달 완료");
+			
 			 var data = xhttp.responseText;
-			 alert(data);
+			 
 			 var dong=document.getElementById("dong");
 			 dong.innerHTML=data;
 		 }
@@ -251,7 +251,7 @@ function Mtype(option){
  function Ttype(option){
 	 var t_id=document.getElementById("t_id");
 	 t_id.value=option;
-	 alert(t_id.value);
+	
  }
  
  // *************************************************

@@ -128,7 +128,7 @@ public class ClientMapController {
 			PrintWriter printWriter = response.getWriter();
 			StringBuffer sb = new StringBuffer();
 			
-			sb.append("<li  style=\"color:#FFFFFF; font-size:11pt\" class=\"btn btn-info btn-lg\" data-toggle=\"modal\" data-target=\"#myModalDate\""+" onClick=\"showCourse("+FullCart.getCourse_id()+")\"><a href=\"#\" >"+date_Course.getName()+"<br>"+"등록일 : "+FullCart.getRegdate()+"</a></li>");
+			sb.append("<li  style=\"background-color:#BDF5EB; border:none;\" class=\"btn btn-info btn-lg\" data-toggle=\"modal\" data-target=\"#myModalDate\""+" onClick=\"showCourse("+FullCart.getCourse_id()+")\"><a href=\"#\" ><font style=\"width:100%;font-size:11px;color:#FFFFFF; height:auto;\">"+date_Course.getName()+"<br>"+"등록일 : "+FullCart.getRegdate()+"</font></a></li>");
 			
 			printWriter.print(sb.toString());
 			printWriter.flush();
