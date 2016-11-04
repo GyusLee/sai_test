@@ -69,7 +69,6 @@ body {
 	border-left: 1px solid #e7e7e7;
 	position: fixed;
 	z-index: 10;
-	top: 0%;
 	left: 100%;
 	background-color: white;
 	overflow-x: hidden;
@@ -77,7 +76,6 @@ body {
 	padding-top: 0px;
 	padding-left: 30px;
 	padding-right: 30px;
-	width: 0;
 }
 
 .sidenav a {
@@ -107,7 +105,6 @@ body {
 	top: 70px;
 	border-top: 1px solid #e7e7e7;
 	height: 800px;
-	border-top: 1px solid #e7e7e7;
 }
 
 #main {
@@ -277,6 +274,7 @@ body {
 	border: 1px solid #e7e7e7;
 }
 
+
 #courseArea {
 	width: 100%;
 	border: 1px solid #e7e7e7;
@@ -286,7 +284,6 @@ body {
 #writeModalHeader{
 	height: 70px;
 }
-
 </style>
 <script>
 var openFlag;
@@ -679,7 +676,24 @@ window.addEventListener("load", function(){
 	</nav>
 	<div class="container-fluid" id="wraaper">
 		<div class="row-fluid">
-			<div class="col-md-2" id="left"></div>
+			
+			
+			<!-- 카트가 들어가는 Left -->
+			<div class="col-md-2" id="left">
+				<div class="container">
+				  <h3>데이트 코스</h3>
+				  <ul id="cartList" class="nav nav-pills nav-stacked" style="width:23%">
+				    
+				  </ul>
+				  <div class="modal fade" id="myModal" role="dialog">
+				    <div class="modal-dialog modal-sm" style="width : 30%">
+				      <div class="modal-content" id="showDateCourseDetail">
+				        
+				      </div>
+				    </div>
+				  </div>
+				</div>
+			</div>
 
 			<!-- 지도를 포함한 center  -->
 			<div class="col-md-9" id="center">
@@ -758,8 +772,10 @@ window.addEventListener("load", function(){
 					<div id="showDateCourse"></div>
 				</div>
 				<div>
-					<button type="button" class="btn btn-danger">장바구니 담기</button>
+					<button align="right" type="button" class="btn btn-danger" onClick="addCart()">장바구니 담기</button>
 				</div>
+				
+				
 			</div>
 
 
@@ -1147,8 +1163,46 @@ window.addEventListener("load", function(){
 		 makeDateCourseFirst=false;
 	}
 	
+	var cartList = document.getElementById("cartList");
+	
+	
 	function addCart(){
-		alert("장바구니가 등록되었습니다.");
+		
+		var xhttp=getHttp();
+		var course_id=document.getElementById("course_id").value;
+		var couple_id=<%=couple.getCouple_id()%>;
+		
+		 xhttp.onreadystatechange=function(){
+			 if(xhttp.readyState==4&&xhttp.status==200){
+				 var data=xhttp.responseText;
+					cartList.innerHTML += data;
+			 }
+		 }
+
+		 xhttp.open("get","/main/insertCart.do?course_id="+course_id+"&couple_id="+couple_id,true);
+		 xhttp.send();
+		 alert("넘어가나?");
+		
+	}
+	
+	var showDateCourseDetail = document.getElementById("showDateCourseDetail");
+	//장바구니를 선택했을떄..색깔 변화 밑 코스 디테일과 업체 정보를 불러오자.
+	function showCourse(courseId){
+		alert("데이트 코스를 보여드리죠..");
+		//selectedItem.className="active";
+		//비동기 방식으로 값을 가져오자...
+		var xhttp=getHttp();
+		
+		xhttp.onreadystatechange=function(){
+			 if(xhttp.readyState==4&&xhttp.status==200){
+				 var data=xhttp.responseText;
+					showDateCourseDetail.innerHTML += data;
+			 }
+		 }
+		
+		 xhttp.open("get","/main/selectCourseAndSid.do?course_id="+courseId,"true");
+		 xhttp.send();
+		 alert("넘어가나?");
 	}
 	
 	 // 비동기 방식으로 가져오자

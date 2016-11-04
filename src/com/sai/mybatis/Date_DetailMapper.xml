@@ -6,4 +6,8 @@
 	<insert id="insert" parameterType="Date_Detail">
 		insert into date_detail(course_id,s_id,name) values(#{course_id},#{s_id},#{name})
 	</insert>
+	
+	<select id="selectAll" parameterType="int" resultType="Date_Detail">
+		select * from date_detail where course_id=#{course_id} order by detail_id asc
+	</select>
 </mapper>
