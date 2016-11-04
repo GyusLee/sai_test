@@ -764,13 +764,7 @@ window.addEventListener("load", function(){
 					<div class="row"></div>
 					<br>
 				</div>
-<<<<<<< HEAD
-				
-				
-				
-=======
 
->>>>>>> dac122a8db4d152b64a2028d93b9ae897058ae7a
 				<!-- 지도 추가  -->
 				<div id="map"></div>
 				<div class="container" id="courseArea">
