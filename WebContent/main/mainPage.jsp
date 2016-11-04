@@ -53,7 +53,9 @@
 .modal-header {
 	background-color: #ffc4b2;
 }
-
+.myProfileModal{
+	width:20%;
+}
 .modal-body {
 	height: 230px;
 }
@@ -715,7 +717,7 @@ window.addEventListener("load", function(){
 				  <ul id="cartList" class="nav nav-pills nav-stacked" style="width:23%">
 				    
 				  </ul>
-				  <div class="modal fade" id="myModal" role="dialog">
+				  <div class="modal fade" id="myModalDate" role="dialog">
 				    <div class="modal-dialog modal-sm" style="width : 30%">
 				      <div class="modal-content" id="showDateCourseDetail">
 				        
