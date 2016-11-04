@@ -30,8 +30,8 @@ public class BoardServiceImpl implements BoardService{
 		return boardDAO.insert(board);
 	}
 
-	public int delete(int board_id) {
-		return boardDAO.delete(board_id);
+	public int delete(Board board) {
+		return boardDAO.delete(board);
 	}
 
 	public int update(Board board) {

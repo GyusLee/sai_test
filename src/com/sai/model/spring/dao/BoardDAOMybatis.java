@@ -31,9 +31,9 @@ public class BoardDAOMybatis implements BoardDAO{
 		return board.getBoard_id();
 	}
 
-	public int delete(int board_id) {
-		sqlSessionTemplate.delete("Board.delete", board_id);
-		return board_id;
+	public int delete(Board board) {
+		sqlSessionTemplate.delete("Board.delete", board.getBoard_id());
+		return board.getBoard_id();
 	}
 
 	public int update(Board board) {

@@ -44,8 +44,9 @@
 
 <style>
 /* 프로필 */
-.myProfileModal {
-	width: 20%;
+#modalBodyProfile{
+	height: 200px;
+
 }
 
 /* 모달 css */
@@ -68,7 +69,6 @@ body {
 	border-left: 1px solid #e7e7e7;
 	position: fixed;
 	z-index: 10;
-	top: 0%;
 	left: 100%;
 	background-color: white;
 	overflow-x: hidden;
@@ -76,7 +76,6 @@ body {
 	padding-top: 0px;
 	padding-left: 30px;
 	padding-right: 30px;
-	width: 0;
 }
 
 .sidenav a {
@@ -106,7 +105,6 @@ body {
 	top: 70px;
 	border-top: 1px solid #e7e7e7;
 	height: 800px;
-	border-top: 1px solid #e7e7e7;
 }
 
 #main {
@@ -223,7 +221,7 @@ body {
 
 .thumbnail2 {
 	position: relative;
-	padding-top: 30%; /* 1:1 ratio */
+	padding-top: 68%; /* 1:1 ratio */
 	overflow: hidden;
 }
 
@@ -279,9 +277,15 @@ body {
 	border: 1px solid #e7e7e7;
 }
 
+
 #courseArea {
 	width: 100%;
 	border: 1px solid #e7e7e7;
+}
+
+/* writeModal */
+#writeModalHeader{
+	height: 70px;
 }
 </style>
 <script>
@@ -385,7 +389,6 @@ window.addEventListener("load", function(){
 	
 	// 사진 등록
 	function registProfile(){
-		alert("프사");
 		form3.encoding="multipart/form-data";
 		form3.action = "/main/writePic.do";
 		form3.submit();
@@ -679,7 +682,7 @@ window.addEventListener("load", function(){
 
 						<li class="dropdown" id="dropdown"><a href="#"
 							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-haspopup="true" aria-expanded="false">Dropdown <span
+							aria-haspopup="true" aria-expanded="false">메뉴 <span
 								class="caret"></span></a>
 							<ul class="dropdown-menu" id="dropdown-menu">
 								<li><a href="#" data-toggle="modal"
@@ -699,7 +702,24 @@ window.addEventListener("load", function(){
 	</nav>
 	<div class="container-fluid" id="wraaper">
 		<div class="row-fluid">
-			<div class="col-md-2" id="left"></div>
+			
+			
+			<!-- 카트가 들어가는 Left -->
+			<div class="col-md-2" id="left">
+				<div class="container">
+				  <h3>데이트 코스</h3>
+				  <ul id="cartList" class="nav nav-pills nav-stacked" style="width:23%">
+				    
+				  </ul>
+				  <div class="modal fade" id="myModal" role="dialog">
+				    <div class="modal-dialog modal-sm" style="width : 30%">
+				      <div class="modal-content" id="showDateCourseDetail">
+				        
+				      </div>
+				    </div>
+				  </div>
+				</div>
+			</div>
 
 			<!-- 지도를 포함한 center  -->
 			<div class="col-md-9" id="center">
@@ -778,8 +798,10 @@ window.addEventListener("load", function(){
 					<div id="showDateCourse"></div>
 				</div>
 				<div>
-					<button type="button" class="btn btn-danger">장바구니 담기</button>
+					<button align="right" type="button" class="btn btn-danger" onClick="addCart()">장바구니 담기</button>
 				</div>
+				
+				
 			</div>
 
 
@@ -905,8 +927,8 @@ window.addEventListener("load", function(){
 		<div class="modal-dialog">
 			<!-- Modal content-->
 			<form name="form1" method="post">
-				<div class="modal-content">
-					<div class="modal-header">
+				<div class="modal-content" id="writeModalContent">
+					<div class="modal-header" id="writeModalHeader">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<div class="row">
 							<div class="col-sm-12">
@@ -916,13 +938,13 @@ window.addEventListener("load", function(){
 							</div>
 						</div>
 					</div>
-					<div class="modal-body">
+					<div class="modal-body" id="writeModalBody">
 						<div class="form-group">
 							<textarea class="form-control" rows="9" id="content"
-								name="content" placeholder="우리들의 핫 플레이스.."></textarea>
+								name="content" placeholder="글 쓰기..."></textarea>
 						</div>
 					</div>
-					<div class="modal-footer">
+					<div class="modal-footer" id="writeModalFooter">
 						<span id="x"></span> <img src="/images/cam.png" width="40px"
 							onClick="getFile()">
 						<button type="button" class="btn btn-primary" onclick="regist()">post</button>
@@ -938,28 +960,30 @@ window.addEventListener("load", function(){
 
 	<!-- 프로필 사진 업로드 모달 시작-->
 	<div class="modal fade" id="myProfileModal" role="dialog">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-sm">
 			<!-- Modal content-->
 			<form name="form3" method="post">
 				<div class="modal-content" id="modalProfileContent">
-					<div class="modal-header" id="modalProfileContentHeader">
+					<div class="modal-header" id="modalProfileContentHeader" style="background: #BAF2E8;">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<font face="나눔고딕" color="black">아래의 사진을 클릭하세요</font>
 					</div>
-					<div class="modal-body">
+					<div class="modal-body" id="modalBodyProfile">
 						<div class="form-group">
 							<div class="thumbnail-wrapper2">
 								<div class="thumbnail2">
 									<div class="centered2">
-										<img id="preImg" src="/images/default.png">
-
+										<span id="x"></span><%if(member.getImg()==null){ %>
+										<img id="preImg" src="/images/default.png" onClick="changeProfile()">
+										<%}else{ %>
+										<img id="preImg" src="/data/<%=member.getImg() %>" onClick="changeProfile()">
+										<%} %>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<span id="x"></span> <img src="/images/cam.png" width="40px"
-							onClick="changeProfile()">
 						<button type="button" class="btn btn-primary"
 							onclick="registProfile()">등록</button>
 					</div>
@@ -970,7 +994,6 @@ window.addEventListener("load", function(){
 		</div>
 	</div>
 	<!-- 프로필 사진 업로드 모달 끝 -->
-
 
 	<!--리스트 모달-->
 	<div class="modal bs-example-modal-lg" id="listModal" role="dialog">
@@ -1051,8 +1074,6 @@ window.addEventListener("load", function(){
 	  {lat: <%=subCateList.get(i).getLati()%>, lng: <%=subCateList.get(i).getLng()%>},
 	  <%}%>
 	];
-	
-	alert("등록된 맛집의 수는" + neighborhoods.length);
 	
 	var markers = [];
 	var contentString=[];
@@ -1168,8 +1189,46 @@ window.addEventListener("load", function(){
 		 makeDateCourseFirst=false;
 	}
 	
+	var cartList = document.getElementById("cartList");
+	
+	
 	function addCart(){
-		alert("장바구니가 등록되었습니다.");
+		
+		var xhttp=getHttp();
+		var course_id=document.getElementById("course_id").value;
+		var couple_id=<%=couple.getCouple_id()%>;
+		
+		 xhttp.onreadystatechange=function(){
+			 if(xhttp.readyState==4&&xhttp.status==200){
+				 var data=xhttp.responseText;
+					cartList.innerHTML += data;
+			 }
+		 }
+
+		 xhttp.open("get","/main/insertCart.do?course_id="+course_id+"&couple_id="+couple_id,true);
+		 xhttp.send();
+		 alert("넘어가나?");
+		
+	}
+	
+	var showDateCourseDetail = document.getElementById("showDateCourseDetail");
+	//장바구니를 선택했을떄..색깔 변화 밑 코스 디테일과 업체 정보를 불러오자.
+	function showCourse(courseId){
+		alert("데이트 코스를 보여드리죠..");
+		//selectedItem.className="active";
+		//비동기 방식으로 값을 가져오자...
+		var xhttp=getHttp();
+		
+		xhttp.onreadystatechange=function(){
+			 if(xhttp.readyState==4&&xhttp.status==200){
+				 var data=xhttp.responseText;
+					showDateCourseDetail.innerHTML += data;
+			 }
+		 }
+		
+		 xhttp.open("get","/main/selectCourseAndSid.do?course_id="+courseId,"true");
+		 xhttp.send();
+		 alert("넘어가나?");
 	}
 	
 	 // 비동기 방식으로 가져오자

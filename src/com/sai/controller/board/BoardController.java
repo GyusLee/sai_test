@@ -155,8 +155,8 @@ public class BoardController {
 	}
 
 	@RequestMapping("admin/Bdelete.do")
-	public String delete(int board_id) {
-		boardDAOMybatis.delete(board_id);
+	public String delete(Board board) {
+		boardService.delete(board);
 		return "redirect:/admin/boardList.do";
 	}
 
