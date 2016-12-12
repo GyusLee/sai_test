@@ -16,9 +16,9 @@
 	</select>
 	<insert id="insert" parameterType="Member">
 		insert into
-		member(member_email, member_pwd, member_name, member_nickname,
+		member(m_email, m_pwd, m_name, m_nickname,
 		couple_id, isAdmin)
-		values(#{member_email},#{member_pwd},#{member_name},#{member_nickname},#{couple_id},#{isAdmin})
+		values(#{m_email},#{m_pwd},#{m_name},#{m_nickname},#{couple_id},#{isAdmin})
 	</insert>
 	
 	<update id="update_profile" parameterType="Member">

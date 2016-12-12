@@ -24,7 +24,7 @@ window.addEventListener("load",function(){
 function init(){
 	
 	naver_id_login = new naver_id_login(
-			"pqNlMHIsCEOCGmed5SSe", "http://70.12.112.104:9090/main/regist.jsp");
+			"pqNlMHIsCEOCGmed5SSe", "http://70.12.112.115:9090/main/regist.jsp");
 	naver_id_login.setDomain(".service.com"); //상태 토큰 비교를 위한 domain 설정
 	
 	m_email=document.getElementById("m_email");

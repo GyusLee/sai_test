@@ -106,7 +106,8 @@ body {
 #mySidenav {
 	top: 70px;
 	border-top: 1px solid #e7e7e7;
-	height: 800px;
+	border-bottom: 1px solid #e7e7e7;
+	height: 600px;
 }
 
 #main {
